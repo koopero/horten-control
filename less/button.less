@@ -1,0 +1,52 @@
+@import "_var.less";
+
+@button-secondary-bg: #445;
+@button-focus-bg: white;
+@button-focus-colour: black;
+
+@button-highlight-offset: 2px;
+@button-highlight-radius: 8px;
+
+@button-shadow-radius: 8px;
+@button-shadow-alpha: 50%;
+
+
+button {
+  height: @button-height;
+  border: 1px solid white;
+  font-family: 'Source Code Pro', monospace;
+  margin-right: 1em;
+}
+
+
+.button() {
+  font-family: @font-family-mono;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: #bbb;
+  border-radius: @button-height / 2;
+  border-style: none;
+  outline: none;
+
+  box-shadow:
+    inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
+    0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha),
+
+  ;
+
+}
+
+
+.loopin button, .loopin .button {
+  .button();
+
+  &:focus {
+    background: @button-focus-bg;
+    color: @button-focus-colour
+  }
+
+  &.secondary {
+    background: @button-secondary-bg;
+    box-shadow: inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( black, 80% );
+  }
+}

@@ -24,9 +24,50 @@ const data = {
   "path": "clock/rate/"
 }
 
+
+const markdown = `
+## Float
+
+\`\`\` control
+path: camera/angle/
+type: float
+min: -180
+max: 180
+markers: [ -180, -90, -45, -15, 0, 15, 45, 90, 180 ]
+unit: °
+\`\`\`
+
+## Options
+
+\`\`\` control
+title: Choose Either Hello or World
+options:
+  - Hello
+  - World
+\`\`\`
+
+## Trigger
+
+\`\`\` control
+trigger:
+  foo: Hello
+  bar: World
+\`\`\`
+
+## Source
+
+\`\`\` c
+int main() {
+  return 0;
+}
+\`\`\`
+
+
+
+`
+
 ReactDOM.render(
   <div>
-    <h1>Hello, foo!</h1>
-  <LoopinControl { ...data } />
+    <LoopinControl markdown={ markdown } />
   </div>
 , document.getElementById('app') )

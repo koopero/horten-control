@@ -1,10 +1,10 @@
 @import "_var.less";
+@import "button.less";
 
 @track-color: rgba(0,0,0,20%);
 @thumb-color: #e00;
 
 @thumb-radius: 16px;
-@thumb-height: @button-height;
 @thumb-width: @slider-thumb-width;
 @thumb-shadow-size: 1px;
 @thumb-shadow-blur: 1px;
@@ -20,7 +20,7 @@
 @track-border-width: 1px;
 @track-border-color: black;
 
-@track-radius: 0px;
+@track-radius: 4px;
 @contrast: 5%;
 
 .shadow(@shadow-size,@shadow-blur,@shadow-color) {
@@ -28,6 +28,7 @@
 }
 
 .track() {
+  box-shadow: none;
   width: @track-width;
   height: @track-height;
   cursor: pointer;
@@ -35,18 +36,15 @@
 }
 
 .thumb() {
-  .shadow(@thumb-shadow-size,@thumb-shadow-blur,@thumb-shadow-color);
-  border: @thumb-border-width solid @thumb-border-color;
-  height: @thumb-height;
+  height: @button-height;
   width: @thumb-width;
-  border-radius: @thumb-radius;
-  background: @thumb-color;
   cursor: pointer;
+  .button();
 }
 
 input[type=range] {
   -webkit-appearance: none;
-  margin: (@thumb-height / 2 - @track-height / 2) 0;
+  margin: (@button-height / 2 - @track-height / 2) 0;
   width: @track-width;
   background: none;
 
@@ -65,7 +63,7 @@ input[type=range] {
   &::-webkit-slider-thumb {
     .thumb();
     -webkit-appearance: none;
-    margin-top: ((-@track-border-width * 2 + @track-height) / 2) - (@thumb-height / 2);
+    margin-top: ((-@track-border-width * 2 + @track-height) / 2) - (@button-height / 2);
   }
 
   &:focus::-webkit-slider-runnable-track {

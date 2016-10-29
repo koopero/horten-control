@@ -7,7 +7,6 @@ const Ranger = require('../util/Ranger')
 class Float extends React.Component {
   constructor( props ) {
     super( props )
-    console.log('prop?', this.props )
     this.ranger = new Ranger( this.props )
     this.state = {}
   }
@@ -20,7 +19,6 @@ class Float extends React.Component {
     return (
       <span className='loopin slider'>
         <span className='major'>
-          { this.renderMarkers() }
           <input
             type="range"
             name="slider"
@@ -30,11 +28,13 @@ class Float extends React.Component {
             ref={(input) => this.inputRange = input }
             onChange={ this.onInputChange.bind( this ) }
           />
+          { this.renderMarkers() }
+
         </span>
 
         <span className='minor'>
           <input
-            className='mid'
+            className='button secondary'
             type="text"
             defaultValue={ floatToStr( value ) }
             ref={(node) => this.inputText = node }
@@ -86,8 +86,10 @@ class Float extends React.Component {
     const markers = this.props.markers
 
     return (
-      <span className='markers'>
-        { markers.map( renderMarker ) }
+      <span className='markers-wrap'>
+        <span className='markers'>
+          { markers.map( renderMarker ) }
+        </span>
       </span>
     )
 
@@ -96,7 +98,7 @@ class Float extends React.Component {
 
       if ( 'number' == typeof marker ) {
         value = marker
-        text = value.toString()
+        text = value.toString()+self.props.unit
       } else if ( 'string' == typeof marker ) {
         text = marker
         value = parseFloat( value )
@@ -128,7 +130,7 @@ class Float extends React.Component {
   }
 
   valueString() {
-    return floatToStr( this.state.value )
+    return floatToStr( this.state.value )+this.props.unit
   }
 
 }
@@ -145,7 +147,8 @@ Float.defaultProps = {
   min: 0,
   max: 1,
   pow: 1,
-  markers: []
+  markers: [],
+  unit: ''
 }
 
 module.exports = Float

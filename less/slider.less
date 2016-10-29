@@ -1,12 +1,18 @@
 @import "_var.less";
+@import "button.less";
 
 
+
+@marker-height: 12px;
 
 .loopin.slider {
   // top: 0;
   // left: 0;
   // width: 100%;
+  position: relative;
   display: block;
+  height: @button-height + @marker-height;
+
 
   .major {
     position: relative;
@@ -22,8 +28,8 @@
     padding-left: @gutter;
     box-sizing: border-box;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    height: @button-height;
 
     input {
       width: 100%;
@@ -32,16 +38,28 @@
     }
   }
 
-  .markers {
+  .markers-wrap {
     position: absolute;
-    bottom: 0;
+    top: @button-height;
     left: 0;
-    right: @control-slider-detail-width + @slider-thumb-width;
-    z-index: -90;
+    right: @control-slider-detail-width ;
+    z-index: 90;
+    height: @marker-height;
+    overflow: hidden;
+
+  }
+
+  .markers {
+    position: absolute;;
+    top: 0;
+    left: 0;
+    right: @slider-thumb-width;
+    z-index: 90;
     display: block;
 
+
     font-family: @font-family-mono;
-    font-size: 75%;
+    font-size: @marker-height;
     color: rgba(100%,100%,100%,50%);
 
     .marker {
@@ -49,6 +67,7 @@
       width: 100%;
       position: absolute;
       .inner {
+
         width: @slider-thumb-width;
         text-align: center;
       }
