@@ -1,0 +1,162 @@
+// @import "bootstrap.less";
+// @import "variables.less";
+// @import "bootswatch.less";
+
+@import "fonts.less";
+@import "range.less";
+@import "input.less";
+
+@import "controls.less";
+
+@import "slider.less";
+
+@import "hljs/zenburn.css";
+
+
+@page-background: #181818;
+@text-colour: #ccc;
+@markings-colour: #000;
+@button-height: 24px;
+@indent: 12px;
+
+@font-number: 'Source Code Pro', monospace;
+
+
+
+html, body {
+  background-color: @page-background;
+  color: @text-colour;
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@nav-width: 180px;
+
+.loopin {
+  > nav {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: @nav-width;
+    background: #191919;
+
+    ul {
+      padding: 0 1em;
+      list-style: none;
+
+      .primary {
+        margin-top: 1em;
+      }
+
+      .secondary {
+        font-size: 60%;
+      }
+    }
+    a {
+      color: white !important;
+      text-decoration: none;
+      text-shadow: 0 1px 2px black;
+    }
+  }
+
+  > main {
+    margin-left: @nav-width;
+    padding-left: 24px;
+  }
+}
+
+.number {
+  font-family: @font-number;
+}
+
+.panel {
+  h1, h2, h3 {
+    font-weight: lighter;
+  }
+}
+
+.path {
+  .ancestors {
+    display: none;
+  }
+}
+
+@h1-size: 48px;
+.h1 {
+  font-size: @h1-size;
+  color: #444;
+}
+@h2-size: 28px;
+
+@page-vert-spacing: 4em;
+
+main > section {
+  margin-bottom: @page-vert-spacing;
+  > header {
+    .h1();
+    margin-bottom: 16px;
+  }
+
+  ul > li > section > header {
+    font-size: @h2-size;
+    font-weight: normal;
+  }
+}
+
+section {
+  > header {
+    .path {
+
+    }
+
+    .dimensions {
+      font-weight: lighter;
+      font-size: 75%;
+      margin-left: 2em;
+      color: #888;
+      .format {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding-left: @indent;
+    margin: 0;
+    li {
+      margin: 0;
+    }
+  }
+
+}
+
+
+article {
+
+  padding: 4px;
+  padding-left: @indent;
+  padding-right: 0;
+  background: rgba(0,0,0,0.125);
+  margin-bottom: 0.5em;
+  display: block;
+
+  header {
+    .path .key {
+      font-weight: lighter;
+    }
+    margin-bottom: 0.5em;
+  }
+
+  .contents {
+
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: lighter;;
+  }
+}

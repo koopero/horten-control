@@ -1,0 +1,45 @@
+@import "_var.less";
+
+.control {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: @button-height;
+  padding-left: @control-path-width;
+
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+
+  .path {
+    position: absolute;
+    left: 0;
+    width: @control-path-width;
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .ancestors {
+      display: none;
+    }
+
+    .key {
+      font-weight: bold;
+    }
+  }
+}
+
+button {
+  height: @button-height;
+  border: 1px solid white;
+  font-family: 'Source Code Pro', monospace;
+  margin-right: 1em;
+  border-radius: 16px;
+
+  &.checked {
+    background: green;
+  }
+}
+
+.control.radios {
+}

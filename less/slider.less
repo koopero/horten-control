@@ -1,0 +1,57 @@
+@import "_var.less";
+
+
+
+.loopin.slider {
+  // top: 0;
+  // left: 0;
+  // width: 100%;
+  display: block;
+
+  .major {
+    position: relative;
+
+    display: block;
+    padding-right: @control-slider-detail-width;
+    box-sizing: content-box;
+  }
+
+  .minor {
+    position: absolute;
+    width: @control-slider-detail-width;
+    padding-left: @gutter;
+    box-sizing: border-box;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    input {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+  }
+
+  .markers {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: @control-slider-detail-width + @slider-thumb-width;
+    z-index: -90;
+    display: block;
+
+    font-family: @font-family-mono;
+    font-size: 75%;
+    color: rgba(100%,100%,100%,50%);
+
+    .marker {
+      display: block;
+      width: 100%;
+      position: absolute;
+      .inner {
+        width: @slider-thumb-width;
+        text-align: center;
+      }
+    }
+  }
+}
