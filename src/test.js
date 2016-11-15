@@ -26,10 +26,43 @@ const data = {
 
 
 const markdown = `
+## Combo
+
+\`\`\` control
+path: camera
+subs:
+#  zoom:
+#    type: float
+#    min: 28
+#    max: 800
+#    markers: [ 28, 50, 80, 135, 250, 400, 800 ]
+#    pow: 2
+#    unit: mm
+  yaw:
+    type: float
+    min: -180
+    max: 180
+    sign: true
+    markers: [ -180, -90, -45, -15, 0, 15, 45, 90, 180 ]
+    unit: °
+
+#  red:
+#    type: float
+#    digits: 0
+#    markers: [0, 0.5, 1]
+#    unit: '%'
+#    subs:
+#      pink:
+#        type: float
+#        digits: 0
+#        markers: [0, 0.5, 1]
+#        unit: '%'
+\`\`\`
+
 ## Float
 
 \`\`\` control
-path: camera/angle/
+path: camera/yaw/
 type: float
 min: -180
 max: 180

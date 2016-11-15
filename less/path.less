@@ -1,18 +1,31 @@
 @import "_var.less";
 
-@path-colour: #bbb;
 
 .path {
   display: inline-block;
   color: @path-colour;
   font-family: @font-family-mono;
   margin-bottom: @gutter / 4;
+  font-weight: lighter;
+  margin-right: 1em;
+
+  .last {
+    font-weight: normal;
+    text-shadow: 0 1px 3px hsla(0,0,0,30%);
+  }
 
   .delim {
-    color: fadeout(@path-colour, 60%);
+    color: fadeout(@path-colour, @delim-fadeout);
+    display: inline-block;
+    width: 1em;
+    text-align: center;
   }
 
   &:empty {
+    display: none;
+  }
+
+  .prefix {
     display: none;
   }
 }

@@ -12,7 +12,9 @@ class Path extends React.Component {
     var path = this.state.path
       , array = H.path.split( path )
       , string = H.path.string( path )
+      , prefix = H.path.split( this.props.pathPrefix )
       , segs = array.map( segment )
+      , first = true
 
     return (
       <a className='path' id={string}>
@@ -23,8 +25,12 @@ class Path extends React.Component {
     function segment( seg, id, arr ) {
       var classes = []
 
-      if ( id == 0 )
+      if ( seg == prefix[id] )
+        classes.push('prefix')
+      else if ( first ) {
         classes.push('first')
+        first = false
+      }
 
       if ( id == arr.length -1  )
         classes.push('last key')

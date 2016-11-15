@@ -3,8 +3,6 @@
 
 
 
-@marker-height: 12px;
-
 .loopin.slider {
   // top: 0;
   // left: 0;
@@ -13,6 +11,7 @@
   display: block;
   height: @button-height + @marker-height;
 
+  margin-bottom: 1em;
 
   .major {
     position: relative;
@@ -60,7 +59,7 @@
 
     font-family: @font-family-mono;
     font-size: @marker-height;
-    color: rgba(100%,100%,100%,50%);
+    color: @marker-color;
 
     .marker {
       display: block;

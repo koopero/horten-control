@@ -1,6 +1,6 @@
 {
-  "name": "loopin-control-react",
-  "version": "0.1.0",
+  "name": "horten-control",
+  "version": "0.2.0",
   "main": "./index.js",
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -45,7 +45,7 @@
     "watchify": "^2.3.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=6.9.1"
   },
   "browserify": {
     "transform": [

@@ -15,19 +15,27 @@ const pathlib = require('path')
 var bundler = {
   w: null,
   init: function() {
-    this.w = watchify(browserify({
-      entries: ['./component/test.js'],
+    this.browserify = browserify({
+      entries: ['./browser.js'],
       insertGlobals: true,
+      insertGlobalVars: true,
       cache: {},
       packageCache: {},
-      standalone: 'loopin-control'
-    }));
+      // standalone: 'loopin-control'
+    })
+
+    this.browserify.require('./node_modules/react-dom/', { expose: 'react-dom' } )
+    this.browserify.require('./node_modules/react/', { expose: 'react' } )
+    this.browserify.require('./src/LoopinControl.js', { expose: 'horten-control' } )
+
+
+    this.w = watchify( this.browserify )
   },
   bundle: function() {
     return this.w && this.w.bundle()
       .on('error', $.util.log.bind($.util, 'Browserify Error'))
-      .pipe(source('loopin-control-react.js'))
-      .pipe(gulp.dest('dist/client/js'))
+      .pipe(source('horten-control.js'))
+      .pipe(gulp.dest('dist/'))
       .pipe(reload())
   },
   watch: function() {
@@ -51,7 +59,7 @@ gulp.task('reload', function () {
 // Style
 //
 
-const lessFile = './less/loopin-client.less'
+const lessFile = './less/horten-control.less'
 
 gulp.task('style', sync([
   'less',
@@ -70,10 +78,8 @@ gulp.task('less', function () {
       './node_modules/bootstrap/less'
     ],
     sourceMap: {
-      sourceMapRootpath: '../source',
-      sourceMapURL: 'loopin-client.css.map',
-
-      // sourceMapBasepath: './dist/client/css'
+      sourceMapRootpath: './source',
+      sourceMapURL: 'horten-control.css.map'
     }
   }))
   .on('error', function (error) {
@@ -84,32 +90,32 @@ gulp.task('less', function () {
           message: error.message
       })
   })
-  .pipe(gulp.dest('./dist/client/css/'))
+  .pipe(gulp.dest('./dist/'))
 })
 
 gulp.task('hljs-css-copy', function() {
   return gulp.src('./node_modules/highlight.js/styles/*.css')
-  .pipe( gulp.dest('./dist/client/css/hljs/' ) )
+  .pipe( gulp.dest('./dist/vendor/hljs/' ) )
 })
 
 gulp.task('less-copy', function () {
   return gulp.src(lessFile)
-  .pipe( gulp.dest('./dist/client/source/'))
+  .pipe( gulp.dest('./dist/source'))
 })
 
 gulp.task('bootstrap-copy-less', function () {
   return gulp.src('./node_modules/bootstrap/less/**')
-  .pipe( gulp.dest('./dist/client/source/node_modules/bootstrap/less/' ) )
+  .pipe( gulp.dest('./dist/source/node_modules/bootstrap/less/' ) )
 })
 
 gulp.task('bootstrap-copy-fonts', function () {
   return gulp.src('./node_modules/bootstrap/dist/fonts/**')
-  .pipe( gulp.dest('./dist/client/fonts/' ) )
+  .pipe( gulp.dest('./dist/fonts/' ) )
 })
 
 gulp.task('bootstrap-copy-js', function () {
   return gulp.src('./node_modules/bootstrap/dist/js/bootstrap.js')
-  .pipe( gulp.dest('./dist/client/js/' ) )
+  .pipe( gulp.dest('./dist/vendor' ) )
 })
 
 gulp.task('bower-copy', function () {
@@ -117,7 +123,7 @@ gulp.task('bower-copy', function () {
     './bower/jquery/dist/jquery.js',
     './bower/modernizr/modernizr.js'
   ])
-  .pipe( gulp.dest('./dist/client/js' ) )
+  .pipe( gulp.dest('./dist/vendor' ) )
 })
 
 gulp.task('scripts', function() {
@@ -143,7 +149,7 @@ gulp.task('html', function() {
 
 gulp.task('fonts', function() {
   return gulp.src(['font/*.ttf'])
-    .pipe(gulp.dest('dist/font'))
+    .pipe(gulp.dest('dist/fonts/'))
     .pipe($.size());
 });
 

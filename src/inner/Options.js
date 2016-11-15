@@ -43,7 +43,7 @@ class Options extends React.Component {
     var options = this.props.options
 
     return (
-      <span>{ this.state.titles.map( Option ) }</span>
+      <span className="options">{ this.state.titles.map( Option ) }</span>
     )
 
     function Option( title, index ) {

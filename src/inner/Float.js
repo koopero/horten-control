@@ -9,12 +9,11 @@ class Float extends React.Component {
     super( props )
     this.ranger = new Ranger( this.props )
     this.state = {}
+    this.state.value = parseFloat( this.props.defaultValue ) || 0
   }
 
   render() {
-    const min = 0
-        , max = 4
-        , value = 2
+    console.log('Float.render', this.state, this.valueUnit() )
 
     return (
       <span className='loopin slider'>
@@ -24,7 +23,7 @@ class Float extends React.Component {
             name="slider"
             step={Number.EPSILON}
             min={0} max={1}
-            defaultValue={ 0 }
+            defaultValue={ this.valueUnit() }
             ref={(input) => this.inputRange = input }
             onChange={ this.onInputChange.bind( this ) }
           />
@@ -36,19 +35,11 @@ class Float extends React.Component {
           <input
             className='button secondary'
             type="text"
-            defaultValue={ floatToStr( value ) }
+            defaultValue={ this.valuePretty() }
             ref={(node) => this.inputText = node }
             onFocus={ this.onTextFocus.bind( this ) }
             onBlur={ this.onTextBlur.bind( this ) }
             onChange={ this.onTextChange.bind( this ) }
-          />
-
-          <input
-            className='mid'
-            type="number"
-            name="direct"
-            defaultValue={ value }
-            style={{ display:'none'}}
           />
         </span>
 
@@ -76,13 +67,14 @@ class Float extends React.Component {
   onTextBlur( event ) {
     const input = this.inputText
     input.type = 'text'
-    input.value = this.valueString()
+    input.value = this.valuePretty()
 
     this.state.textSelected = false
   }
 
   renderMarkers() {
     const self = this
+        , ranger = self.ranger
     const markers = this.props.markers
 
     return (
@@ -98,7 +90,7 @@ class Float extends React.Component {
 
       if ( 'number' == typeof marker ) {
         value = marker
-        text = value.toString()+self.props.unit
+        text = ranger.toPretty( marker, 0 )
       } else if ( 'string' == typeof marker ) {
         text = marker
         value = parseFloat( value )
@@ -117,30 +109,39 @@ class Float extends React.Component {
     }
   }
 
+  valueUnit() {
+    return this.ranger.toUnit( this.state.value )
+  }
 
-
+  valuePretty() {
+    return this.ranger.toPretty( this.state.value )
+  }
 
   valueSet( value ) {
-    console.log('onInputChange', this.inputRange.value )
+    const oldValue = this.state.value
     this.state.value = value
 
     this.inputRange.value = this.ranger.toUnit( value )
     if ( !this.state.textSelected )
-      this.inputText.value = this.valueString()
+      this.inputText.value = this.valuePretty()
+
+    if ( value != oldValue )
+      this.props.onChange( value )
   }
 
-  valueString() {
-    return floatToStr( this.state.value )+this.props.unit
+  valueFoo( value ) {
+    this.state.value = value
+    this.inputRange.value = this.ranger.toUnit( value )
+    if ( !this.state.textSelected )
+      this.inputText.value = this.ranger.toPretty( value )
   }
-
 }
 
 Float.propTypes = {
   min: React.PropTypes.number,
   max: React.PropTypes.number,
   pow: React.PropTypes.number,
-
-  markers: React.PropTypes.array,
+  markers: React.PropTypes.array
 }
 
 Float.defaultProps = {
