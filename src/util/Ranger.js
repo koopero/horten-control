@@ -1,4 +1,4 @@
-const DEFAULTS = {
+var DEFAULTS = {
   min: 0,
   max: 1,
   pow: 1,

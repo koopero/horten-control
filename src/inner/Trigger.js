@@ -1,6 +1,8 @@
-const React = require('react')
+'use strict'
 
-const H = require('horten')
+var React = require('react')
+
+var H = require('horten')
 
 class Trigger extends React.Component {
   constructor( props ) {

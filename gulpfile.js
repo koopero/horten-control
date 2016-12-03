@@ -1,33 +1,42 @@
 'use strict';
 
-var gulp       = require('gulp');
-var $          = require('gulp-load-plugins')();
-var sync       = $.sync(gulp).sync;
-var browserify = require('browserify');
-var watchify   = require('watchify');
-var source     = require('vinyl-source-stream');
-var gutil = require('gulp-util');
+const gulp       = require('gulp');
+const $          = require('gulp-load-plugins')();
+const sync       = $.sync(gulp).sync;
+const browserify = require('browserify');
+const babelify   = require('babelify');
+const watchify   = require('watchify');
+const source     = require('vinyl-source-stream');
+const gutil      = require('gulp-util');
 
 const reload = require('gulp-livereload')
 
 const pathlib = require('path')
 
-var bundler = {
+const bundler = {
   w: null,
   init: function() {
     this.browserify = browserify({
       entries: ['./browser.js'],
-      insertGlobals: true,
-      insertGlobalVars: true,
+      // insertGlobals: true,
+      // insertGlobalVars: true,
       cache: {},
       packageCache: {},
       // standalone: 'loopin-control'
     })
 
+
+
     this.browserify.require('./node_modules/react-dom/', { expose: 'react-dom' } )
     this.browserify.require('./node_modules/react/', { expose: 'react' } )
     this.browserify.require('./src/LoopinControl.js', { expose: 'horten-control' } )
 
+    this.browserify.transform( babelify.configure( {
+      // plugins: ["transform-es2015-classes"],
+      global: true,
+      // ignore: /\/node_modules\/(?!horten\/)/,
+      presets: ['es2015','react'],
+    } ) )
 
     this.w = watchify( this.browserify )
   },
@@ -59,7 +68,7 @@ gulp.task('reload', function () {
 // Style
 //
 
-const lessFile = './less/horten-control.less'
+var lessFile = './less/horten-control.less'
 
 gulp.task('style', sync([
   'less',
@@ -191,7 +200,7 @@ gulp.task('clean-bundle', sync(['clean', 'bundle']));
 
 gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
-const connect = $.connect
+var connect = $.connect
 gulp.task('serve', () => {
   connect.server( {
     root: 'dist',

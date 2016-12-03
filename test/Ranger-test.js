@@ -1,15 +1,15 @@
-const assert = require('chai').assert
+var assert = require('chai').assert
 describe('ranger',() => {
-  const Ranger = require('../component/util/Ranger')
+  var Ranger = require('../component/util/Ranger')
   it("Doesn't smoke", () => {
-    const ranger = new Ranger()
+    var ranger = new Ranger()
         , value = Math.random()
 
     assert.equal( ranger.toUnit( value ), value )
   })
 
   it('max', () => {
-    const ranger = new Ranger()
+    var ranger = new Ranger()
         , max = 3
         , value = Math.random()
 
@@ -20,7 +20,7 @@ describe('ranger',() => {
   })
 
   it('min', () => {
-    const ranger = new Ranger()
+    var ranger = new Ranger()
     ranger.min = -1
 
     assert.equal( ranger.fromUnit( 0.5 ), 0 )
@@ -29,7 +29,7 @@ describe('ranger',() => {
 
   describe('pow', () => {
     it('works', () => {
-      const ranger = new Ranger( {
+      var ranger = new Ranger( {
         pow: 2,
         max: 100
       })
@@ -40,7 +40,7 @@ describe('ranger',() => {
 
   describe('toPretty', () => {
     it('does float', () => {
-      const ranger = new Ranger( {
+      var ranger = new Ranger( {
 
       } )
       assert.equal( ranger.toPretty( 0 ), '0.0000')
@@ -51,7 +51,7 @@ describe('ranger',() => {
     })
 
     it('unit', () => {
-      const ranger = new Ranger( {
+      var ranger = new Ranger( {
         digits: 0,
         unit: 'mm'
       } )
@@ -79,7 +79,7 @@ describe('ranger',() => {
     })
 
     it('percent', () => {
-      const ranger = new Ranger( {
+      var ranger = new Ranger( {
         digits: 0,
         precision: 0,
         unit: '%'
@@ -91,7 +91,7 @@ describe('ranger',() => {
     })
 
     it('metric', () => {
-      const ranger = new Ranger( {
+      var ranger = new Ranger( {
         metric: true
       } )
       assert.equal( ranger.toPretty( 10000 ), '10.00k' )

@@ -1,9 +1,9 @@
-const React = require('react')
-const LoopinControl = require('./LoopinControl')
+var React = require('react')
+var LoopinControl = require('./LoopinControl')
 
-const ReactDOM = require('react-dom')
+var ReactDOM = require('react-dom')
 
-const data = {
+var data = {
   "type": "float",
   "min": 4,
   "max": 120,
@@ -25,7 +25,7 @@ const data = {
 }
 
 
-const markdown = `
+var markdown = `
 ## Combo
 
 \`\`\` control

@@ -1,16 +1,18 @@
-const _ = require('lodash')
+'use strict'
+
+var _ = require('lodash')
     , React = require('react')
 
-const INNER = {
+var INNER = {
   float: require('./inner/Float'),
   options: require('./inner/Options'),
   markdown: require('./inner/Markdown'),
   trigger: require('./inner/Trigger')
 }
 
-const H = require('horten')
+var H = require('horten')
 
-const Path = require('./inner/Path')
+var Path = require('./inner/Path')
 
 
 class LoopinControl extends React.Component {
@@ -38,9 +40,16 @@ class LoopinControl extends React.Component {
     this.state.type = type
     this.state.subs = this.props.subs || []
     this.state.value = this.cursor.get()
+
+    if ( !this.state.value )
+      this.cursor.patch( {} )
+
+    // console.log('Control.cursor', this.cursor )
   }
 
   componentDidMount() {
+    // console.log('componentDidMount()', this.cursor )
+
     this.cursor.listening = true
   }
 
@@ -49,7 +58,7 @@ class LoopinControl extends React.Component {
   }
 
   render() {
-    const config = this.props
+    var config = this.props
     var path = config.path
       , title = config.title
 
@@ -69,7 +78,7 @@ class LoopinControl extends React.Component {
   }
 
   renderInner() {
-    const type = this.state.type
+    var type = this.state.type
         , Inner = INNER[type]
 
     if ( Inner ) {
@@ -90,7 +99,7 @@ class LoopinControl extends React.Component {
   }
 
   renderSubs() {
-    const path = this.props.path
+    var path = this.props.path
     // console.log('renderSubs', this.state.subs )
 
     return (
@@ -116,7 +125,8 @@ class LoopinControl extends React.Component {
   }
 
   onCursorValue( value ) {
-    // console.log('onCursorValue', this.inner )
+    // console.log('onCursorValue', this.cursor.path, value )
+    this.state.value = value
     if ( this.inner && this.inner.valueFoo )
       this.inner.valueFoo( value )
   }

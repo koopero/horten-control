@@ -1,20 +1,22 @@
-const _ = require('lodash')
+'use strict'
 
-const React = require('react')
+var _ = require('lodash')
+
+var React = require('react')
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
 
 
-export const CodeBlock = function ( props ) {
-  const source = props.literal
+export var CodeBlock = function ( props ) {
+  var source = props.literal
       , language = props.language
 
 
   switch( language ) {
     case 'control':
       var config = safeLoad( source )
-      const Control = require('../LoopinControl')
+      var Control = require('../LoopinControl')
       return (
         <Control {...config}/>
       )
@@ -31,7 +33,7 @@ export const CodeBlock = function ( props ) {
   )
 }
 
-const renderers = _.merge(
+var renderers = _.merge(
   Markdown.renderers,
   {
     CodeBlock
@@ -63,12 +65,12 @@ module.exports = OurMarkdown
 //
 //
 //
-// const _ = require('lodash')
+// var _ = require('lodash')
 //
 // import { Slider } from './Slider'
 //
-// export const CodeBlock = function ( props ) {
-//   const source = props.literal
+// export var CodeBlock = function ( props ) {
+//   var source = props.literal
 //       , controlParams = safeLoad( source )
 //
 //   return (
@@ -76,7 +78,7 @@ module.exports = OurMarkdown
 //   )
 // }
 //
-// const renderers = _.merge(
+// var renderers = _.merge(
 //   Markdown.renderers,
 //   {
 //     CodeBlock
@@ -84,14 +86,14 @@ module.exports = OurMarkdown
 // )
 //
 //
-// const mapStateToProps = (state, ownProps) => {
+// var mapStateToProps = (state, ownProps) => {
 //   return {
 //     markdown: state.panel || ''
 //   }
 // }
 //
 //
-// export const Panel = connect(
+// export var Panel = connect(
 //   mapStateToProps
 // )(
 //   function ({ markdown }) {

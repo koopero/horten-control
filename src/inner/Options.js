@@ -1,6 +1,8 @@
-const React = require('react')
+'use strict'
 
-const H = require('horten')
+var React = require('react')
+
+var H = require('horten')
 
 class Options extends React.Component {
   constructor( props ) {
@@ -38,7 +40,8 @@ class Options extends React.Component {
   }
 
   render() {
-    const state = this.state
+    const self = this
+    var state = this.state
 
     var options = this.props.options
 
@@ -55,8 +58,12 @@ class Options extends React.Component {
 
       classes = classes.join(' ')
 
-      return <button key={index}>{ title }</button>
+      return (<button key={index} onClick={ self.onOptionClick.bind( self, value ) }>{ title }</button>)
     }
+  }
+
+  onOptionClick( value ) {
+    this.props.onChange( value )
   }
 }
 

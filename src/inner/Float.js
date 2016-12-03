@@ -1,8 +1,10 @@
-const React = require('react')
+'use strict'
 
-const floatToStr = require('../func/floatToStr')
+var React = require('react')
 
-const Ranger = require('../util/Ranger')
+var floatToStr = require('../func/floatToStr')
+
+var Ranger = require('../util/Ranger')
 
 class Float extends React.Component {
   constructor( props ) {
@@ -24,7 +26,7 @@ class Float extends React.Component {
             step={Number.EPSILON}
             min={0} max={1}
             defaultValue={ this.valueUnit() }
-            ref={(input) => this.inputRange = input }
+            ref={ (input) => this.inputRange = input }
             onChange={ this.onInputChange.bind( this ) }
           />
           { this.renderMarkers() }
@@ -57,7 +59,7 @@ class Float extends React.Component {
 
 
   onTextFocus( event ) {
-    const input = this.inputText
+    var input = this.inputText
     input.type = 'number'
     input.value = this.state.value
     input.select()
@@ -65,7 +67,7 @@ class Float extends React.Component {
   }
 
   onTextBlur( event ) {
-    const input = this.inputText
+    var input = this.inputText
     input.type = 'text'
     input.value = this.valuePretty()
 
@@ -73,9 +75,9 @@ class Float extends React.Component {
   }
 
   renderMarkers() {
-    const self = this
+    var self = this
         , ranger = self.ranger
-    const markers = this.props.markers
+    var markers = this.props.markers
 
     return (
       <span className='markers-wrap'>
@@ -118,7 +120,7 @@ class Float extends React.Component {
   }
 
   valueSet( value ) {
-    const oldValue = this.state.value
+    var oldValue = this.state.value
     this.state.value = value
 
     this.inputRange.value = this.ranger.toUnit( value )
@@ -130,6 +132,7 @@ class Float extends React.Component {
   }
 
   valueFoo( value ) {
+    console.log('valueFoo', value )
     this.state.value = value
     this.inputRange.value = this.ranger.toUnit( value )
     if ( !this.state.textSelected )
