@@ -1,17 +1,19 @@
 'use strict'
 
+const equal = require('deep-equal')
+
 var React = require('react')
+
+const Base = require('./base')
+    , Trigger = require('./Trigger')
 
 var H = require('horten')
 
-class Options extends React.Component {
+class Options extends Base {
   constructor( props ) {
     super( props )
+    this.state.type = 'options'
     this.parseOptions()
-  }
-
-  componentWillReceiveProps(nextProps) {
-
   }
 
   parseOptions( options ) {
@@ -39,14 +41,14 @@ class Options extends React.Component {
     }
   }
 
-  render() {
+  renderSelf() {
     const self = this
     var state = this.state
 
     var options = this.props.options
 
     return (
-      <span className="options">{ this.state.titles.map( Option ) }</span>
+      <ul className='options'>{ this.state.titles.map( Option ) }</ul>
     )
 
     function Option( title, index ) {
@@ -58,12 +60,17 @@ class Options extends React.Component {
 
       classes = classes.join(' ')
 
-      return (<button key={index} onClick={ self.onOptionClick.bind( self, value ) }>{ title }</button>)
+      return (
+        <Trigger
+          className={ classes }
+          path={ self.state.path }
+          key={index}
+          hide="all"
+          show="control"
+          title={ title }
+          trigger={ value }
+        />)
     }
-  }
-
-  onOptionClick( value ) {
-    this.props.onChange( value )
   }
 }
 

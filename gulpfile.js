@@ -1,59 +1,37 @@
 'use strict';
 
-const gulp       = require('gulp');
-const $          = require('gulp-load-plugins')();
-const sync       = $.sync(gulp).sync;
-const browserify = require('browserify');
-const babelify   = require('babelify');
-const watchify   = require('watchify');
-const source     = require('vinyl-source-stream');
-const gutil      = require('gulp-util');
-
-const reload = require('gulp-livereload')
+const gulp       = require('gulp')
+    , $          = require('gulp-load-plugins')()
+    , sync       = $.sync(gulp).sync
+    , source     = require('vinyl-source-stream')
+    , gutil      = require('gulp-util')
+    , reload     = require('gulp-livereload')
+    , bundle     = require('./gulp/bundle')
+    , runSequence = require( 'run-sequence' )
 
 const pathlib = require('path')
 
-const bundler = {
-  w: null,
-  init: function() {
-    this.browserify = browserify({
-      entries: ['./browser.js'],
-      // insertGlobals: true,
-      // insertGlobalVars: true,
-      cache: {},
-      packageCache: {},
-      // standalone: 'loopin-control'
-    })
-
-
-
-    this.browserify.require('./node_modules/react-dom/', { expose: 'react-dom' } )
-    this.browserify.require('./node_modules/react/', { expose: 'react' } )
-    this.browserify.require('./src/LoopinControl.js', { expose: 'horten-control' } )
-
-    this.browserify.transform( babelify.configure( {
-      // plugins: ["transform-es2015-classes"],
-      global: true,
-      // ignore: /\/node_modules\/(?!horten\/)/,
-      presets: ['es2015','react'],
-    } ) )
-
-    this.w = watchify( this.browserify )
+var bundles = [
+  {
+    entries: ['./bundle/test.js'],
+    output: 'test.js',
   },
-  bundle: function() {
-    return this.w && this.w.bundle()
-      .on('error', $.util.log.bind($.util, 'Browserify Error'))
-      .pipe(source('horten-control.js'))
-      .pipe(gulp.dest('dist/'))
-      .pipe(reload())
-  },
-  watch: function() {
-    this.w && this.w.on('update', this.bundle.bind(this));
-  },
-  stop: function() {
-    this.w && this.w.close();
-  }
-};
+  // {
+  //   entries: ['./bundle/bootstrap.js'],
+  //   output: 'bootstrap.js',
+  // },
+  // {
+  //   entries: ['./bundle/HortenControl.js'],
+  //   output: 'HortenControl.js',
+  // }
+]
+
+gulp.task('scripts', () =>
+  $.all( bundles.map( options =>
+    bundle( options )
+  ) )
+)
+
 
 gulp.task('clean', function () {
   return gulp.src('dist/', { read: false })
@@ -73,7 +51,6 @@ var lessFile = './less/horten-control.less'
 gulp.task('style', sync([
   'less',
   'less-copy',
-  'bootstrap-copy-less',
   'hljs-css-copy',
   'reload'
 ]))
@@ -112,20 +89,20 @@ gulp.task('less-copy', function () {
   .pipe( gulp.dest('./dist/source'))
 })
 
-gulp.task('bootstrap-copy-less', function () {
-  return gulp.src('./node_modules/bootstrap/less/**')
-  .pipe( gulp.dest('./dist/source/node_modules/bootstrap/less/' ) )
-})
-
-gulp.task('bootstrap-copy-fonts', function () {
-  return gulp.src('./node_modules/bootstrap/dist/fonts/**')
-  .pipe( gulp.dest('./dist/fonts/' ) )
-})
-
-gulp.task('bootstrap-copy-js', function () {
-  return gulp.src('./node_modules/bootstrap/dist/js/bootstrap.js')
-  .pipe( gulp.dest('./dist/vendor' ) )
-})
+// gulp.task('bootstrap-copy-less', function () {
+//   return gulp.src('./node_modules/bootstrap/less/**')
+//   .pipe( gulp.dest('./dist/source/node_modules/bootstrap/less/' ) )
+// })
+//
+// gulp.task('bootstrap-copy-fonts', function () {
+//   return gulp.src('./node_modules/bootstrap/dist/fonts/**')
+//   .pipe( gulp.dest('./dist/fonts/' ) )
+// })
+//
+// gulp.task('bootstrap-copy-js', function () {
+//   return gulp.src('./node_modules/bootstrap/dist/js/bootstrap.js')
+//   .pipe( gulp.dest('./dist/vendor' ) )
+// })
 
 gulp.task('bower-copy', function () {
   return gulp.src([
@@ -135,26 +112,10 @@ gulp.task('bower-copy', function () {
   .pipe( gulp.dest('./dist/vendor' ) )
 })
 
-gulp.task('scripts', function() {
-  bundler.init();
-  return bundler.bundle();
-});
-
 gulp.task('html', function() {
-  return gulp.src('./html/index.html')
-  .pipe( $.sym('dist/index.html', { force: true } ) )
+  return gulp.src('./html/*')
+  .pipe( gulp.dest('dist/') )
 })
-
-// gulp.task('images', function() {
-//   return gulp.src('app/images/**/*')
-//     .pipe($.cache($.imagemin({
-//       optimizationLevel: 3,
-//       progressive: true,
-//       interlaced: true
-//     })))
-//     .pipe(gulp.dest('dist/images'))
-//     .pipe($.size());
-// });
 
 gulp.task('fonts', function() {
   return gulp.src(['font/*.ttf'])
@@ -184,21 +145,16 @@ gulp.task('demo', ['build','demo-run','watch'] )
 //   process.env.NODE_ENV = 'production';
 // });
 
-gulp.task('bundle', [
+gulp.task('build', [
   'html',
   'style',
-  'scripts',
-  'bootstrap-copy-fonts',
-  'bootstrap-copy-js',
+  // 'scripts',
+  // 'bootstrap-copy-fonts',
+  // 'bootstrap-copy-js',
   'bower-copy',
-  // 'images',
   'fonts',
   'extra'
 ])
-
-gulp.task('clean-bundle', sync(['clean', 'bundle']));
-
-gulp.task('build', ['clean-bundle'], bundler.stop.bind(bundler));
 
 var connect = $.connect
 gulp.task('serve', () => {
@@ -208,18 +164,18 @@ gulp.task('serve', () => {
   })
 })
 
-gulp.task('reload', () => {
-  connect.reload()
-})
+// gulp.task('reload', () => {
+//   connect.reload()
+// })
 
-gulp.task('default', sync(['build','serve', 'watch']));
+gulp.task('default', sync(['clean','build','serve','watch']))
 
 gulp.task('watch', function() {
-  bundler.watch()
+  bundle.isWatchify = true
+  runSequence(['scripts'])
+
   reload.listen()
-  gulp.watch('html/*.html', ['html', 'reload'])
+  gulp.watch('html/*', ['html', 'reload'])
   gulp.watch('less/**.less', ['style', 'reload'])
-  gulp.watch('component/**/*.js', ['scripts', 'reload'])
-  // gulp.watch('app/images/**/*', ['images'])
-  // gulp.watch('app/fonts/**/*', ['fonts'])
+  gulp.watch([ 'src/**/*.js', 'bundle/*.js'], ['scripts', 'reload'])
 })

@@ -1,15 +1,16 @@
 @import "_var.less";
+
+@import "util.less";
+
 @import "button.less";
 
 
 
-.loopin.slider {
-  // top: 0;
-  // left: 0;
-  // width: 100%;
+.horten .slider {
+  .fullWidth();
   position: relative;
-  display: block;
-  height: @button-height + @marker-height;
+
+  height: @button-height + @marker-height+ @gutter;
 
   margin-bottom: 1em;
 
@@ -56,6 +57,8 @@
     z-index: 90;
     display: block;
 
+    user-select: none;
+    cursor: default;
 
     font-family: @font-family-mono;
     font-size: @marker-height;

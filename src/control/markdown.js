@@ -1,20 +1,21 @@
-const _ = require('lodash')
+'use strict'
 
-const React = require('react')
+const Base = require('./base')
+    , React = require('react')
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
 
 
-export const CodeBlock = function ( props ) {
-  const source = props.literal
+export var CodeBlock = function ( props ) {
+  var source = props.literal
       , language = props.language
 
 
   switch( language ) {
     case 'control':
       var config = safeLoad( source )
-      const Control = require('../LoopinControl')
+      var Control = require('../HortenControl')
       return (
         <Control {...config}/>
       )
@@ -31,15 +32,20 @@ export const CodeBlock = function ( props ) {
   )
 }
 
-const renderers = _.merge(
+var renderers = Object.assign(
+  {},
   Markdown.renderers,
   {
     CodeBlock
   }
 )
 
-class OurMarkdown extends React.Component {
-  render() {
+class OurMarkdown extends Base {
+  constructor( props ) {
+    super( props )
+    this.state.type = 'markdown'
+  }
+  renderSelf() {
     return (
       <Markdown
         className='panel'

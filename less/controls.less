@@ -1,16 +1,31 @@
 @import "_var.less";
 
 .control {
-  display: block;
+  display: inline-block;
   box-sizing: border-box;
-  width: 100%;
-
-  margin-top: 0.25em;
+  margin-top: 0.5em;
   margin-bottom: 0.25em;
-
-
+  margin-right: 1em;
 }
 
+.horten.control > header {
 
-.control.radios {
+  a:empty {
+    display: none;
+  }
+
+  .title {
+    display: inline-block;
+    clear: both;
+  }
+
+  .title:empty {
+    display: none;
+  }
+
+  .description {
+    display: block;
+    clear: both;
+    margin-bottom: 0.25em;
+  }
 }

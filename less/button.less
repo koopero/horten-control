@@ -1,8 +1,11 @@
 @import "_var.less";
 
+@button-hue: 130;
+@button-sat: 15%;
 @button-secondary-bg: hsla( @number-hue, 20%, 30%, 90% );
 @button-focus-bg: white;
 @button-focus-colour: black;
+@button-background: rgba(68%,68%,68%,100%);
 
 @button-highlight-offset: 2px;
 @button-highlight-radius: 8px;
@@ -11,11 +14,29 @@
 @button-shadow-alpha: 50%;
 
 
-button {
-  height: @button-height;
+.horten button {
+  min-height: @button-height;
   border: 1px solid white;
   font-family: 'Source Code Pro', monospace;
 
+  pre {
+    margin: 0.5em 0;
+  }
+
+  &.unselected {
+    background: hsla( @button-hue, @button-sat, 25%, 75% );
+    color: hsla( 0, 0, 85%, 100% );
+  }
+
+  &.selected {
+    background: hsla( @button-hue, @button-sat, 85%, 75%);
+    color: black;
+  }
+
+  &.down {
+    background: @button-focus-bg;
+    color: @button-focus-colour;
+  }
 }
 
 
@@ -27,26 +48,27 @@ button {
   border-radius: @button-height / 2;
   border-style: none;
   outline: none;
+  padding: 0 1em;
 
   box-shadow:
-    inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
+    // inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
     0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha),
 
   ;
 
-}
-
-
-.loopin button, .loopin .button {
-  .button();
-
-  &:focus {
-    background: @button-focus-bg;
-    color: @button-focus-colour
-  }
+  // &:active {
+  //   background: @button-focus-bg;
+  //   color: @button-focus-colour;
+  // }
 
   &.secondary {
     background: @button-secondary-bg;
     box-shadow: inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( black, 80% );
   }
+}
+
+
+.horten button, .horten .button {
+  .button();
+
 }

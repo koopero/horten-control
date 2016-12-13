@@ -1,24 +1,25 @@
 'use strict'
 
-var React = require('react')
+const React = require('react')
 
-var floatToStr = require('../func/floatToStr')
+const Base = require('./base')
 
-var Ranger = require('../util/Ranger')
+const floatToStr = require('../func/floatToStr')
 
-class Float extends React.Component {
+const Ranger = require('../util/Ranger')
+
+class Float extends Base {
   constructor( props ) {
     super( props )
     this.ranger = new Ranger( this.props )
-    this.state = {}
+    this.state.type = 'slider'
+    this.state = this.state || {}
     this.state.value = parseFloat( this.props.defaultValue ) || 0
   }
 
-  render() {
-    console.log('Float.render', this.state, this.valueUnit() )
-
+  renderSelf() {
     return (
-      <span className='loopin slider'>
+      <span className='slider'>
         <span className='major'>
           <input
             type="range"
@@ -127,12 +128,10 @@ class Float extends React.Component {
     if ( !this.state.textSelected )
       this.inputText.value = this.valuePretty()
 
-    if ( value != oldValue )
-      this.props.onChange( value )
+    this.onUserInput( this.state.value )
   }
 
-  valueFoo( value ) {
-    console.log('valueFoo', value )
+  onValueSelf( value ) {
     this.state.value = value
     this.inputRange.value = this.ranger.toUnit( value )
     if ( !this.state.textSelected )
