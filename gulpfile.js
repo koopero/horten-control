@@ -9,6 +9,10 @@ const gulp       = require('gulp')
     , bundle     = require('./gulp/bundle')
     , runSequence = require( 'run-sequence' )
 
+require('./gulp/fonts')
+
+gulp.task('bower-install', () => $.bower() )
+
 const pathlib = require('path')
 
 var bundles = [
@@ -34,7 +38,7 @@ gulp.task('scripts', () =>
 
 
 gulp.task('clean', function () {
-  return gulp.src('dist/', { read: false })
+  return gulp.src(['dist/','bower/'], { read: false })
   .pipe( $.clean() )
 })
 
@@ -117,40 +121,16 @@ gulp.task('html', function() {
   .pipe( gulp.dest('dist/') )
 })
 
-gulp.task('fonts', function() {
-  return gulp.src(['font/*.ttf'])
-    .pipe(gulp.dest('dist/fonts/'))
-    .pipe($.size());
-});
-
 gulp.task('extra', function () {
   return gulp.src(['extra/*'])
   .pipe(gulp.dest('dist/'))
   .pipe($.size())
 })
 
-var demoLoopin
-  , demoServer
-
-gulp.task('demo-run', function() {
-  demoLoopin = require('./demo/loopin.js')
-  demoServer = demoLoopin.plugin(require('loopin-server'), {
-    port: 7004
-  })
-})
-
-gulp.task('demo', ['build','demo-run','watch'] )
-
-// gulp.task('set-production', function() {
-//   process.env.NODE_ENV = 'production';
-// });
-
 gulp.task('build', [
   'html',
   'style',
-  // 'scripts',
-  // 'bootstrap-copy-fonts',
-  // 'bootstrap-copy-js',
+  'scripts',
   'bower-copy',
   'fonts',
   'extra'
@@ -164,18 +144,30 @@ gulp.task('serve', () => {
   })
 })
 
-// gulp.task('reload', () => {
-//   connect.reload()
-// })
+gulp.task('default', sync(['clean','build']))
 
-gulp.task('default', sync(['clean','build','serve','watch']))
+gulp.task('compress', function (cb) {
+  require('pump')([
+        gulp.src('dist/*.js'),
+        $.uglify(),
+        $.rename({
+          extname: '.min.js'
+        }),
+        $.size({ showFiles: true }),
+        gulp.dest('dist')
+    ],
+    cb
+  )
+})
+
+
 
 gulp.task('watch', function() {
   bundle.isWatchify = true
-  runSequence(['scripts'])
+  runSequence(['scripts','serve'])
 
   reload.listen()
-  gulp.watch('html/*', ['html', 'reload'])
-  gulp.watch('less/**.less', ['style', 'reload'])
-  gulp.watch([ 'src/**/*.js', 'bundle/*.js'], ['scripts', 'reload'])
+  gulp.watch('html/*', ['html','reload'])
+  gulp.watch('less/**.less', ['style','reload'])
+  gulp.watch([ 'src/**/*.js', 'bundle/*.js'], ['scripts'])
 })

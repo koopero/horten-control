@@ -12,9 +12,8 @@ class Base extends React.Component {
 
     this.state = this.state || {}
 
-
     this.state.type = this.props.type || 'base'
-    this.state.path = H.path.string( this.props.path )
+    this.state.path = this.props.path && H.path.string( this.props.path )
     this.state.cursor = new H.Cursor()
     this.state.cursor.path = this.state.path
     this.state.cursor.on('value', this.onCursorValue.bind( this ) )
@@ -46,7 +45,8 @@ class Base extends React.Component {
 
 
   componentDidMount() {
-    this.state.cursor.listening = true
+    if ( this.state.path )
+      this.state.cursor.listening = true
   }
 
   componentWillUnmount() {
@@ -73,7 +73,7 @@ class Base extends React.Component {
           : undefined
         }
         { this.isChildVisible( 'title' ) ?
-          <span className='title'>{ this.state.title || '' }</span>
+          <span className='title'>{ this.props.title || '' }</span>
           : undefined
         }
         { this.isChildVisible( 'description' ) && this.props.description  ?
@@ -124,6 +124,9 @@ class Base extends React.Component {
   // Main listener for user input
   //
   onUserInput( value ) {
+    if ( this.props.onUserInput )
+      this.props.onUserInput( value )
+
     if ( this.state.path )
       this.state.cursor.patch( value )
   }

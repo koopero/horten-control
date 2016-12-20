@@ -25,9 +25,9 @@ function bundle( options ) {
   let b = browserify(opts)
 
   b.transform(babelify, {
-    global: true,
-    ignore: /\/node_modules\/(?!horten\/)/,
-    presets: ['es2015','react']
+    // global: true,
+    // ignore: /\/node_modules\/(?!horten\/)/,
+    // presets: ['es2015','react']
   })
 
   var rebundle = () =>

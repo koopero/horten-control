@@ -3,7 +3,7 @@
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
-    , Base = require('./base')
+    , Base = require('./Base')
     , YAML = require('./yaml')
 
 class Trigger extends Base {

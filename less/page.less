@@ -1,4 +1,78 @@
+@sidebar-width: 20%;
+@page-padding: 32px;
+@page-padding-small: 8px;
+@footer-background: hsla(0,0%,8%,0.9);
+
 html.horten, body.horten {
   background-color: @page-background;
   color: @text-colour;
+  margin: 0;
+  padding: 0;
+}
+
+.horten.page {
+  & > .secondary {
+    background: hsl(0,0%,10%);
+    margin: 0;
+  }
+
+  & > section {
+    padding-bottom: @page-padding;
+    padding-top: @page-padding + @header-height;
+    padding-right: @page-padding;
+    padding-left: @page-padding;
+  }
+
+  & > .primary {
+    position: fixed;
+    width: 100%;
+    height: @header-height;
+    top: 0;
+    background: @footer-background;
+    z-index: 99;
+  }
+}
+
+.pageHasSidebar() {
+  .horten.page {
+    & > .secondary {
+      width: @sidebar-width;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: @header-height;
+      text-align: right;
+
+      nav > button {
+        float: right;
+      }
+    }
+
+    & > section {
+      margin: 0 0 0 @sidebar-width;
+    }
+  }
+}
+
+.pageIsSmall() {
+  .horten.page {
+    & > .secondary {
+    }
+
+    & > section {
+      padding-bottom: @page-padding-small;
+      padding-top: @page-padding-small  + @header-height;
+      padding-right: @page-padding-small;
+      padding-left: @page-padding-small;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .pageIsSmall();
+}
+
+@media screen and (min-width: 1600px) {
+  .pageHasSidebar();
 }

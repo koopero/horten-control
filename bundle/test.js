@@ -6,10 +6,10 @@ new H.Tracer({
 })
 
 var React = require('react')
-var HortenControl = require('../src/HortenControl')
+var Page = require('../src/control/Page')
 
 var ReactDOM = require('react-dom')
 
 ReactDOM.render(
-  <HortenControl src="test.md"/>
+  <Page/>
 , document.getElementById('app') )

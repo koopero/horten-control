@@ -5,6 +5,12 @@
 @import "button.less";
 
 
+@control-slider-detail-width: 128px;
+@slider-thumb-width: 128px;
+@slider-detail-width-small: 80px;
+@control-path-width: 128px;
+
+
 
 .horten .slider {
   .fullWidth();
@@ -72,6 +78,29 @@
 
         width: @slider-thumb-width;
         text-align: center;
+      }
+    }
+  }
+}
+
+
+
+
+@media screen and (max-width: 720px) {
+  .horten .slider {
+    .markers {
+      display: none;
+    }
+
+    .major {
+      padding-right: @slider-detail-width-small;
+    }
+
+    .minor {
+      width: @slider-detail-width-small;
+      padding-left: 4px;
+      input {
+        font-size: 80%;
       }
     }
   }

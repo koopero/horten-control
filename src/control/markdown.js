@@ -1,11 +1,11 @@
 'use strict'
 
-const Base = require('./base')
+const Base = require('./Base')
     , React = require('react')
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
-
+import Highlight from 'react-hljs'
 
 export var CodeBlock = function ( props ) {
   var source = props.literal
@@ -22,14 +22,11 @@ export var CodeBlock = function ( props ) {
     break
     default:
       return (
-        <pre>{ source }</pre>
+        <span className='horten control source'>
+          <Highlight className={language}>{ source }</Highlight>
+        </span>
       )
   }
-  console.log( 'CodeBlock', props )
-
-  return (
-    <h2>This is a source block</h2>
-  )
 }
 
 var renderers = Object.assign(
@@ -48,7 +45,7 @@ class OurMarkdown extends Base {
   renderSelf() {
     return (
       <Markdown
-        className='panel'
+        className='inner'
         source={ this.props.markdown }
         renderers={ renderers }
       />

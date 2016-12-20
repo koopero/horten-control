@@ -4,7 +4,7 @@ const equal = require('deep-equal')
 
 var React = require('react')
 
-const Base = require('./base')
+const Base = require('./Base')
     , Trigger = require('./Trigger')
 
 var H = require('horten')

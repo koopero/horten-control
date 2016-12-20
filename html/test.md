@@ -1,3 +1,23 @@
+# Source
+
+``` c
+int main() {
+  return 0;
+}
+```
+
+``` yaml
+clear: 'both'
+path: '/painter/paint'
+type: 'grid'
+cellPath: '{ ind }'
+cell:
+  type: 'momentary'
+  size: 'big'
+cols: 4
+rows: 2
+```
+
 # painter
 
 ``` control
@@ -70,12 +90,4 @@ options:
   - Wonderful
   - World
   - '?'
-```
-
-## Source
-
-``` c
-int main() {
-  return 0;
-}
 ```

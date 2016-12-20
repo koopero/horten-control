@@ -2,7 +2,7 @@
 
 const React = require('react')
 
-const Base = require('./base')
+const Base = require('./Base')
 
 const floatToStr = require('../func/floatToStr')
 

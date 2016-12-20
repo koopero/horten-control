@@ -2,7 +2,7 @@
 
 const _ = require('lodash')
     , React = require('react')
-    , Base = require('./base')
+    , Base = require('./Base')
     , Trigger = require('./Trigger')
 
 class Grid extends Base {
