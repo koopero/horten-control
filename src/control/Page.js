@@ -40,7 +40,7 @@ function Page( props ) {
 
     function navItem( item, index ) {
       return (
-        <button>{ item.title }</button>
+        <button key={ index }>{ item.title }</button>
       )
     }
   }

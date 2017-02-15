@@ -20,10 +20,10 @@ var bundles = [
     entries: ['./bundle/test.js'],
     output: 'test.js',
   },
-  // {
-  //   entries: ['./bundle/bootstrap.js'],
-  //   output: 'bootstrap.js',
-  // },
+  {
+    entries: ['./bundle/bootstrap.js'],
+    output: 'bootstrap.js',
+  },
   // {
   //   entries: ['./bundle/HortenControl.js'],
   //   output: 'HortenControl.js',

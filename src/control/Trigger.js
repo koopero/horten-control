@@ -6,6 +6,8 @@ const _ = require('lodash')
     , Base = require('./Base')
     , YAML = require('./yaml')
 
+function now() { return new Date().getTime() }
+
 class Trigger extends Base {
   constructor( props ) {
     super( props )
@@ -74,8 +76,11 @@ class Trigger extends Base {
 
     if ( this.props.toggle ) {
       value = !this.state.cursor.value
-    } else if ( !_.isUndefined( this.props.trigger ) )
+    } else if ( !_.isUndefined( this.props.trigger ) ) {
       value = this.props.trigger
+    } else {
+      value = now()
+    }
 
     if ( !_.isUndefined( value ) )
       this.onUserInput( value )

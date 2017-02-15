@@ -1,6 +1,6 @@
 'use strict'
 
-var HortenControl = require('./src/LoopinControl')
+var HortenControl = require('./src/HortenControl')
 
 global.HortenControl = global.HortenControl || HortenControl
 
