@@ -15,6 +15,7 @@ class Base extends React.Component {
     this.state.type = this.props.type || 'base'
     this.state.path = this.props.path && H.path.string( this.props.path )
     this.state.cursor = new H.Cursor()
+    this.state.cursor.echo = false
     this.state.cursor.path = this.state.path
     this.state.cursor.on('value', this.onCursorValue.bind( this ) )
     this.state.value = this.state.cursor.get()
@@ -23,8 +24,7 @@ class Base extends React.Component {
     this.state.hide = parseVisibility( this.props.hide )
     this.state.show = parseVisibility( this.props.show )
 
-    if ( !this.state.value )
-      this.state.cursor.patch( {} )
+    console.log('Base Cursor', this.state.value )
 
     function parseVisibility( prop ) {
       if ( prop == 'all' )
@@ -45,8 +45,10 @@ class Base extends React.Component {
 
 
   componentDidMount() {
-    if ( this.state.path )
+    if ( this.state.path ) {
       this.state.cursor.listening = true
+      this.onCursorValue( this.state.cursor.value )
+    }
   }
 
   componentWillUnmount() {
@@ -135,7 +137,7 @@ class Base extends React.Component {
   // Cursor Listeners
   //
   onCursorValue( value ) {
-    // console.log('onCursorValue', this.cursor.path, value )
+    console.log('onCursorValue', this.state.cursor.path, value )
     this.state.value = value
     this.onValueSelf( value )
   }

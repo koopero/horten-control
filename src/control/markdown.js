@@ -8,7 +8,7 @@ import { safeLoad } from 'js-yaml'
 import Highlight from 'react-hljs'
 
 export var CodeBlock = function ( props ) {
-  var source = props.literal
+  const source = props.literal
       , language = props.language
 
 
