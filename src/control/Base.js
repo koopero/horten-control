@@ -15,6 +15,7 @@ class Base extends React.Component {
     this.state.type = this.props.type || 'base'
     this.state.path = this.props.path && H.path.string( this.props.path )
     this.state.cursor = new H.Cursor()
+    this.state.cursor.delay = 50
     this.state.cursor.echo = false
     this.state.cursor.path = this.state.path
     this.state.cursor.on('value', this.onCursorValue.bind( this ) )

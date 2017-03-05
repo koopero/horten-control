@@ -91,7 +91,7 @@ class Colour extends Base {
     this.sliders = sliders
 
     const self = this
-    return _('rgbhSVa')
+    return _('hsVa')
       .split('')
       .map( ( char ) =>
         CHANNELS[ char ] &&
@@ -121,6 +121,11 @@ class Colour extends Base {
     }
   }
 
+  onValueSelf( value ) {
+    this.state.colour.set( value )
+    this.setColourUI()
+  }
+
   onChannelInput( key, value ) {
 
     if ( key ) {
@@ -128,6 +133,11 @@ class Colour extends Base {
       this.state.colour[key] = value
     }
 
+    this.setColourUI()
+    this.onUserInput( this.state.colour.toObject(['red','green','blue','alpha'] ) )
+  }
+
+  setColourUI() {
     const css = this.state.colour.css
     console.log('onChannelInput', css )
 
@@ -140,6 +150,7 @@ class Colour extends Base {
         slider.onCursorValue( value )
       })
     } )
+
   }
 }
 
