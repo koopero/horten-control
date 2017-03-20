@@ -1,3 +1,19 @@
+# Pixels
+
+``` control
+path: /pixels_out
+type: pixels
+channels: rgba
+pixels: ff00ff 00ffff
+format: hex
+cols: 2
+rows: 1
+```
+
+
+
+
+
 # Source
 
 ``` c
