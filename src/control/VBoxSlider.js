@@ -13,6 +13,7 @@ class VBoxSlider extends React.Component {
     this.ref = this.ref || {}
     this.state = this.state || {}
     this.state.value = parseFloat( props.value ) || 0
+    this.state.mouseActive = false
   }
 
 
@@ -38,6 +39,8 @@ class VBoxSlider extends React.Component {
           position: 'relative'
         }
         , onMouse = this.onMouse.bind( this )
+        , onTouch = this.onTouch.bind( this )
+
 
 
 
@@ -47,6 +50,8 @@ class VBoxSlider extends React.Component {
         onMouseMove={ onMouse }
         onMouseDown={ onMouse }
         onMouseLeave={ onMouse }
+        onTouchMove={ onTouch }
+        onTouchStart={ onTouch }
         style={style}
         ref={(div) => this.ref.main = div }
       >
@@ -61,28 +66,70 @@ class VBoxSlider extends React.Component {
     )
   }
 
+  // renderGradient() {
+  //   const steps = 13
+  //
+  //   let colour = new Colour( this.props.colour )
+  //   colour.hue = this.props.colour.hue
+  //   let channel = this.props.colourChannel
+  //   let pixels = ''
+  //
+  //   for ( let i = 0; i < steps; i ++ ) {
+  //     let y = 1-i / ( steps-1)
+  //     colour[channel] = y
+  //     pixels += colour.hex
+  //   }
+  //
+  //   return string2png.css(pixels, {width:1})
+  // }
+
   renderGradient() {
     const steps = 13
 
     let colour = new Colour( this.props.colour )
     colour.hue = this.props.colour.hue
     let channel = this.props.colourChannel
-    let pixels = ''
+    let result = []
 
     for ( let i = 0; i < steps; i ++ ) {
-      let y = 1-i / ( steps-1)
+      let y = i / ( steps-1)
       colour[channel] = y
-      pixels += colour.hex
+      let r = colour.hex
+      if ( y != 0 && y != 1 )
+        r += ' '+Math.round(y*100)+'%'
+
+      result.push( r )
     }
 
-    return string2png.css(pixels, {width:1})
+    result = result.join(', ')
+    result = `linear-gradient( 0, ${result} )`
+
+    return result
   }
 
-
   onMouse( event ) {
-    if ( !event.buttons )
+    if ( event.type == 'mousedown' )
+      this.state.mouseActive = true
+    else if ( !event.buttons )
+      this.state.mouseActive = false
+
+    if ( !this.state.mouseActive )
       return
 
+    this.onMouseMove( event )
+    event.preventDefault()
+
+  }
+
+  onTouch( event ) {
+    let touches = event.touches
+
+    if ( touches.length )
+      this.onMouseMove( touches[0] )
+    event.preventDefault()
+  }
+
+  onMouseMove( event ) {
     let thumbH = this.ref.thumb.clientHeight + _border
       , ourH = this.ref.main.clientHeight
       , y = event.pageY - this.ref.main.offsetTop
@@ -92,7 +139,7 @@ class VBoxSlider extends React.Component {
     v = 1 - v
 
     this.setValue( v )
-    event.preventDefault()
+
 
     if ( this.props.onUserInput )
       this.props.onUserInput( v )

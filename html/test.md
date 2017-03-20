@@ -19,7 +19,9 @@ rows: 2
 clear: both
 hide: all
 ```
+
 <br/>
+
 ``` control
 path: /pixels_out2
 title: Foreground
