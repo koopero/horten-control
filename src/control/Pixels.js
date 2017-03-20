@@ -24,13 +24,21 @@ class Pixels extends Base {
     this.state.rows = rows
     this.state.cols = cols
     this.state.size = size
-    this.state.colours = string2png.channels( props.pixels )
+    this.setPixels( props.pixels )
   }
 
   componentWillReceiveProps(props) {
     if ( props.pixels ) {
-      this.state.colours = string2png.channels( props.pixels )
+      this.setPixels( props.pixels )
     }
+  }
+
+  setPixels( value ) {
+    let colours = this.state.colours = string2png.channels( value || '' )
+    while ( colours.length < this.state.size ) {
+      colours.push( new Colour() )
+    }
+    this.forceUpdate()
   }
 
   renderSelf() {
@@ -87,6 +95,11 @@ class Pixels extends Base {
     const pixels = colours.map( c => c.hex ).join(' ')
     this.state.pixels = pixels
     this.onUserInput( pixels )
+  }
+
+  onValueSelf( value ) {
+    console.log('onValueSelf', value)
+    this.setPixels( value )
   }
 
 }

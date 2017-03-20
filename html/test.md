@@ -1,7 +1,28 @@
-# Pixels
+# Palette 1
 
 ``` control
 path: /pixels_out
+trigger: ff00ff 00ffff ff0000 ffff00
+title: Activate
+hide: all
+```
+<br/>
+
+``` control
+path: /pixels_out
+title: Background
+type: pixels
+channels: rgba
+format: hex
+cols: 2
+rows: 2
+clear: both
+hide: all
+```
+<br/>
+``` control
+path: /pixels_out2
+title: Foreground
 type: pixels
 channels: rgba
 pixels: ff00ff 00ffff
@@ -9,7 +30,6 @@ format: hex
 cols: 2
 rows: 1
 ```
-
 
 
 

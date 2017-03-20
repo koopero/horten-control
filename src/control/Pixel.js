@@ -7,18 +7,23 @@ class Pixel extends React.Component {
     super( props )
     this.state = this.state || {}
     this.state.colour = new Colour()
-    this.state.colour.set('cyan')
     this.state.colour.set( props.colour )
+    this.state.channels = [ 'red','green','blue' ]
   }
 
-
+  componentWillReceiveProps( newProps ) {
+    if ( newProps.colour ) {
+      this.state.colour.set( newProps.colour )
+      this.forceUpdate()
+    }
+  }
 
   render() {
     return (
       <table className={'pixel pixel-rgb'} >
         <tbody>
           <tr>
-            { ([ 'red','green','blue' ]).map( ( channel ) => (
+            { ( this.state.channels ).map( ( channel ) => (
               <td key={ channel }>
                 <VBoxSlider
                   value={ this.getChannel(channel) }
