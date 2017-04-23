@@ -1,6 +1,6 @@
 const resolve = require('path').resolve.bind( null, __dirname )
-const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
-
+    , GoogleFontsPlugin = require("google-fonts-webpack-plugin")
+    , CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   entry: './src/entry/bootstrap.js',
   output: {
@@ -29,17 +29,19 @@ module.exports = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file?name=font/[name].[ext]'
+        loader: 'file-loader?name=font/[name].[ext]'
       }
     ]
   },
   plugins: [
-      new GoogleFontsPlugin({
-          fonts: [
-              { family: "Source Sans Pro" },
-              { family: "Roboto" }
-          ]
-          /* ...options */
-      })
+    new GoogleFontsPlugin({
+      fonts: [
+        { family: "Source Sans Pro" },
+        { family: "Roboto" }
+      ]
+    }),
+    new CopyWebpackPlugin([
+      { from: resolve('src/static/') }
+    ])
   ]
 }
