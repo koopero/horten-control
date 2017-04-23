@@ -2,7 +2,7 @@ const request = require('browser-request')
     , React = require('react')
     , yaml = require('js-yaml')
 
-const HortenControl = require('../HortenControl')
+const Control = require('../Control')
 
 class Loader extends React.Component {
   constructor(props) {
@@ -44,11 +44,11 @@ class Loader extends React.Component {
     const control = this.state.control
     if ( Array.isArray( control ) ) {
       return (
-        <HortenControl subs={control}/>
+        <Control subs={control} meta={ this.props.meta }/>
       )
     } else if ( control ) {
       return (
-        <HortenControl {...control}/>
+        <Control {...control} meta={ this.props.meta }/>
       )
     } else {
       return (

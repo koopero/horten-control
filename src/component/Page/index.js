@@ -4,8 +4,9 @@ module.exports = Page
 const _ = require('lodash')
     , React = require('react')
 
-const HortenControl = require('../HortenControl')
+const Control = require('../Control')
 
+require('./index.less')
 
 function Page( props ) {
 
@@ -23,7 +24,9 @@ function Page( props ) {
       <aside className="primary">
         { renderNav() }
       </aside>
-      <section><HortenControl {...content}/></section>
+      <section>
+        <Control {...content}/>
+      </section>
       <aside className="secondary">
         { renderNav() }
       </aside>

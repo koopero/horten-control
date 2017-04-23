@@ -6,7 +6,7 @@ new H.Tracer({
 })
 
 var React = require('react')
-var Page = require('../src/control/Page')
+var Page = require('../component/Page')
 
 var ReactDOM = require('react-dom')
 

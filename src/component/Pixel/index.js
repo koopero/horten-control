@@ -1,5 +1,5 @@
 const React = require('react')
-const VBoxSlider = require('./VBoxSlider')
+const VBoxSlider = require('../VBoxSlider')
 const Colour = require('deepcolour')
 
 class Pixel extends React.Component {

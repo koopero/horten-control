@@ -3,7 +3,7 @@ const React = require('react')
 const _ = require('lodash')
 const H = require('horten')
 
-const Control = require('../HortenControl')
+const Control = require('./Control')
     , Path = require('./Path')
 
 class Base extends React.Component {
@@ -24,8 +24,6 @@ class Base extends React.Component {
 
     this.state.hide = parseVisibility( this.props.hide )
     this.state.show = parseVisibility( this.props.show )
-
-    console.log('Base Cursor', this.state.value )
 
     function parseVisibility( prop ) {
       if ( prop == 'all' )

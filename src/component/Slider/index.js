@@ -2,13 +2,15 @@
 
 const React = require('react')
 
-const Base = require('./Base')
+const Base = require('../Base')
 
-const floatToStr = require('../func/floatToStr')
+const floatToStr = require('../../util/floatToStr')
 
-const Ranger = require('../util/Ranger')
+const Ranger = require('../../util/Ranger')
 
-class Float extends Base {
+require('./index.less')
+
+class Slider extends Base {
   constructor( props ) {
     super( props )
     this.ranger = new Ranger( this.props )
@@ -139,14 +141,14 @@ class Float extends Base {
   }
 }
 
-Float.propTypes = {
+Slider.propTypes = {
   min: React.PropTypes.number,
   max: React.PropTypes.number,
   pow: React.PropTypes.number,
   markers: React.PropTypes.array
 }
 
-Float.defaultProps = {
+Slider.defaultProps = {
   min: 0,
   max: 1,
   pow: 1,
@@ -154,4 +156,4 @@ Float.defaultProps = {
   unit: ''
 }
 
-module.exports = Float
+module.exports = Slider

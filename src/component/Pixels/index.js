@@ -3,15 +3,10 @@
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
-    , Base = require('./Base')
-
-const Colour = require('deepcolour')
-
-const Pixel = require('./Pixel')
-
-const string2png = require('string2png')
-
-function now() { return new Date().getTime() }
+    , Base = require('../Base')
+    , Pixel = require('../Pixel')
+    , Colour = require('deepcolour')
+    , string2png = require('string2png')
 
 class Pixels extends Base {
   constructor( props ) {
@@ -98,7 +93,6 @@ class Pixels extends Base {
   }
 
   onValueSelf( value ) {
-    console.log('onValueSelf', value)
     this.setPixels( value )
   }
 

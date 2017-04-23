@@ -1,0 +1,45 @@
+const resolve = require('path').resolve.bind( null, __dirname )
+const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
+
+module.exports = {
+  entry: './src/entry/bootstrap.js',
+  output: {
+    path: resolve( 'dist/' ),
+    filename: 'bootstrap.js'
+  },
+  module : {
+    loaders : [
+      {
+        test: /\.less$/,
+        loaders: [
+          "style-loader",
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        test : /\.jsx?/,
+        include : resolve('src/'),
+        loader : 'babel-loader'
+      },
+      {
+        test : /\.json/,
+        include : resolve('node_modules/entities'),
+        loader: 'json-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file?name=font/[name].[ext]'
+      }
+    ]
+  },
+  plugins: [
+      new GoogleFontsPlugin({
+          fonts: [
+              { family: "Source Sans Pro" },
+              { family: "Roboto" }
+          ]
+          /* ...options */
+      })
+  ]
+}

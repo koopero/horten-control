@@ -1,13 +1,11 @@
 'use strict'
 
-const equal = require('deep-equal')
 
-var React = require('react')
-
-const Base = require('./Base')
-    , Trigger = require('./Trigger')
-
-var H = require('horten')
+const React = require('react')
+    , equal = require('deep-equal')
+    , Base = require('../Base')
+    , Trigger = require('../Trigger')
+    , H = require('horten')
 
 class Options extends Base {
   constructor( props ) {

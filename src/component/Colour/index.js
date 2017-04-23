@@ -3,8 +3,8 @@
 const _ = require('lodash')
     , React = require('react')
     , deepcolour = require('deepcolour')
-    , Base = require('./Base')
-    , Slider = require('./Slider')
+    , Base = require('../Base')
+    , Slider = require('../Slider')
 
 const CHANNEL = {
   type: 'float',
@@ -129,7 +129,6 @@ class Colour extends Base {
   onChannelInput( key, value ) {
 
     if ( key ) {
-      console.log('onChannelInput', key, value )
       this.state.colour[key] = value
     }
 
@@ -139,7 +138,6 @@ class Colour extends Base {
 
   setColourUI() {
     const css = this.state.colour.css
-    console.log('onChannelInput', css )
 
     this.swatch.style.backgroundColor = css
 

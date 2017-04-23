@@ -3,8 +3,8 @@
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
-    , Base = require('./Base')
-    , YAML = require('./yaml')
+    , Base = require('../Base')
+    , YAML = require('../YAML')
 
 function now() { return new Date().getTime() }
 

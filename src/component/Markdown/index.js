@@ -1,11 +1,12 @@
 'use strict'
 
-const Base = require('./Base')
+const Base = require('../Base')
     , React = require('react')
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
-import Highlight from 'react-hljs'
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { ocean } from 'react-syntax-highlighter/dist/styles';
 
 export var CodeBlock = function ( props ) {
   const source = props.literal
@@ -15,7 +16,7 @@ export var CodeBlock = function ( props ) {
   switch( language ) {
     case 'control':
       var config = safeLoad( source )
-      var Control = require('../HortenControl')
+      var Control = require('../Control')
       return (
         <Control {...config}/>
       )
@@ -23,7 +24,7 @@ export var CodeBlock = function ( props ) {
     default:
       return (
         <span className='horten control source'>
-          <Highlight className={language}>{ source }</Highlight>
+          <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
         </span>
       )
   }
