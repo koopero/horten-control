@@ -1,6 +1,9 @@
 {
   "name": "horten-control",
-  "version": "0.3.0",
+  "description": "Pretty web controls for Horten, designed for creative applications.",
+  "author": "Samm Zuest Cooper <samm@sublight.ca>",
+  "license": "MIT",
+  "version": "0.3.1",
   "main": "./index.js",
   "babel": {
     "presets": [
@@ -58,5 +61,26 @@
     "transform": [
       "babelify"
     ]
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koopero/horten-control.git"
+  },
+  "keywords": [
+    "Horten",
+    "midi",
+    "control",
+    "slider",
+    "pixels"
+  ],
+  "bugs": {
+    "url": "https://github.com/koopero/horten-control/issues"
+  },
+  "homepage": "https://github.com/koopero/horten-control#readme"
 }
