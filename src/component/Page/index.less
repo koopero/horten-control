@@ -1,4 +1,4 @@
-@import "../../style/index.less";
+@import "../../style/variables.less";
 
 @sidebar-width: 20%;
 @page-padding: 32px;
@@ -32,6 +32,17 @@ html.horten, body.horten {
     top: 0;
     background: @footer-background;
     z-index: 99;
+
+    nav {
+      display: block;
+      padding: 0.25em;
+
+      a {
+        font-family: 'Roboto';
+        color: white !important;
+        margin-left: 1em;
+      }
+    }
   }
 }
 
@@ -77,17 +88,4 @@ html.horten, body.horten {
 
 @media screen and (min-width: 1600px) {
   // .pageHasSidebar();
-}
-
-
-
-.horten.page aside.primary {
-  button {
-    background: black;
-    color: white;
-    height: @header-button-height;
-    border: 1px solid white;
-    border-radius: @header-button-height / 2;
-    margin: ( @header-height - @header-button-height ) / 2;
-  }
 }

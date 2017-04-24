@@ -36,8 +36,10 @@ module.exports = {
   plugins: [
     new GoogleFontsPlugin({
       fonts: [
-        { family: "Source Sans Pro" },
-        { family: "Roboto" }
+        { family: "Source Sans Pro", variants: [ '200', 'regular', '600' ] },
+        { family: "Source Code Pro" },
+        { family: "Roboto", variants: [ '100', '300', 'regular', '500' ] }
+
       ]
     }),
     new CopyWebpackPlugin([

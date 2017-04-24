@@ -1,4 +1,4 @@
-@import "util.less";
+@import "../../style/variables.less";
 
 .horten.markdown {
   .fullWidth();
@@ -11,43 +11,12 @@
 }
 
 
-//
-// Mostly Markdown
-//
-
-.horten {
-  font-family: 'Quicksand', sans-serif;
-
-
-  h1, h2, h3, h4 {
-    font-weight: 300;
-    margin-top: 2em;
-    margin-bottom: 0;
-  }
-
-  h2 {
-    font-size: 32px;
-  }
-}
-
-
 .horten .source {
-  font-family: 'Source Code Pro', monospace;
-  font-size: 18px;
-}
-
-
-.horten.page aside.primary {
-  button {
-    font-family: 'Quicksand', sans-serif;
-    letter-spacing: 0.1em;
-  }
-}
-
-.horten.page aside.secondary {
-  button {
-    font-family: 'Quicksand', sans-serif;
-    letter-spacing: 0.1em;
-    font-size: 1.25em;
+  display: inline-block;
+  .button();
+  background: #2b303b; // From hljs Ocean
+  padding: 8px 16px;
+  pre {
+    margin: 0;
   }
 }

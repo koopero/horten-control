@@ -59,13 +59,13 @@ class Pixels extends Base {
       )
     }
 
-    function renderRow( index ) {
+    function renderRow( index, row ) {
       let indexes = []
       for ( let i = 0; i < width; i ++ )
         indexes[i] = index + i
 
       return (
-        <tr>
+        <tr key={row}>
           { indexes.map( ( index ) => (
             <td key={index}>{ renderCell( index ) }</td>
           ) ) }
@@ -76,6 +76,7 @@ class Pixels extends Base {
     function renderCell( index ) {
       return (
         <Pixel
+          key={index}
           colour={ new Colour( self.state.colours && self.state.colours[index] ) }
           onUserInputColour={ ( value ) => self.onCellUserInputColour( index, value ) }
         />

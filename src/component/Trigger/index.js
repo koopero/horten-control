@@ -42,7 +42,7 @@ class Trigger extends Base {
   }
 
   onTouch( type, event ) {
-    console.log( 'onTouch', type, event )
+    // console.log( 'onTouch', type, event )
   }
 
   onMouse( type, event ) {
@@ -57,7 +57,6 @@ class Trigger extends Base {
       break
 
       case 'enter':
-      console.log('MouseEnter', event )
         if ( event.buttons ) {
           classList.add('down')
           this.trigger()

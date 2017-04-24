@@ -9,21 +9,30 @@ const Control = require('./Control')
 class Base extends React.Component {
   constructor( props ) {
     super( props )
+    this.state = this.propsToState( props )
+  }
 
-    this.state = this.state || {}
+  componentWillReceiveProps( props  ) {
+    this.setState( this.propsToState( props ) )
+  }
 
-    this.state.type = this.props.type || 'base'
-    this.state.path = this.props.path && H.path.string( this.props.path )
-    this.state.cursor = new H.Cursor()
-    this.state.cursor.delay = 50
-    this.state.cursor.echo = false
-    this.state.cursor.path = this.state.path
-    this.state.cursor.on('value', this.onCursorValue.bind( this ) )
-    this.state.value = this.state.cursor.get()
-    this.state.subs = this.props.subs || []
+  propsToState( props ) {
+    let state = {}
 
-    this.state.hide = parseVisibility( this.props.hide )
-    this.state.show = parseVisibility( this.props.show )
+    state.type = props.type || 'base'
+    state.path = props.path && H.path.string( props.path )
+    state.cursor = new H.Cursor()
+    state.cursor.delay = 50
+    state.cursor.echo = false
+    state.cursor.path = state.path
+    state.cursor.on('value', this.onCursorValue.bind( this ) )
+    state.value = state.cursor.get()
+    state.subs = props.subs || []
+
+    state.hide = parseVisibility( props.hide )
+    state.show = parseVisibility( props.show )
+
+    return state
 
     function parseVisibility( prop ) {
       if ( prop == 'all' )
@@ -42,11 +51,18 @@ class Base extends React.Component {
   }
 
 
-
   componentDidMount() {
     if ( this.state.path ) {
       this.state.cursor.listening = true
-      this.onCursorValue( this.state.cursor.value )
+
+      let value = this.state.cursor.value
+
+      if ( 'undefined' == typeof value && 'undefined' != typeof this.props.default ) {
+        this.state.cursor.value = this.props.default
+        value = this.state.cursor.value
+      }
+
+      this.onCursorValue( value )
     }
   }
 
@@ -136,7 +152,7 @@ class Base extends React.Component {
   // Cursor Listeners
   //
   onCursorValue( value ) {
-    console.log('onCursorValue', this.state.cursor.path, value )
+    // console.log('onCursorValue', this.state.cursor.path, value )
     this.state.value = value
     this.onValueSelf( value )
   }
