@@ -3,7 +3,7 @@
   "description": "Pretty web controls for Horten, designed for creative applications.",
   "author": "Samm Zuest Cooper <samm@sublight.ca>",
   "license": "MIT",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "./index.js",
   "babel": {
     "presets": [
