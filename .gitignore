@@ -1,5 +1,7 @@
 .AppleDouble
 .DS_Store
+webpack-analyse.json
+npm-debug.log
 node_modules/
 bower/
 dist/
