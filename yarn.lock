@@ -1453,6 +1453,12 @@ deepcolour@^1.2.0:
   dependencies:
     color-name "^1.1.1"
 
+deepcolour@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/deepcolour/-/deepcolour-1.3.0.tgz#65a5cab590f26fd3c80518a675917d09763a43a4"
+  dependencies:
+    color-name "^1.1.1"
+
 defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"

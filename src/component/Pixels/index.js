@@ -19,6 +19,7 @@ class Pixels extends Base {
     this.state.rows = rows
     this.state.cols = cols
     this.state.size = size
+    this.state.channels = props.channels || 'rgb'
     this.setPixels( props.pixels )
   }
 
@@ -29,7 +30,10 @@ class Pixels extends Base {
   }
 
   setPixels( value ) {
-    let colours = this.state.colours = string2png.channels( value || '' )
+    let colours = string2png.channels( value || '', { channels: this.state.channels, width: this.state.cols, height: this.state.rows } )
+    colours = colours.slice( 0, this.state.size )
+    this.state.colours = colours
+
     while ( colours.length < this.state.size ) {
       colours.push( new Colour() )
     }
@@ -77,6 +81,7 @@ class Pixels extends Base {
       return (
         <Pixel
           key={index}
+          channels={ self.state.channels }
           colour={ new Colour( self.state.colours && self.state.colours[index] ) }
           onUserInputColour={ ( value ) => self.onCellUserInputColour( index, value ) }
         />
@@ -86,9 +91,9 @@ class Pixels extends Base {
 
   onCellUserInputColour( index, value ) {
     const colours = this.state.colours
-    colours[index] = value
+    colours[index].set( value )
 
-    const pixels = colours.map( c => c.hex ).join(' ')
+    const pixels = colours.map( c => c.toHexChannels( this.state.channels ) ).join(' ')
     this.state.pixels = pixels
     this.onUserInput( pixels )
   }

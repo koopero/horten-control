@@ -2,14 +2,46 @@ const React = require('react')
 const VBoxSlider = require('../VBoxSlider')
 const Colour = require('deepcolour')
 
+const KEY_TO_CHANNEL = {
+  'h': 'hue',
+  's': 'saturation',
+  'v': 'value',
+  'r': 'red',
+  'g': 'green',
+  'b': 'blue',
+  'a': 'alpha',
+}
+
 class Pixel extends React.Component {
   constructor( props ) {
     super( props )
     this.state = this.state || {}
     this.state.colour = new Colour()
     this.state.colour.set( props.colour )
-    this.state.channels = [ 'red','green','blue' ]
+    this.state.channels = this.parseChannels( props.channels )
   }
+
+
+  parseChannels( channels ) {
+    if ( Array.isArray( channels ) )
+      return channels
+
+    if ( 'string' == typeof channels ) {
+      let arr = []
+      for ( let i = 0; i < channels.length; i ++ ) {
+        let c = channels[i]
+        c = c.toLowerCase()
+        c = KEY_TO_CHANNEL[c]
+        if ( c )
+          arr.push( c )
+      }
+
+      return arr
+    }
+
+    return [ 'red','green','blue' ]
+  }
+
 
   componentWillReceiveProps( newProps ) {
     if ( newProps.colour ) {

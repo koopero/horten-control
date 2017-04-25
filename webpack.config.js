@@ -23,6 +23,18 @@ module.exports = {
         loader : 'babel-loader'
       },
       {
+        test: /node_modules\/horten\/.*\.js/,
+        loader: "babel-loader",
+        options: {
+          presets: ['es2015'],
+          plugins: ['transform-runtime']
+        }
+      },
+      {
+        test: /deepcolour\/.*\.js/,
+        loader: "babel-loader"
+      },
+      {
         test : /\.json/,
         include : resolve('node_modules/entities'),
         loader: 'json-loader'
