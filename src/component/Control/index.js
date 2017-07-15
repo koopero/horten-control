@@ -3,30 +3,48 @@ module.exports = HortenControl
 
 const _ = require('lodash')
     , React = require('react')
+    , H = require('horten')
 
 function HortenControl( props ) {
+  props = _.clone( props )
+  const meta = new H.Mutant( props.meta )
 
-  const meta = _.merge( {}, require('../meta.js'), props.meta )
 
   var type = props.type
-  if ( !type && meta.propToType )
-    for ( var key in meta.propToType )
-      if ( typeof props[ key ] != 'undefined' ) {
-        type = meta.propToType[ key ]
+
+  let propToType = meta.get('propToType')
+  if ( !type && propToType )
+    for ( var key in propToType )
+      if ( key in props ) {
+        type = propToType[ key ]
         break
       }
 
   type = type || 'group'
 
-  if ( !meta.type[ type ] )
+
+  props.type = type
+  do {
+    var lastType = props.type
+    let metaType = meta.get('type', props.type )
+    console.log('metaType', metaType )
+    _.defaults( props, metaType )
+    _.merge( props, _.pick( metaType, ['type'] ) )
+
+  } while( props.type != lastType )
+
+  props.meta = meta.get()
+
+  console.log('props',props)
+  let _class = props._class
+
+  if ( !_class )
     return (
-      <div className="horten error">Type { type } not found.</div>
+      <div className="horten error">No class found for type { type }!</div>
     )
 
-  const Type = meta.type[ type ]
-
   return (
-    <Type
+    <_class
       {...props}
     />
   )

@@ -13,7 +13,7 @@ class Page extends React.Component {
   constructor( props ) {
     super( props )
     this.state = this.state || {}
-    _.merge( this.state, this.props, __HortenPage )
+    _.merge( this.state, { meta: require('../meta.js') }, this.props, __HortenPage )
   }
 
   render() {
@@ -26,7 +26,7 @@ class Page extends React.Component {
         </aside>
 
         <section>
-          <Control {...this.state.content } meta={ this.props.meta }/>
+          <Control {...this.state.content } meta={ this.state.meta }/>
         </section>
 
       </div>
