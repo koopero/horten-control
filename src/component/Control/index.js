@@ -9,7 +9,6 @@ function HortenControl( props ) {
   props = _.clone( props )
   const meta = new H.Mutant( props.meta )
 
-
   var type = props.type
 
   let propToType = meta.get('propToType')
@@ -27,7 +26,6 @@ function HortenControl( props ) {
   do {
     var lastType = props.type
     let metaType = meta.get('type', props.type )
-    console.log('metaType', metaType )
     _.defaults( props, metaType )
     _.merge( props, _.pick( metaType, ['type'] ) )
 
@@ -35,7 +33,6 @@ function HortenControl( props ) {
 
   props.meta = meta.get()
 
-  console.log('props',props)
   let _class = props._class
 
   if ( !_class )
