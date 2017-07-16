@@ -1,8 +1,39 @@
-const React = require('react')
+'use strict'
 
-const yaml = require('js-yaml')
-module.exports = ( props ) => {
-  return (
-    <pre>{ 'undefined' == typeof props.data ? 'undefined' : yaml.dump( props.data ) }</pre>
-  )
+import Textarea from 'react-textarea-autosize'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { ocean } from 'react-syntax-highlighter/dist/styles'
+
+const React = require('react')
+    , Base = require('../Base')
+    , jsYaml = require('js-yaml')
+    , safeDump = ( v ) => 'undefined' == typeof v ? '# undefined' : jsYaml.safeDump( v )
+
+require('./index.less')
+
+class YAML extends Base {
+  constructor( props ) {
+    super( props )
+    this.state.cursor.delay = 50
+    this.state.type = 'text'
+    this.state = this.state || {}
+    this.state.value = this.state.cursor.value
+  }
+
+  renderSelf() {
+    let size = parseInt( this.props.size ) || 24
+
+    return (
+      <span className='horten source yaml'>
+        <SyntaxHighlighter language={"yaml"} style={ ocean }>{ safeDump ( this.state.value ) }</SyntaxHighlighter>
+      </span>
+    )
+  }
+
+  onValueSelf( value ) {
+    if ( !this.state.selected )
+      this.setState( Object.assign( {}, this.state, { value: value } ) )
+  }
 }
+
+module.exports = YAML

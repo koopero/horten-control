@@ -46,6 +46,9 @@ module.exports = {
     },
     text: {
       _class: require('./Text')
+    },
+    yaml: {
+      _class: require('./YAML')
     }
   }
 }

@@ -110,6 +110,8 @@ can both read and write these values using the `text` control below:
 ``` control
 path: /pixels
 type: text
+sub:
+  channels: hsv
 default: '#0000dd #dd00dd'
 ```
 
