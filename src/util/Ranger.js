@@ -3,7 +3,7 @@ var DEFAULTS = {
   max: 1,
   pow: 1,
   sign: 0,
-  digits: 0,
+  digits: 3,
   metric: 0,
   precision: 0
 }
