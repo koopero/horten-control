@@ -1,9 +1,11 @@
 'use strict'
 module.exports = HortenControl
+require('./index.less')
 
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
+
 
 function HortenControl( props ) {
   props = _.clone( props )

@@ -106,6 +106,9 @@ class Base extends React.Component {
 
   renderSubs() {
     var path = this.state.path
+      , copy = {
+        meta: this.props.meta
+      }
 
     return (
       <ul className='subs'>
@@ -113,7 +116,7 @@ class Base extends React.Component {
       </ul>
     )
     function Sub( props, index, collection ) {
-      props = Object.assign( {}, props, { pathPrefix: path } )
+      props = Object.assign( {}, props, copy, { pathPrefix: path } )
 
       if ( !props.path && !Array.isArray( collection ) )
         props.path = H.path.resolve( path, index )
