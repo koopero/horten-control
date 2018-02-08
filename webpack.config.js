@@ -26,7 +26,7 @@ module.exports = {
         test: /node_modules\/horten\/.*\.js/,
         loader: "babel-loader",
         options: {
-          presets: ['es2015'],
+          presets: ['env'],
           plugins: ['transform-runtime']
         }
       },
