@@ -5,8 +5,6 @@ const _ = require('lodash')
     , Control = require('../Control')
 
 require('./index.less')
-require('../../style/index.less')
-
 
 class Page extends React.Component {
 

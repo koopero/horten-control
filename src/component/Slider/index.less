@@ -1,50 +1,46 @@
-@import "../../style/variables.less";
+@require "../../style/variables.less";
+@import "./range.less";
+
+@button-height: 32px;
 
 
 @control-slider-detail-width: 128px;
-@slider-thumb-width: 128px;
+@slider-thumb-width: 64px;
 @slider-detail-width-small: 80px;
 @control-path-width: 128px;
 
-
+@marker-height: 12px;
+@number-hue: 230;
+@marker-color: hsla( @number-hue, 20%, 40%, 60% );
+@gutter: 12px;
 
 .horten .slider {
-  .fullWidth();
   position: relative;
-
   height: @button-height + @marker-height+ @gutter;
 
-  margin-bottom: 1em;
+  margin-bottom: 2.5em;
+  max-width: 540px;
+  width: 100%;
+  margin-right: 60px;
 
   .major {
     position: relative;
-
+    margin-top: 0.5em;
     display: block;
-    padding-right: @control-slider-detail-width;
+    // padding-right: @control-slider-detail-width;
     box-sizing: content-box;
   }
 
-  .minor {
-    position: absolute;
-    width: @control-slider-detail-width;
-    padding-left: @gutter;
-    box-sizing: border-box;
-    right: 0;
-    top: 0;
-    height: @button-height;
-
-    input {
-      width: 100%;
-      height: 100%;
-      text-align: center;
-    }
+  .secondary {
+    width: 6em;
+    text-align: center;
   }
 
   .markers-wrap {
     position: absolute;
     top: @button-height;
     left: 0;
-    right: @control-slider-detail-width ;
+    right: 0;
     z-index: 90;
     height: @marker-height;
     overflow: hidden;
@@ -52,7 +48,7 @@
   }
 
   .markers {
-    position: absolute;;
+    position: absolute;
     top: 0;
     left: 0;
     right: @slider-thumb-width;
@@ -82,22 +78,3 @@
 
 
 
-@media screen and (max-width: 720px) {
-  .horten .slider {
-    .markers {
-      display: none;
-    }
-
-    .major {
-      padding-right: @slider-detail-width-small;
-    }
-
-    .minor {
-      width: @slider-detail-width-small;
-      padding-left: 4px;
-      input {
-        font-size: 80%;
-      }
-    }
-  }
-}

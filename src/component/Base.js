@@ -22,7 +22,7 @@ class Base extends React.Component {
     state.type = props.type || 'base'
     state.path = props.path && H.path.string( props.path )
     state.cursor = new H.Cursor()
-    state.cursor.delay = 50
+    state.cursor.delay = 20
     state.cursor.echo = false
     state.cursor.path = state.path
     state.cursor.on('value', this.onCursorValue.bind( this ) )
@@ -93,10 +93,18 @@ class Base extends React.Component {
           <span className='title'>{ this.props.title || '' }</span>
           : undefined
         }
+
+        { this.isChildVisible( 'short' ) ?
+          this.renderShort()
+          : undefined
+        }
+
         { this.isChildVisible( 'description' ) && this.props.description  ?
           <span className='description'>{ this.props.description || '' }</span>
           : undefined
         }
+
+
       </header>
     )
   }
@@ -104,28 +112,33 @@ class Base extends React.Component {
   renderSelf() {
   }
 
+  renderShort() {
+
+  }
+
   renderSubs() {
     var path = this.state.path
+      , template = this.props.sub
       , copy = {
         meta: this.props.meta
       }
 
     return (
-      <ul className='subs'>
+      <div className='subs'>
         { _.map( this.state.subs, Sub ) }
-      </ul>
+      </div>
     )
     function Sub( props, index, collection ) {
-      props = Object.assign( {}, props, copy, { pathPrefix: path } )
+      props = Object.assign( {}, template, props, copy, { pathPrefix: path } )
 
       if ( !props.path && !Array.isArray( collection ) )
         props.path = H.path.resolve( path, index )
       else if ( !props.path )
         props.path = path
 
-      return (<li className='sub' key={index}>
+      return (<span className='sub' key={index}>
         <Control {...props}/>
-      </li>)
+      </span>)
     }
   }
 

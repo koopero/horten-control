@@ -1,8 +1,8 @@
-@import "_var.less";
-@import "button.less";
+// @import "_var.less";
+@import "../../style/button.less";
 
 @track-color: rgba(0,0,0,20%);
-@thumb-color: #e00;
+@thumb-color: #ddd;
 
 @thumb-radius: 16px;
 @thumb-width: @slider-thumb-width;
@@ -47,7 +47,7 @@ input[type=range] {
   margin: (@button-height / 2 - @track-height / 2) 0;
   width: @track-width;
   background: none;
-
+  box-shadow: none;
 
   &:focus {
     outline: none;
@@ -75,6 +75,8 @@ input[type=range] {
     // .shadow(@track-shadow-size,@track-shadow-blur,@track-shadow-color);
     background: @track-color;
     border-radius: @track-radius;
+    border: none;
+    box-shadow: none;
   }
   &::-moz-range-thumb {
      .thumb();

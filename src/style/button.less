@@ -1,0 +1,57 @@
+@import "./variables.less";
+
+.button() {
+  min-height: @button-height;
+  border: 1px solid white;
+  font-family: @font-family-mono;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: @button-height / 3;
+  border-style: none;
+  outline: none;
+  padding: 0 1em;
+
+  background: @button-bg;
+
+
+  box-shadow:
+    // inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
+    0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha),
+
+  ;
+
+  &.unselected {
+    // background: hsla( @button-hue, @button-sat, 25%, 75% );
+    // color: hsla( 0, 0, 85%, 100% );
+  }
+
+  &.selected {
+    background: @button-selected-bg;
+    color: @button-selected-colour;
+  }
+
+  &.down {
+    background: @button-focus-bg;
+    color: @button-focus-colour;
+  }
+}
+
+
+// .horten button {
+
+
+//   pre {
+//     margin: 0.5em 0;
+//   }
+
+
+// }
+
+
+
+
+
+// .horten button, .horten .button {
+//   .button();
+
+// }

@@ -14,6 +14,9 @@ module.exports = {
     markdown: {
       _class: require('./Markdown')
     },
+    map: {
+      _class: require('./Map')
+    },
     float: {
       type: 'slider'
     },

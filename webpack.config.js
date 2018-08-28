@@ -1,21 +1,42 @@
 const resolve = require('path').resolve.bind( null, __dirname )
-    , GoogleFontsPlugin = require("google-fonts-webpack-plugin")
-    , CopyWebpackPlugin = require('copy-webpack-plugin')
+const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const ExtractTextPlugin = require("extract-text-webpack-plugin")
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
+
+// const extractLess = new ExtractTextPlugin({
+//     filename: "[name].[contenthash].css",
+//     allChunks: true,
+//     disable: process.env.NODE_ENV === "development"
+// });
+
 module.exports = {
-  entry: './src/entry/bootstrap.js',
+  devtool: 'source-map',
+  entry: ['./src/entry/bootstrap.js','./src/style/index.less'],
   output: {
     path: resolve( 'dist/' ),
-    filename: 'bootstrap.js'
+    filename: '[name].js'
   },
   module : {
     loaders : [
+      // {
+      //   test: /\.less$/,
+      //   use: extractLess.extract({
+      //     use: [
+      //       { loader: "css-loader",options:{ sourceMap: true }},
+      //       { loader: "less-loader",options:{ sourceMap: true }}
+      //     ],
+      //     fallbackLoader: 'style-loader'
+      //   })
+      // },
       {
         test: /\.less$/,
-        loaders: [
-          "style-loader",
-          "css-loader",
-          "less-loader"
-        ]
+        use: [
+          { loader: 'style-loader' },
+          { loader: "css-loader",options:{ sourceMap: true }},
+          { loader: "less-loader",options:{ sourceMap: true }}
+        ],
       },
       {
         test : /\.jsx?/,
@@ -24,11 +45,7 @@ module.exports = {
       },
       {
         test: /node_modules\/horten\/.*\.js/,
-        loader: "babel-loader",
-        options: {
-          presets: ['es2015'],
-          plugins: ['transform-runtime']
-        }
+        loader: "babel-loader"
       },
       {
         test: /deepcolour\/.*\.js/,
@@ -46,6 +63,10 @@ module.exports = {
     ]
   },
   plugins: [
+    // extractLess,
+    new HtmlWebpackPlugin({
+      template: 'src/template/index.html'
+    }),
     new GoogleFontsPlugin({
       fonts: [
         { family: "Source Sans Pro", variants: [ '200', 'regular', '600' ] },

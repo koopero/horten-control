@@ -5,6 +5,8 @@ new H.Tracer({
   listening: true
 })
 
+require('../style/index.less')
+
 var React = require('react')
 var Page = require('../component/Page')
 

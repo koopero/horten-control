@@ -6,21 +6,25 @@ const Base = require('../Base')
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { ocean } from 'react-syntax-highlighter/dist/styles'
+import { ocean } from 'react-syntax-highlighter/styles/hljs'
 
 require('./index.less')
 
+
 export var CodeBlock = function ( props ) {
-  const source = props.literal
+  const source = props.value || ''
       , language = props.language
       , meta = ( this && this.props && this.props.meta ) || {}
+
+  console.log('CodeBlock', props )
 
   switch( language ) {
     case 'control':
       var config = safeLoad( source )
+      config.meta = H.util.compose( meta, config.meta )
       var Control = require('../Control')
       return (
-        <Control {...config} meta={ meta } />
+        <Control {...config} />
       )
     break
     default:
@@ -41,7 +45,7 @@ class OurMarkdown extends Base {
       {},
       Markdown.renderers,
       {
-        CodeBlock: CodeBlock.bind( this )
+        code: CodeBlock.bind( this )
       }
     )
   }
@@ -56,6 +60,8 @@ class OurMarkdown extends Base {
   }
 
   renderSelf() {
+    console.log('renderSelf', this.props )
+
     return (
       <Markdown
         className='inner'

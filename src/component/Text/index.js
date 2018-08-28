@@ -3,7 +3,6 @@
 const React = require('react')
     , Base = require('../Base')
 
-
 require('./index.less')
 
 class Text extends Base {

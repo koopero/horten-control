@@ -1,3 +1,35 @@
+
+``` control
+type: map
+path: camera
+sub: 
+  type: yaml
+```
+
+``` control
+path: camera
+meta:
+  type:
+    angle:
+      default: 0
+      type: slider
+      min: -180
+      max: 180
+      markers: [ -180, -90, -45, -15, 0, 15, 45, 90, 180 ]
+      unit: °
+
+subs:
+  yaw:
+    type: angle
+    description: Steer the ship, ye swabbies!
+  pitch:
+    type: angle
+  roll:
+    type: angle
+    min: -90
+    max: 90
+```
+
 # Controls
 
 ## Text
@@ -9,6 +41,7 @@ default: Welcome to the demo!
 
 
 ## Slider
+
 ``` control
 path: camera/yaw/
 default: 0
@@ -18,16 +51,6 @@ max: 180
 markers: [ -180, -90, -45, -15, 0, 15, 45, 90, 180 ]
 unit: °
 ```
-``` yaml
-path: camera/yaw/
-default: 0
-type: slider
-min: -180
-max: 180
-markers: [ -180, -90, -45, -15, 0, 15, 45, 90, 180 ]
-unit: °
-```
-
 ``` control
 path: camera/zoom
 type: slider
@@ -59,6 +82,7 @@ description: Centre the camera.
 trigger:
   yaw: 0
   zoom: 50
+  flash: true
 ```
 Now, the source code...
 ``` yaml
@@ -98,8 +122,8 @@ title: Background
 type: pixels
 channels: rgba
 format: hex
-cols: 2
-rows: 1
+width: 2
+height: 1
 clear: both
 hide: all
 ```
@@ -110,6 +134,7 @@ can both read and write these values using the `text` control below:
 ``` control
 path: /pixels
 type: text
+
 sub:
   channels: hsv
 default: '#0000dd #dd00dd'

@@ -46,7 +46,7 @@ class Options extends Base {
     var options = this.props.options
 
     return (
-      <ul className='options'>{ this.state.titles.map( Option ) }</ul>
+      <div className='options'>{ this.state.titles.map( Option ) }</div>
     )
 
     function Option( title, index ) {

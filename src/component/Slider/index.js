@@ -1,7 +1,7 @@
 'use strict'
 
 const React = require('react')
-
+const _ = require('lodash')
 const Base = require('../Base')
 
 const floatToStr = require('../../util/floatToStr')
@@ -22,6 +22,7 @@ class Slider extends Base {
   renderSelf() {
     return (
       <span className='slider'>
+
         <span className='major'>
           <input
             type="range"
@@ -33,21 +34,23 @@ class Slider extends Base {
             onChange={ this.onInputChange.bind( this ) }
           />
           { this.renderMarkers() }
-
         </span>
+      </span>
+    )
+  }
 
-        <span className='minor'>
-          <input
-            className='button secondary'
-            type="text"
-            defaultValue={ this.valuePretty() }
-            ref={(node) => this.inputText = node }
-            onFocus={ this.onTextFocus.bind( this ) }
-            onBlur={ this.onTextBlur.bind( this ) }
-            onChange={ this.onTextChange.bind( this ) }
-          />
-        </span>
-
+  renderShort() {
+    return (
+      <span className='short'>
+        <input
+          className='button secondary'
+          type="text"
+          defaultValue={ this.valuePretty() }
+          ref={(node) => this.inputText = node }
+          onFocus={ this.onTextFocus.bind( this ) }
+          onBlur={ this.onTextBlur.bind( this ) }
+          onChange={ this.onTextChange.bind( this ) }
+        />
       </span>
     )
   }
@@ -62,30 +65,42 @@ class Slider extends Base {
 
 
   onTextFocus( event ) {
+    if ( this.inputChangingType )
+      return 
+    console.log('onTextFocus')
     var input = this.inputText
+    this.inputChangingType = true
     input.type = 'number'
     input.value = this.state.value
     input.select()
     this.state.textSelected = true
+    setTimeout( () => this.inputChangingType = false,100 )
   }
 
   onTextBlur( event ) {
+    if ( this.inputChangingType )
+      return 
+
+    console.log('onTextBlur')
+
+    this.inputChangingType = true
     var input = this.inputText
     input.type = 'text'
     input.value = this.valuePretty()
-
     this.state.textSelected = false
+    setTimeout( () => this.inputChangingType = false,100 )
   }
 
   renderMarkers() {
     var self = this
         , ranger = self.ranger
+
     var markers = this.props.markers
 
     return (
       <span className='markers-wrap'>
         <span className='markers'>
-          { markers.map( renderMarker ) }
+          { _.map( markers, renderMarker ) }
         </span>
       </span>
     )
@@ -127,8 +142,12 @@ class Slider extends Base {
     this.state.value = value
 
     this.inputRange.value = this.ranger.toUnit( value )
-    if ( !this.state.textSelected )
-      this.inputText.value = this.valuePretty()
+    if ( !this.state.textSelected ) {
+      if ( this.inputText.type == 'number' )
+      this.inputText.value = value
+      else
+        this.inputText.value = this.valuePretty()
+    }
 
     this.onUserInput( this.state.value )
   }
@@ -141,12 +160,12 @@ class Slider extends Base {
   }
 }
 
-Slider.propTypes = {
-  min: React.PropTypes.number,
-  max: React.PropTypes.number,
-  pow: React.PropTypes.number,
-  markers: React.PropTypes.array
-}
+// Slider.propTypes = {
+//   min: React.PropTypes.number,
+//   max: React.PropTypes.number,
+//   pow: React.PropTypes.number,
+//   markers: React.PropTypes.array
+// }
 
 Slider.defaultProps = {
   min: 0,

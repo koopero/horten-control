@@ -2,7 +2,7 @@
 
 import Textarea from 'react-textarea-autosize'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { ocean } from 'react-syntax-highlighter/dist/styles'
+import { ocean } from 'react-syntax-highlighter/styles/hljs'
 
 const React = require('react')
     , Base = require('../Base')
@@ -24,7 +24,7 @@ class YAML extends Base {
     let size = parseInt( this.props.size ) || 24
 
     return (
-      <span className='horten source yaml'>
+      <span className='horten'>
         <SyntaxHighlighter language={"yaml"} style={ ocean }>{ safeDump ( this.state.value ) }</SyntaxHighlighter>
       </span>
     )

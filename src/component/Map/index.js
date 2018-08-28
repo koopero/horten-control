@@ -11,45 +11,29 @@ class Map extends Base {
     this.state.type = 'grid'
   }
 
+  propsToState( props ) {
+    let state = super.propsToState( props )
+    state.cursor.on('keys', this.onCursorKeys.bind( this ) )
+    state.subs = {}
+    state.cursor.mutant.keys().map( key => {
+      state.subs[key] = {}
+    })
+    return state
+  }
+
+  onCursorKeys( keys ) {
+    let subs = {}
+    keys.map( key => {
+      subs[key] = {}
+    })
+    this.setState( Object.assign( {}, this.state, { keys, subs } ) )
+  }
+
   renderSelf() {
-    const self = this
-        , w = Math.max( 0, parseInt( this.props.cols ) ) || 1
-        , h = Math.max( 0, parseInt( this.props.rows ) ) || 1
-        , rows = _.range( h )
-        , cols = _.range( w )
-
-    return (
-      <table><tbody>
-        { _.map( rows, renderRow ) }
-      </tbody></table>
-    )
-
-    function renderRow( y ) {
-      return (
-        <tr key={ y } >
-          { _.map( cols, renderCell ) }
-        </tr>
-      )
-
-      function renderCell( x ) {
-        const ind = w * y + x
-            , cellPath = '/'+y+'/'+x
-            , path = H.path.resolve( self.state.path, cellPath )
-            , props = _.extend(
-              { type: 'trigger', path: path, hide: 'all' },
-              { toggle: true },
-              // { title: cellPath }
-            )
-
-        return (
-          <td key={ ind }>
-            <Trigger {...props }/>
-          </td>
-        )
-      }
-
-    }
+    const cursor = this.state.cursor 
+    let keys = this.state.keys || []
+    return "HELLO "+JSON.stringify( this.state.subs )
   }
 }
 
-module.exports = Grid
+module.exports = Map
