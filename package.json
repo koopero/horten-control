@@ -24,19 +24,15 @@
     ]
   },
   "dependencies": {
-    "babel-loader": "^7.1.2",
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
     "browser-request": "^0.3.3",
     "css-loader": "^0.28.7",
     "deep-equal": "^1.0.1",
     "deepcolour": "^1.3.0",
-    "extract-text-webpack-plugin": "^3.0.2",
     "fetch": "^1.1.0",
-    "file-loader": "^0.11.1",
-    "google-fonts-webpack-plugin": "^0.4.4",
     "highlight.js": "^9.5.0",
-    "horten": "^0.8.3",
+    "horten": "^0.9.0",
     "inherits": "^2.0.1",
     "js-yaml": "^3.10.0",
     "less": "^2.7.2",
@@ -52,10 +48,10 @@
     "request-promise": "^4.2.2",
     "string2png": "^0.5.3",
     "style-loader": "^0.16.1",
-    "url-loader": "^0.5.8",
-    "webpack-dev-server": "^2.8.2"
+    "url-loader": "^0.5.8"
   },
   "devDependencies": {
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.0.2",
@@ -63,8 +59,12 @@
     "chai": "^3.5.0",
     "copy-webpack-plugin": "^4.0.1",
     "del": "^1.1.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^0.11.1",
+    "google-fonts-webpack-plugin": "^0.4.4",
     "html-webpack-plugin": "^2.30.1",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.8.2"
   },
   "engines": {
     "node": ">=6.9.1"

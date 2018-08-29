@@ -4,6 +4,8 @@ var React = require('react')
 
 var H = require('horten')
 
+require('./index.less')
+
 class Path extends React.Component {
   constructor( props ) {
     super( props )

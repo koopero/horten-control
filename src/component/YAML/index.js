@@ -15,7 +15,7 @@ class YAML extends Base {
   constructor( props ) {
     super( props )
     this.state.cursor.delay = 50
-    this.state.type = 'text'
+    this.state.type = 'yaml'
     this.state = this.state || {}
     this.state.value = this.state.cursor.value
   }
@@ -24,7 +24,7 @@ class YAML extends Base {
     let size = parseInt( this.props.size ) || 24
 
     return (
-      <span className='horten'>
+      <span className='horten display'>
         <SyntaxHighlighter language={"yaml"} style={ ocean }>{ safeDump ( this.state.value ) }</SyntaxHighlighter>
       </span>
     )

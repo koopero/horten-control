@@ -5,6 +5,7 @@ const _ = require('lodash')
     , H = require('horten')
     , Base = require('../Base')
     , YAML = require('./YAML')
+    , deepequal = require('deep-equal')
 
 function now() { return new Date().getTime() }
 
@@ -93,7 +94,7 @@ class Trigger extends Base {
     var selected
 
     if ( !_.isUndefined( ourValue ) ) {
-      selected = ourValue == value
+      selected = deepequal( ourValue, value )
     } else {
       selected = !!value
     }

@@ -29,11 +29,11 @@ class Map extends Base {
     this.setState( Object.assign( {}, this.state, { keys, subs } ) )
   }
 
-  renderSelf() {
-    const cursor = this.state.cursor 
-    let keys = this.state.keys || []
-    return "HELLO "+JSON.stringify( this.state.subs )
-  }
+  // renderSelf() {
+  //   const cursor = this.state.cursor 
+  //   let keys = this.state.keys || []
+  //   return "HELLO "+JSON.stringify( this.state.subs )
+  // }
 }
 
 module.exports = Map

@@ -1,10 +1,11 @@
-@import "_var.less";
+@import "../../style/variables.less";
 
 
 .path {
   display: inline-block;
   color: @path-colour;
   font-family: @font-family-mono;
+  font-size: @font-size-mono;
   margin-bottom: @gutter / 4;
   font-weight: lighter;
   margin-right: 1em;
@@ -15,7 +16,7 @@
   }
 
   .delim {
-    color: fadeout(@path-colour, @delim-fadeout);
+    color: fadeout(@path-colour, @path-delim-fadeout);
     display: inline-block;
     width: 1em;
     text-align: center;

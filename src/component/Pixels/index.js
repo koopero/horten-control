@@ -1,12 +1,15 @@
 'use strict'
 
+require('./index.less')
+
+
 const _ = require('lodash')
-    , React = require('react')
-    , H = require('horten')
-    , Base = require('../Base')
-    , Pixel = require('../Pixel')
-    , Colour = require('deepcolour')
-    , string2png = require('string2png')
+const React = require('react')
+const H = require('horten')
+const Base = require('../Base')
+const Pixel = require('../Pixel')
+const Colour = require('deepcolour')
+const Background = require('./PixelsBG.js')
 
 class Pixels extends Base {
   constructor( props ) {
@@ -19,7 +22,7 @@ class Pixels extends Base {
     this.state.rows = rows
     this.state.cols = cols
     this.state.size = size
-    this.state.channels = props.channels || 'rgb'
+    this.state.channels = props.channels || 'rgbhsva'
     this.setPixels( props.pixels )
   }
 
@@ -30,17 +33,23 @@ class Pixels extends Base {
   }
 
   setPixels( value ) {
-    let colours = string2png.channels( value || '', { channels: this.state.channels, width: this.state.cols, height: this.state.rows } )
-    colours = colours.slice( 0, this.state.size )
-    this.state.colours = colours
+    // let colours = string2png.channels( value || '', { channels: this.state.channels, width: this.state.cols, height: this.state.rows } )
+    // colours = colours.slice( 0, this.state.size )
+    // this.state.colours = colours
 
-    while ( colours.length < this.state.size ) {
-      colours.push( new Colour() )
-    }
+    // while ( colours.length < this.state.size ) {
+    //   colours.push( new Colour() )
+    // }
     this.forceUpdate()
   }
 
   renderSelf() {
+    return (
+      <Background/>
+    )
+  }
+
+  renderGrid() {
     const self = this
     const rows = this.state.rows
     let size = this.state.size
@@ -78,6 +87,11 @@ class Pixels extends Base {
     }
 
     function renderCell( index ) {
+      return (
+        <button
+          className='seethru'
+        />
+      )
       return (
         <Pixel
           key={index}

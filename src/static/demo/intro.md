@@ -1,3 +1,29 @@
+## Pixels
+``` control
+path: /pixels
+title: Background
+type: pixels
+channels: rgbhsva
+format: hex
+cols: 8
+rows: 3
+clear: both
+hide: all
+```
+
+The `pixels` control outputs a string of colour codes in roughly CSS format. We
+can both read and write these values using the `text` control below:
+
+``` control
+path: /pixels
+type: text
+
+sub:
+  channels: hsv
+default: '#0000dd #dd00dd'
+```
+
+
 
 ``` control
 type: map
@@ -115,30 +141,6 @@ options:
   - 250
 ```
 
-## Pixels
-``` control
-path: /pixels
-title: Background
-type: pixels
-channels: rgba
-format: hex
-width: 2
-height: 1
-clear: both
-hide: all
-```
-
-The `pixels` control outputs a string of colour codes in roughly CSS format. We
-can both read and write these values using the `text` control below:
-
-``` control
-path: /pixels
-type: text
-
-sub:
-  channels: hsv
-default: '#0000dd #dd00dd'
-```
 
 
 ## Colour

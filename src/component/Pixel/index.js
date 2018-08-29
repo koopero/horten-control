@@ -2,6 +2,7 @@ const React = require('react')
 const VBoxSlider = require('../VBoxSlider')
 const Colour = require('deepcolour')
 
+
 const KEY_TO_CHANNEL = {
   'h': 'hue',
   's': 'saturation',

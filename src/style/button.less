@@ -21,8 +21,8 @@
   ;
 
   &.unselected {
-    // background: hsla( @button-hue, @button-sat, 25%, 75% );
-    // color: hsla( 0, 0, 85%, 100% );
+    background: @button-unselected-bg;
+    color: @button-unselected-colour;
   }
 
   &.selected {
@@ -32,6 +32,11 @@
 
   &.down {
     background: @button-focus-bg;
+    color: @button-focus-colour;
+  }
+
+  &.seethru {
+    background: transparent;
     color: @button-focus-colour;
   }
 }
