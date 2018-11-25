@@ -59,8 +59,25 @@
 
   .pixels-bg {
     display: block;
-    width: 320px;
-    height: 320px;
     image-rendering: crisp-edges;
   }
+}
+
+.horten .overlays {
+  position: relative;
+  & > div:not(:last-child) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  :last-child {
+    position: relative;
+    z-index: 99;
+  }
+}
+
+.fingersize {
+  width: 32px;
+  height: 32px;
 }

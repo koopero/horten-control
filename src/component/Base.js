@@ -22,7 +22,7 @@ class Base extends React.Component {
     state.type = props.type || 'base'
     state.path = props.path && H.path.string( props.path )
     state.cursor = new H.Cursor()
-    state.cursor.delay = 20
+    state.cursor.delay = 0
     state.cursor.echo = false
     state.cursor.path = state.path
     state.cursor.on('value', this.onCursorValue.bind( this ) )

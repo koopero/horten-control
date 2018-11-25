@@ -35,7 +35,7 @@ module.exports = function PixelsBG( {
       backgroundImage: result
     }
 
-    return <span className="pixels-bg" style={style}/>
+    return <div className="pixels-bg" style={style}/>
   }
 
   function renderAsImg() {

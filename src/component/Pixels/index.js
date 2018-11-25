@@ -11,6 +11,18 @@ const Pixel = require('../Pixel')
 const Colour = require('deepcolour')
 const Background = require('./PixelsBG.js')
 
+
+class Selector extends React.Component {
+  render() {
+    return (
+      <button
+        className='seethru fingersize'
+      />
+    )
+  }
+}
+
+
 class Pixels extends Base {
   constructor( props ) {
     super( props )
@@ -44,8 +56,14 @@ class Pixels extends Base {
   }
 
   renderSelf() {
+
+    const grid = this.renderGrid()
+    
     return (
-      <Background/>
+      <div className='overlays'>
+        <Background/>
+        { grid }
+      </div>
     )
   }
 
@@ -87,13 +105,9 @@ class Pixels extends Base {
     }
 
     function renderCell( index ) {
+
       return (
-        <button
-          className='seethru'
-        />
-      )
-      return (
-        <Pixel
+        <Selector
           key={index}
           channels={ self.state.channels }
           colour={ new Colour( self.state.colours && self.state.colours[index] ) }
