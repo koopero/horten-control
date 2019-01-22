@@ -1,10 +1,11 @@
 // @import "_var.less";
 @import "../../style/button.less";
 
-@track-color: rgba(0,0,0,20%);
-@thumb-color: #ddd;
+@track-color: rgba(0,0,0,30%);
 
-@thumb-radius: 16px;
+@thumb-color: #ddd;
+@thumb-height: 24px;
+@thumb-radius: 12px;
 @thumb-width: @slider-thumb-width;
 @thumb-shadow-size: 1px;
 @thumb-shadow-blur: 1px;
@@ -13,7 +14,7 @@
 @thumb-border-color: white;
 
 @track-width: 100%;
-@track-height: @button-height / 2;
+@track-height: @thumb-height + 12;
 @track-shadow-size: 2px;
 @track-shadow-blur: 2px;
 @track-shadow-color: #222;
@@ -36,21 +37,39 @@
 }
 
 .thumb() {
-  height: @button-height;
+  height: @thumb-height;
   width: @thumb-width;
   cursor: pointer;
-  .button();
+  // .button();
+  background: transparent;
+  box-shadow: 0 1px 8px rgba(255,255,255,0.5) inset;
+  border: 1px solid #ddd;
+}
+
+.thumbFocused() {
+  cursor: crosshair;
+  // .button();
+  background: transparent;
+  box-shadow: 0 1px 12px white inset;
+  border: 1px solid white;
 }
 
 input[type=range] {
   -webkit-appearance: none;
-  margin: (@button-height / 2 - @track-height / 2) 0;
+  margin: (@thumb-height / 2 - @track-height / 2) 0;
   width: @track-width;
   background: none;
   box-shadow: none;
 
   &:focus {
     outline: none;
+    &::-webkit-slider-thumb {
+      .thumbFocused();
+    }
+
+    &::-moz-range-thumb {
+      .thumbFocused();
+    }
   }
 
   &::-webkit-slider-runnable-track {

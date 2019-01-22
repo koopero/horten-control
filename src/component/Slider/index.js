@@ -21,8 +21,7 @@ class Slider extends Base {
 
   renderSelf() {
     return (
-      <span className='slider'>
-
+      <div className='slider'>
         <span className='major'>
           <input
             type="range"
@@ -35,7 +34,8 @@ class Slider extends Base {
           />
           { this.renderMarkers() }
         </span>
-      </span>
+        <div className='clearfix'>{' '}</div>
+      </div>
     )
   }
 
@@ -43,7 +43,7 @@ class Slider extends Base {
     return (
       <span className='short'>
         <input
-          className='button secondary'
+          className='secondary'
           type="text"
           defaultValue={ this.valuePretty() }
           ref={(node) => this.inputText = node }
@@ -67,7 +67,6 @@ class Slider extends Base {
   onTextFocus( event ) {
     if ( this.inputChangingType )
       return 
-    console.log('onTextFocus')
     var input = this.inputText
     this.inputChangingType = true
     input.type = 'number'
@@ -80,8 +79,6 @@ class Slider extends Base {
   onTextBlur( event ) {
     if ( this.inputChangingType )
       return 
-
-    console.log('onTextBlur')
 
     this.inputChangingType = true
     var input = this.inputText

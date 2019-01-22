@@ -1,5 +1,6 @@
 'use strict'
 module.exports = HortenControl
+require('./index.less')
 
 
 const _ = require('lodash')
@@ -38,13 +39,10 @@ function HortenControl( props ) {
   let _class = props._class
 
   if ( !_class ) {
-    console.warn('meta dump', props.meta )
     return (
       <div className="horten error">No class found for type { type }!</div>
     )
   }
-
-  console.info('meta dump', props.path, meta.get('type/angle') )
 
   return (
     <_class

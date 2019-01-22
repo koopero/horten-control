@@ -1,26 +1,31 @@
 ## Pixels
 ``` control
 path: /pixels
-title: Background
+description: Pixel element
 type: pixels
-channels: rgbhsva
+sliders: rgbhsva
+channels: rgb
 format: hex
-cols: 8
-rows: 3
+cols: 4
+rows: 2
 clear: both
-hide: all
 ```
 
 The `pixels` control outputs a string of colour codes in roughly CSS format. We
 can both read and write these values using the `text` control below:
 
 ``` control
-path: /pixels
+path: /pixels/data
 type: text
-
+size: 60
 sub:
   channels: hsv
 default: '#0000dd #dd00dd'
+```
+
+``` control
+path: /pixels
+type: yaml
 ```
 
 
@@ -47,7 +52,6 @@ meta:
 subs:
   yaw:
     type: angle
-    description: Steer the ship, ye swabbies!
   pitch:
     type: angle
   roll:

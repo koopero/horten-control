@@ -38,11 +38,8 @@ class VBoxSlider extends React.Component {
           backgroundImage: this.renderGradient(),
           position: 'relative'
         }
-        , onMouse = this.onMouse.bind( this )
-        , onTouch = this.onTouch.bind( this )
-
-
-
+    const onMouse = this.onMouse.bind( this )
+    const onTouch = this.onTouch.bind( this )
 
     return (
       <div
@@ -66,23 +63,6 @@ class VBoxSlider extends React.Component {
     )
   }
 
-  // renderGradient() {
-  //   const steps = 13
-  //
-  //   let colour = new Colour( this.props.colour )
-  //   colour.hue = this.props.colour.hue
-  //   let channel = this.props.colourChannel
-  //   let pixels = ''
-  //
-  //   for ( let i = 0; i < steps; i ++ ) {
-  //     let y = 1-i / ( steps-1)
-  //     colour[channel] = y
-  //     pixels += colour.hex
-  //   }
-  //
-  //   return string2png.css(pixels, {width:1})
-  // }
-
   renderGradient() {
     const steps = 13
 
@@ -93,8 +73,8 @@ class VBoxSlider extends React.Component {
 
     for ( let i = 0; i < steps; i ++ ) {
       let y = i / ( steps-1)
-      colour[channel] = y
-      let r = colour.hex
+      colour.setChannelByName( channel, y )
+      let r = colour.toHexString()
       if ( y != 0 && y != 1 )
         r += ' '+Math.round(y*100)+'%'
 

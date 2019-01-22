@@ -2,6 +2,13 @@
 @import "./control.less";
 @import "./button.less";
 
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
 .horten button, .horten .button {
   .button();
 }

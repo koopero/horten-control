@@ -16,22 +16,24 @@ export var CodeBlock = function ( props ) {
       , language = props.language
       , meta = ( this && this.props && this.props.meta ) || {}
 
-  console.log('CodeBlock', props )
-
   switch( language ) {
     case 'control':
       var config = safeLoad( source )
       config.meta = H.util.compose( meta, config.meta )
       var Control = require('../Control')
       return (
-        <Control {...config} />
+        <div className='md-element'>
+          <Control {...config} />
+        </div>
       )
     break
     default:
       return (
-        <span className='horten control source'>
-          <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
-        </span>
+        <div className='md-element'>
+          <span className='horten control source'>
+            <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
+          </span>
+        </div>
       )
   }
 }

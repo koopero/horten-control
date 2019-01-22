@@ -126,6 +126,7 @@ class Base extends React.Component {
     return (
       <div className='subs'>
         { _.map( this.state.subs, Sub ) }
+        <span className='clearfix'>{ ' ' }</span>
       </div>
     )
     function Sub( props, index, collection ) {
