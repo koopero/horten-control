@@ -14,11 +14,17 @@
 @marker-color: hsla( @number-hue, 20%, 40%, 60% );
 @gutter: 12px;
 
+.mediumBorder() {
+  border: 1px solid #456;
+  border-radius: 4px;
+}
+
+
 .horten .slider {
   position: relative;
   // height: @button-height + @marker-height+ @gutter;
-  min-width: 540px;
-  max-width: 800px;
+  // min-width: 540px;
+  // max-width: 800px;
   width: 100%;
 
   .major {
@@ -34,8 +40,8 @@
     width: 8em;
     text-align: center;
     background: transparent;
-    color: white;
-    border: 1px solid red;
+    color: #89a;
+    .mediumBorder();
   }
 
   .markers-wrap {
@@ -43,7 +49,7 @@
     top: @button-height;
     left: 0;
     right: 0;
-    top: 6px;
+    top: 8px;
     z-index: -90;
     height: @marker-height;
     overflow: hidden;

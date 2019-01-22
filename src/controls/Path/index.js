@@ -21,9 +21,9 @@ class Path extends React.Component {
       , first = true
 
     return (
-      <a className='path' id={string}>
+      <span className='path' id={string}>
         { segs }
-      </a>
+      </span>
     )
 
     function segment( seg, id, arr ) {

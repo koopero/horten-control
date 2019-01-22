@@ -8,7 +8,7 @@ new H.Tracer({
 require('../style/index.less')
 
 var React = require('react')
-var Page = require('../component/Page')
+var Page = require('../controls/Page')
 
 var ReactDOM = require('react-dom')
 
