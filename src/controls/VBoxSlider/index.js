@@ -73,7 +73,7 @@ class VBoxSlider extends React.Component {
 
     for ( let i = 0; i < steps; i ++ ) {
       let y = i / ( steps-1)
-      colour.setChannelByName( channel, y )
+      colour.setChannel( channel, y )
       let r = colour.toHexString()
       if ( y != 0 && y != 1 )
         r += ' '+Math.round(y*100)+'%'

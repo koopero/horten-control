@@ -3,7 +3,7 @@
 const _ = require('lodash')
     , React = require('react')
     , Base = require('../Base')
-    , Trigger = require('../Trigger')
+    , Trigger = require('../../components/Trigger')
 
 class Grid extends Base {
   constructor( props ) {

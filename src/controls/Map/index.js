@@ -3,7 +3,6 @@
 const _ = require('lodash')
     , React = require('react')
     , Base = require('../Base')
-    , Trigger = require('../Trigger')
 
 class Map extends Base {
   constructor( props ) {

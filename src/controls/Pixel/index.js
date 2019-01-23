@@ -76,7 +76,7 @@ class Pixel extends React.Component {
 
   onInputChannel( channel, value ) {
     const colour = this.state.colour
-    colour.setChannelByName( channel, value )
+    colour.setChannel( channel, value )
 
     this.setState( this.state )
     if ( this.props.onUserInputColour )

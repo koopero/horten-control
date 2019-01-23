@@ -28,7 +28,6 @@ class Base extends React.Component {
     state.cursor.on('value', this.onCursorValue.bind( this ) )
     state.value = state.cursor.get()
     state.subs = props.subs || []
-
     state.hide = parseVisibility( props.hide )
     state.show = parseVisibility( props.show )
 
@@ -150,6 +149,11 @@ class Base extends React.Component {
     if ( this.state.hide == 'all' ) {
       return this.state.show.indexOf( name ) != -1
     }
+
+    if ( Array.isArray( this.state.hide ) )
+      if ( this.state.hide.includes( name ) )
+        return false 
+
     return true
   }
 

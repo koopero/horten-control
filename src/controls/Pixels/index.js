@@ -5,20 +5,27 @@ require('./index.less')
 
 const _ = require('lodash')
 const React = require('react')
-const H = require('horten')
 const Base = require('../Base')
-const Pixel = require('../Pixel')
 const Colour = require('deepcolour')
-const Background = require('./PixelsBG.js')
 const VBoxSlider = require('../VBoxSlider')
 const string2png = require('string2png')
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSlash, faEyeDropper, faPaintBrush, faMousePointer, faDrum } from '@fortawesome/free-solid-svg-icons'
+
+const MODE_TO_ICON = {
+  'none': faSlash,
+  'dropper': faEyeDropper,
+  'paint': faPaintBrush,
+  'select': faMousePointer,
+  'drum': faDrum,
+}
 
 
 class Selector extends React.Component {
   render() {
     const onMouseEvent = this.props.onMouseEvent
-    const className = ['seethru','fingersize']
+    const className = ['button', 'pixel', 'seethru', 'fingersize' ]
     const colour = new Colour( this.props.colour )
     const style = {
       backgroundColor: colour.toCSS()
@@ -28,8 +35,12 @@ class Selector extends React.Component {
       className.push('selected') 
 
     return (
-      <button
+      <div
         onMouseDown={ onMouseEvent }
+        onMouseUp={ onMouseEvent }
+        onMouseEnter={ onMouseEvent }
+        onMouseLeave={ onMouseEvent }
+
         className={className.join(' ')}
         style={style}
       />
@@ -45,6 +56,8 @@ class Pixels extends Base {
   }
 
   componentWillReceiveProps( props ) {
+    super.componentWillReceiveProps( props )
+
     let rows = parseInt( props.rows ) || 0
     let cols = parseInt( props.cols ) || 0
     let size = rows * cols
@@ -56,13 +69,20 @@ class Pixels extends Base {
     this.state.sliders = props.sliders || 'hsv rgb a'
     this.state.selected = new Array( size )
 
+    this.state.mode = props.mode || this.state.mode || 'none'
+
+    this.state.modes = [ 'none', 'select', 'dropper', 'paint', 'drum' ]
+
     if ( !this.state.colours ) {
       this.state.colours = new Array(size)
       for ( let index = 0; index < size; index ++ )
         this.state.colours[index] = new Colour()
     }
 
-    this.state.colour = new Colour()
+    if ( !this.state.colour )
+      this.state.colour = new Colour()
+
+    this.state.colour.set( props.colour )
 
     if ( props.pixels ) {
       this.setPixels( props.pixels )
@@ -85,16 +105,16 @@ class Pixels extends Base {
   renderSelf() {
 
     const grid = this.renderGrid()
-    const sliders = this.renderSliders()
-    
+    const sliders = this.isChildVisible('sliders') && this.state.mode != 'none' && this.renderSliders()
+    const modes = this.isChildVisible('modes') && this.renderModes()
+    const mode = this.state.mode
+
+    let className = `inner pixels-mode-${mode}`
     return (
-      <div className='inner'>
-        <div className='overlays'>
-          { grid }
-        </div>
-        <div className='sliders'>
-          { sliders }
-        </div>
+      <div className={className}>
+        { modes }
+        { grid }
+        { sliders }
       </div>
     )
   }
@@ -150,21 +170,66 @@ class Pixels extends Base {
     }
   }
 
+  renderModes() {
+    const { state } = this
+    let { modes } = state
+
+    modes =  modes.map( ( mode, index ) => {
+      let selected = mode == state.mode
+      let icon = MODE_TO_ICON[mode]
+      let className = 'button option icon'
+      if ( selected )
+        className += ' selected'
+
+      if ( !icon )
+        return
+
+      return <button
+        onClick={ event => this.onModeClick( mode ) }
+        className={ className }
+      >
+        <FontAwesomeIcon icon={icon} />
+      </button>
+    })
+
+    return <div className="modes toolbar">{ modes }</div>
+  }
+
+  onModeClick( mode ) {
+    this.setMode( mode )
+  }
+
+  setMode( mode ) {
+    switch( mode ) {
+      case 'none':
+      case 'dropper':
+      case 'paint':
+      case 'drum':
+        this.doDeselectAll()
+    }
+    this.setState( { mode } )
+  }
+
+
   renderSliders() {
     let { sliders } = this.state
     sliders = sliders.split('')
-    return sliders.map( channel => {
-      return channel == " " ? <span class='spacer'> </span> : <VBoxSlider 
+    sliders = sliders.map( channel => {
+      return channel == " " ? <span class='spacer'>&nbsp;</span> : <VBoxSlider 
         colour={this.state.colour}
         value={this.state.colour.getChannel( channel )}
         colourChannel={channel}
         onUserInput={ value => this.onSetColourChannel( channel, value ) }
       />
     })
+
+    return <div className='sliders'>
+      { sliders }
+    </div>
   }
 
   onSetColourChannel( channel, value ) {
-    this.state.colour.setChannelByName( channel, value )
+    this.state.colour.setChannel( channel, value )
 
     _.map( this.state.selected, ( selected, key ) => {
       if ( !selected ) return
@@ -172,7 +237,7 @@ class Pixels extends Base {
       let index = parseInt( key )
 
       this.state.colours[ index ] = this.state.colours[ index ] || new Colour()
-      this.state.colours[ index ].setChannelByName( channel, value )
+      this.state.colours[ index ].setChannel( channel, value )
     } )
 
     this.onPixelInput()
@@ -182,19 +247,116 @@ class Pixels extends Base {
   onCellMouseEvent( index, event ) {
     const { type } = event
     event = Object.assign( {}, event )
-    // console.log('onCellMouseEvent', { index, type, event  } )
+    console.log('onCellMouseEvent', { index, type, event  } )
     let action
     switch ( type ) {
       case 'mousedown':  
-        if ( event.shiftKey || event.ctrlKey ) 
-          action = 'add'
-        else
-          action = 'select'
+        this.doCellTouch( index, event.shiftKey || event.ctrlKey )
+      break
+
+      case 'mouseenter':
+        if ( event.buttons )
+          this.doCellTouch( index, event.shiftKey || event.ctrlKey )
+      break
+
+      case 'mouseleave':
+      case 'mouseup':
+        this.doCellUntouch( index )
       break
     }
+  }
 
-    if ( 'undefined' != typeof action ) 
-      this.doSelectAction( index, action )
+  doCellTouch( index, modifier ) {
+    const { state } = this 
+    const { mode } = state
+
+    switch ( mode ) {
+      case 'dropper':
+        this.doSetColourFromCell( index )
+      break
+
+      case 'select':
+        this.doSetColourFromCell( index )
+        this.doSelectSingle( index )
+      break
+
+      case 'drum':
+        this.doSaveCell( index )
+        this.doSelectSet( index )
+
+      case 'paint':
+        this.doPaintCell( index )
+      break
+    }
+  }
+
+  doCellUntouch( index ) {
+    const { state } = this 
+    const { mode } = state
+
+    switch ( mode ) {
+      case 'drum':
+        this.doRestoreCell( index )
+        this.doDeselectCell( index )
+      break
+    }
+  }
+
+  doDeselectAll() {
+    let selected = {}
+    this.setState( { selected } )
+  }
+
+  doSelectSet( index ) {
+    let selected = {}
+    selected[index] = 1
+    this.setState( { selected } )
+  }
+
+  doSaveCell( index ) {
+    const { state } = this
+    state.saved = state.saved || {}
+    if ( !state.saved[index] )
+      state.saved[index] = new Colour( state.colours[index] )
+  }
+
+  doRestoreCell( index ) {
+    const { state } = this
+
+    if ( state.saved && state.saved[index] ) {
+      state.colours[ index ] = state.saved[index]
+      state.saved[index] = null
+
+      this.onPixelInput()
+      this.forceUpdate()  
+    }
+  }
+
+
+  doSelectSingle( index ) {
+    let selected = {}
+    selected[index] = 1
+    this.setState( { selected } )
+  }
+
+  doDeselectCell( index ) {
+    let selected = Object.assign( {}, this.state.selected )
+    selected[index] = 0
+    this.setState( { selected } )
+  }
+
+  doSetColourFromCell( index ) {
+    const { state } = this 
+    let colour = new Colour( state.colours[index] )
+    this.setState( { colour } )    
+  }
+
+  doPaintCell( index ) {
+    this.state.colours[ index ] = this.state.colours[ index ] || new Colour()
+    this.state.colours[ index ].set( this.state.colour )
+
+    this.onPixelInput()
+    this.forceUpdate()    
   }
 
   doSelectAction( index, action ) {
@@ -220,7 +382,7 @@ class Pixels extends Base {
   onPixelInput() {
     const { colours, cols } = this.state
     let data = colours.map( c => c.toHexChannels( this.state.channels ) )
-    data = data.map( ( pixel, index ) => pixel + ( index % cols == cols - 1 ? '\n' : ' ' ))
+    data = data.map( ( pixel, index ) => '#' + pixel + ( index % cols == cols - 1 ? '\n' : ' ' ))
     data = data.join('')
 
     const pixels = {

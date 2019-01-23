@@ -3,12 +3,27 @@
 path: /pixels
 description: Pixel element
 type: pixels
-sliders: rgbhsva
+sliders: rgb hsv a
+colour: yellow
+channels: rgb
+format: hex
+cols: 8
+rows: 8
+clear: both
+```
+
+``` control
+path: /pixels
+description: Pixel element
+type: pixels
+sliders: rgb hsv a
+colour: yellow
 channels: rgb
 format: hex
 cols: 4
 rows: 2
-clear: both
+mode: drum
+hide: modes,sliders
 ```
 
 The `pixels` control outputs a string of colour codes in roughly CSS format. We

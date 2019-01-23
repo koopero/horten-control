@@ -27,7 +27,7 @@ module.exports = {
       _class: require('./Options')
     },
     trigger: {
-      _class: require('./Trigger')
+      _class: require('../components/Trigger')
     },
     text: {
       _class: require('./Text')

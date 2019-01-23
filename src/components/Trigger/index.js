@@ -3,7 +3,7 @@
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
-    , Base = require('../Base')
+    , Base = require('../../controls/Base')
     , YAML = require('./YAML')
     , deepequal = require('deep-equal')
 

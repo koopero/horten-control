@@ -4,7 +4,7 @@
 const React = require('react')
     , equal = require('deep-equal')
     , Base = require('../Base')
-    , Trigger = require('../Trigger')
+    , Trigger = require('../../components/Trigger')
     , H = require('horten')
 
 class Options extends Base {

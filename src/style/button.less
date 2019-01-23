@@ -3,7 +3,7 @@
 .button() {
   border: 1px solid white;
   font-family: @font-family-mono;
-  font-size: 16px;
+  font-size: 20px;
   box-sizing: border-box;
   border-radius: @button-height / 4;
   border-style: none;
@@ -11,13 +11,17 @@
   padding: 0 1em;
 
   background: @button-bg;
-
+  color: @button-unselected-colour;
 
   box-shadow:
     // inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
     0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha),
 
   ;
+
+  &.icon {
+    padding: 0 0.5em;
+  }
 
   &.unselected {
     background: @button-unselected-bg;
