@@ -1,17 +1,13 @@
 'use strict'
 
-import Textarea from 'react-textarea-autosize'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { ocean } from 'react-syntax-highlighter/styles/hljs'
 
 const React = require('react')
     , Base = require('../Base')
-    , jsYaml = require('js-yaml')
-    , safeDump = ( v ) => 'undefined' == typeof v ? '# undefined' : jsYaml.safeDump( v )
+    , YAML = require('../../components/YAML')
 
 require('./index.less')
 
-class YAML extends Base {
+class Display extends Base {
   constructor( props ) {
     super( props )
     this.state.cursor.delay = 50
@@ -25,7 +21,7 @@ class YAML extends Base {
 
     return (
       <span className='horten display'>
-        <SyntaxHighlighter language={"yaml"} style={ ocean }>{ safeDump ( this.state.value ) }</SyntaxHighlighter>
+        <YAML data={ this.state.value }/>
       </span>
     )
   }
@@ -36,4 +32,4 @@ class YAML extends Base {
   }
 }
 
-module.exports = YAML
+module.exports = Display

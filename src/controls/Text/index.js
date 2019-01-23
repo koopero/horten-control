@@ -2,7 +2,7 @@
 
 const React = require('react')
     , Base = require('../Base')
-
+import TextareaAutosize from 'react-textarea-autosize';
 require('./index.less')
 
 class Text extends Base {
@@ -17,7 +17,7 @@ class Text extends Base {
     let size = parseInt( this.props.size ) || 24
     return (
         <input
-          className='text'
+          className='button text unselected'
           type="text"
           size= { size }
           defaultValue={ this.state.value }

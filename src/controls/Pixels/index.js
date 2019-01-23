@@ -11,7 +11,7 @@ const VBoxSlider = require('../VBoxSlider')
 const string2png = require('string2png')
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlash, faEyeDropper, faPaintBrush, faMousePointer, faDrum } from '@fortawesome/free-solid-svg-icons'
+import { faSlash, faEyeDropper, faPaintBrush, faMousePointer, faDrum, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 
 const MODE_TO_ICON = {
   'none': faSlash,
@@ -19,6 +19,7 @@ const MODE_TO_ICON = {
   'paint': faPaintBrush,
   'select': faMousePointer,
   'drum': faDrum,
+  'check': faCheckSquare,
 }
 
 
@@ -31,8 +32,7 @@ class Selector extends React.Component {
       backgroundColor: colour.toCSS()
     }
 
-    if ( this.props.selected )
-      className.push('selected') 
+    className.push( this.props.selected  ? 'selected' : 'unselected') 
 
     return (
       <div
@@ -71,18 +71,20 @@ class Pixels extends Base {
 
     this.state.mode = props.mode || this.state.mode || 'none'
 
-    this.state.modes = [ 'none', 'select', 'dropper', 'paint', 'drum' ]
-
-    if ( !this.state.colours ) {
-      this.state.colours = new Array(size)
-      for ( let index = 0; index < size; index ++ )
-        this.state.colours[index] = new Colour()
-    }
+    this.state.modes = [ 'none', 'select', 'check', 'dropper', 'paint', 'drum' ]
 
     if ( !this.state.colour )
       this.state.colour = new Colour()
 
     this.state.colour.set( props.colour )
+
+    if ( !this.state.colours ) {
+      this.state.colours = new Array(size)
+      for ( let index = 0; index < size; index ++ )
+        this.state.colours[index] = new Colour( this.state.colour )
+    }
+
+
 
     if ( props.pixels ) {
       this.setPixels( props.pixels )
@@ -178,8 +180,7 @@ class Pixels extends Base {
       let selected = mode == state.mode
       let icon = MODE_TO_ICON[mode]
       let className = 'button option icon'
-      if ( selected )
-        className += ' selected'
+      className += selected ? ' selected' : ' unselected'
 
       if ( !icon )
         return
@@ -215,7 +216,7 @@ class Pixels extends Base {
     let { sliders } = this.state
     sliders = sliders.split('')
     sliders = sliders.map( channel => {
-      return channel == " " ? <span class='spacer'>&nbsp;</span> : <VBoxSlider 
+      return channel == " " ? <span className='spacer'>&nbsp;</span> : <VBoxSlider 
         colour={this.state.colour}
         value={this.state.colour.getChannel( channel )}
         colourChannel={channel}
@@ -229,15 +230,22 @@ class Pixels extends Base {
   }
 
   onSetColourChannel( channel, value ) {
-    this.state.colour.setChannel( channel, value )
+    let colour = this.state.colour
+    let orig = colour.getChannel( channel )
+    colour.setChannel( channel, value )
+    let delta = value - orig
 
     _.map( this.state.selected, ( selected, key ) => {
       if ( !selected ) return
+      if ( 'boolean' == typeof selected )
+        selected = selected ? 1 : 0
 
       let index = parseInt( key )
 
-      this.state.colours[ index ] = this.state.colours[ index ] || new Colour()
-      this.state.colours[ index ].setChannel( channel, value )
+      let colour = this.state.colours[ index ] = this.state.colours[ index ] || new Colour()
+      let orig = colour.getChannel( channel )
+
+      colour.setChannel( channel, orig + delta * selected )
     } )
 
     this.onPixelInput()
@@ -268,7 +276,10 @@ class Pixels extends Base {
 
   doCellTouch( index, modifier ) {
     const { state } = this 
-    const { mode } = state
+    let { mode } = state
+
+    if ( mode == 'select' && modifier )
+      mode = 'check'
 
     switch ( mode ) {
       case 'dropper':
@@ -278,6 +289,10 @@ class Pixels extends Base {
       case 'select':
         this.doSetColourFromCell( index )
         this.doSelectSingle( index )
+      break
+
+      case 'check':
+        this.doSelectInverse( index )
       break
 
       case 'drum':
@@ -342,6 +357,12 @@ class Pixels extends Base {
   doDeselectCell( index ) {
     let selected = Object.assign( {}, this.state.selected )
     selected[index] = 0
+    this.setState( { selected } )
+  }
+
+  doSelectInverse( index ) {
+    let selected = Object.assign( {}, this.state.selected )
+    selected[index] = !selected[index] ? 1 : 0
     this.setState( { selected } )
   }
 

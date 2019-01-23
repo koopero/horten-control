@@ -13,6 +13,17 @@ html.horten, body.horten {
 }
 
 .horten.page {
+
+  ::-moz-selection { /* Code for Firefox */
+    color: red;
+    background: yellow;
+  }
+  
+  ::selection {
+    color: red;
+    background: yellow;
+  }
+
   & > .secondary {
     background: hsl(0,0%,10%);
     margin: 0;

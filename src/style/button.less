@@ -1,23 +1,28 @@
 @import "./variables.less";
 
 .button() {
-  border: 1px solid white;
   font-family: @font-family-mono;
   font-size: 20px;
   box-sizing: border-box;
   border-radius: @button-height / 4;
-  border-style: none;
-  outline: none;
-  padding: 0 1em;
+  border: none;
+  display: inline-block;
+  padding: 0 0.25em;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
 
-  background: @button-bg;
+  box-shadow: @button-unselected-highlight, @button-unselected-shadow;
+
+  background: @button-unselected-bg;
   color: @button-unselected-colour;
 
-  box-shadow:
-    // inset @button-highlight-offset @button-highlight-offset @button-highlight-radius fadeout( white, 20% ),
-    0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha),
 
-  ;
+  pre.yaml {
+    background: transparent !important;
+    text-align: left;
+    margin: 0;
+    padding: 4px 0.4em !important;
+  }
 
   &.icon {
     padding: 0 0.5em;
@@ -26,11 +31,26 @@
   &.unselected {
     background: @button-unselected-bg;
     color: @button-unselected-colour;
+    cursor: pointer;
+    border: @button-border-width solid @button-unselected-border;
+    box-shadow: @button-unselected-highlight, @button-unselected-shadow;
+    text-shadow: @button-text-shadow;
   }
 
   &.selected {
     background: @button-selected-bg;
     color: @button-selected-colour;
+    border: @button-border-width solid @button-selected-border;
+    box-shadow: @button-selected-highlight, @button-selected-shadow;
+  }
+
+  &.seethru {
+    border: none;
+    box-shadow: @button-unselected-highlight, @button-unselected-shadow;
+  }
+
+  &.seethru.selected {
+    border: @button-border-width solid @button-selected-border;
   }
 
   &.down {

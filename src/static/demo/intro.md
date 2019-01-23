@@ -4,8 +4,8 @@ path: /pixels
 description: Pixel element
 type: pixels
 sliders: rgb hsv a
-colour: yellow
-channels: rgb
+colour: [ 0,0,0,0 ]
+channels: rgba
 format: hex
 cols: 8
 rows: 8

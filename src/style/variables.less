@@ -23,21 +23,49 @@
 @button-height: 24px;
 @button-sat: 15%;
 // @button-secondary-bg: hsla( @number-hue, 20%, 30%, 90% );
-@button-bg:#aaa;
-@button-colour: black;
-@button-unselected-bg: #777;
-@button-unselected-colour: #111;
+@button-border-width: 1px;
+
+@button-shadow-radius: 3px;
+@button-shadow-alpha: 30%;
+
+@button-glow-radius: 3px;
+@button-text-shadow: 0 1px 2px fade( black, 50% );
+
+@button-unselected-border: #ddd;
+@button-unselected-bg: transparent;
+@button-unselected-colour: #ccc;
+@button-unselected-shadow: 0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha);
+@button-unselected-highlight: inset 0 @button-shadow-radius / 2 10px rgba(0,0,0,@button-shadow-alpha);
+
 @button-selected-bg: white;
 @button-selected-colour: black;
+@button-selected-shadow: 0 0 @button-glow-radius rgba(255,255,255,@button-shadow-alpha);
+@button-selected-highlight: inset 0 @button-shadow-radius / 2 @button-shadow-radius rgba(0,0,0,@button-shadow-alpha);
+@button-selected-border: #eee;
+
+
 @button-focus-bg: white;
 @button-focus-colour: black;
-@button-background: rgba(68%,68%,68%,100%);
-
+@button-background: transparent;
 @button-highlight-offset: 2px;
-@button-highlight-radius: 8px;
+@button-highlight-radius: 32px;
 
-@button-shadow-radius: 8px;
-@button-shadow-alpha: 50%;
+// @button-bg:#aaa;
+// @button-colour: black;
+// @button-unselected-bg: #777;
+// @button-unselected-colour: #111;
+// @button-selected-bg: white;
+// @button-selected-colour: black;
+// @button-focus-bg: white;
+// @button-focus-colour: black;
+// @button-background: rgba(68%,68%,68%,100%);
+
+
+@text-bg: fade( rgb(70, 49, 61), 50% ); 
+@readout-bg: fade( rgb(40, 54, 72), 50% ); 
+@trigger-bg: fade( rgb(20, 50, 36), 50% ); 
+
+
 
 @font-family-mono: 'Source Code Pro', monospace;
 @font-size-mono: 16px;

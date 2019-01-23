@@ -3,7 +3,7 @@
 const _ = require('lodash')
     , React = require('react')
     , H = require('horten')
-    , Base = require('../../controls/Base')
+    , Base = require('../controls/Base')
     , YAML = require('./YAML')
     , deepequal = require('deep-equal')
 
@@ -15,10 +15,9 @@ class Trigger extends Base {
     this.state.type = 'trigger'
   }
 
-  renderSelf() {
+  render() {
     const title = this.props.title
         , trigger = this.props.trigger
-        , className = []
 
     var text = title
     if ( !text && !_.isUndefined( trigger ) )
@@ -27,8 +26,8 @@ class Trigger extends Base {
 
 
     return (
-      <button
-        className="unselected"
+      <span
+        className={"button unselected "+(this.props.className || '')}
         onClick={ this.onMouse.bind( this, 'click' ) }
         onMouseEnter={ this.onMouse.bind( this, 'enter' ) }
         onMouseMove={ this.onMouse.bind( this, 'move' ) }
@@ -38,7 +37,7 @@ class Trigger extends Base {
         onMouseLeave={ this.onMouse.bind( this, 'leave' ) }
 
         ref={ ( button ) => this.button = button }
-        >{ text }</button>
+        >{ text }</span>
     )
   }
 
@@ -105,8 +104,6 @@ class Trigger extends Base {
       classList.remove('selected')
     }
   }
-
-
 }
 
 module.exports = Trigger
