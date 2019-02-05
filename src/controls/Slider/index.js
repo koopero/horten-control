@@ -92,7 +92,7 @@ class Slider extends Base {
     var self = this
         , ranger = self.ranger
 
-    var markers = this.props.markers
+    var markers = this.props.markers || [ this.ranger.min, this.ranger.max ]
 
     return (
       <span className='markers-wrap'>

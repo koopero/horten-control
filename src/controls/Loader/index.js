@@ -58,6 +58,8 @@ class Loader extends React.Component {
 
   render() {
     const control = this.state.control
+
+    return <span>Loader</span>
     if ( this.state.error ) {
       return (
         <b>{ this.state.error}</b>
