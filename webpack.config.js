@@ -1,9 +1,11 @@
 const resolve = require('path').resolve.bind( null, __dirname )
-const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
+const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-// const ExtractTextPlugin = require("extract-text-webpack-plugin")
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
+
+const devMode = process.env.NODE_ENV !== 'production'
 
 // const extractLess = new ExtractTextPlugin({
 //     filename: "[name].[contenthash].css",
@@ -19,21 +21,11 @@ module.exports = {
     filename: '[name].js'
   },
   module : {
-    loaders : [
-      // {
-      //   test: /\.less$/,
-      //   use: extractLess.extract({
-      //     use: [
-      //       { loader: "css-loader",options:{ sourceMap: true }},
-      //       { loader: "less-loader",options:{ sourceMap: true }}
-      //     ],
-      //     fallbackLoader: 'style-loader'
-      //   })
-      // },
+    rules : [
       {
         test: /\.less$/,
         use: [
-          { loader: 'style-loader' },
+          MiniCssExtractPlugin.loader,
           { loader: "css-loader",options:{ sourceMap: true }},
           { loader: "less-loader",options:{ sourceMap: true }}
         ],
@@ -63,16 +55,21 @@ module.exports = {
     ]
   },
   plugins: [
-    // extractLess,
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: devMode ? 'style/[name].css' : 'style/[name].[hash].css',
+      chunkFilename: devMode ? 'style/[id].css' : 'style/[id].[hash].css',
+    }),
     new HtmlWebpackPlugin({
       template: 'src/template/index.html'
     }),
     new GoogleFontsPlugin({
+      name: 'fonts',
       fonts: [
         { family: "Source Sans Pro", variants: [ '200', 'regular', '600' ] },
         { family: "Source Code Pro" },
         { family: "Roboto", variants: [ '100', '300', 'regular', '500' ] }
-
       ]
     }),
     new CopyWebpackPlugin([
