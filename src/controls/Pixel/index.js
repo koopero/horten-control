@@ -85,14 +85,14 @@ class Pixel extends React.Component {
 
   getChannel( channel ) {
     switch( channel ) {
-      case 'red':
-      case 'green':
-      case 'blue':
-      case 'alpha':
-      case 'hue':
-      case 'saturation':
-      case 'value':
-        return this.state.colour[channel]
+    case 'red':
+    case 'green':
+    case 'blue':
+    case 'alpha':
+    case 'hue':
+    case 'saturation':
+    case 'value':
+      return this.state.colour[channel]
       break
     }
   }

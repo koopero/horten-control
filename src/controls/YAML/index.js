@@ -2,8 +2,8 @@
 
 
 const React = require('react')
-    , Base = require('../Base')
-    , YAML = require('../../components/YAML')
+  , Base = require('../Base')
+  , YAML = require('../../components/YAML')
 
 require('./index.less')
 

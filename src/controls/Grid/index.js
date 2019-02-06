@@ -1,9 +1,9 @@
 'use strict'
 
 const _ = require('lodash')
-    , React = require('react')
-    , Base = require('../Base')
-    , Trigger = require('../../components/Trigger')
+  , React = require('react')
+  , Base = require('../Base')
+  , Trigger = require('../../components/Trigger')
 
 class Grid extends Base {
   constructor( props ) {
@@ -13,10 +13,10 @@ class Grid extends Base {
 
   renderSelf() {
     const self = this
-        , w = Math.max( 0, parseInt( this.props.cols ) ) || 1
-        , h = Math.max( 0, parseInt( this.props.rows ) ) || 1
-        , rows = _.range( h )
-        , cols = _.range( w )
+      , w = Math.max( 0, parseInt( this.props.cols ) ) || 1
+      , h = Math.max( 0, parseInt( this.props.rows ) ) || 1
+      , rows = _.range( h )
+      , cols = _.range( w )
 
     return (
       <table><tbody>
@@ -33,13 +33,13 @@ class Grid extends Base {
 
       function renderCell( x ) {
         const ind = w * y + x
-            , cellPath = '/'+y+'/'+x
-            , path = H.path.resolve( self.state.path, cellPath )
-            , props = _.extend(
-              { type: 'trigger', path: path, hide: 'all' },
-              { toggle: true },
-              // { title: cellPath }
-            )
+          , cellPath = '/'+y+'/'+x
+          , path = H.path.resolve( self.state.path, cellPath )
+          , props = _.extend(
+            { type: 'trigger', path: path, hide: 'all' },
+            { toggle: true },
+            // { title: cellPath }
+          )
 
         return (
           <td key={ ind }>

@@ -1,10 +1,10 @@
 'use strict'
 
 const _ = require('lodash')
-    , React = require('react')
-    , deepcolour = require('deepcolour')
-    , Base = require('../Base')
-    , Slider = require('../Slider')
+  , React = require('react')
+  , deepcolour = require('deepcolour')
+  , Base = require('../Base')
+  , Slider = require('../Slider')
 
 const CHANNEL = {
   type: 'float',
@@ -73,9 +73,9 @@ class Colour extends Base {
 
   renderSwatch() {
     const colour = this.state.colour
-        , style = {
-          backgroundColor: colour.toHexString()
-        }
+      , style = {
+        backgroundColor: colour.toHexString()
+      }
 
     return (
       <span key='swatch' className='swatch'><span style={style} ref={ ( swatch ) => this.swatch = swatch } /></span>

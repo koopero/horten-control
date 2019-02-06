@@ -14,4 +14,4 @@ var ReactDOM = require('react-dom')
 
 ReactDOM.render(
   <Page/>
-, document.getElementById('app') )
+  , document.getElementById('app') )

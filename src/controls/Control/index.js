@@ -4,8 +4,8 @@ require('./index.less')
 
 
 const _ = require('lodash')
-    , React = require('react')
-    , H = require('horten')
+  , React = require('react')
+  , H = require('horten')
 
 
 function HortenControl( props ) {

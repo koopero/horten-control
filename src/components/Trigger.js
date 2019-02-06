@@ -1,11 +1,9 @@
-'use strict'
-
 const _ = require('lodash')
-    , React = require('react')
-    , H = require('horten')
-    , Base = require('../controls/Base')
-    , YAML = require('./YAML')
-    , deepequal = require('deep-equal')
+const React = require('react')
+const H = require('horten')
+const Base = require('../controls/Base')
+const YAML = require('./YAML')
+const deepequal = require('deep-equal')
 
 function now() { return new Date().getTime() }
 
@@ -17,7 +15,7 @@ class Trigger extends Base {
 
   render() {
     const title = this.props.title
-        , trigger = this.props.trigger
+      , trigger = this.props.trigger
 
     var text = title
     if ( !text && !_.isUndefined( trigger ) )
@@ -27,7 +25,7 @@ class Trigger extends Base {
 
     return (
       <span
-        className={"button unselected "+(this.props.className || '')}
+        className={'button unselected '+(this.props.className || '')}
         onClick={ this.onMouse.bind( this, 'click' ) }
         onMouseEnter={ this.onMouse.bind( this, 'enter' ) }
         onMouseMove={ this.onMouse.bind( this, 'move' ) }
@@ -37,7 +35,7 @@ class Trigger extends Base {
         onMouseLeave={ this.onMouse.bind( this, 'leave' ) }
 
         ref={ ( button ) => this.button = button }
-        >{ text }</span>
+      >{ text }</span>
     )
   }
 
@@ -50,22 +48,22 @@ class Trigger extends Base {
       , classList = elem.classList
 
     switch ( type ) {
-      case 'down':
+    case 'down':
+      classList.add('down')
+      this.trigger()
+      event.preventDefault()
+      break
+
+    case 'enter':
+      if ( event.buttons ) {
         classList.add('down')
         this.trigger()
-        event.preventDefault()
+      }
       break
 
-      case 'enter':
-        if ( event.buttons ) {
-          classList.add('down')
-          this.trigger()
-        }
-      break
-
-      case 'up':
-      case 'leave':
-        classList.remove('down')
+    case 'up':
+    case 'leave':
+      classList.remove('down')
       break
     }
   }
@@ -87,8 +85,8 @@ class Trigger extends Base {
 
   onValueSelf( value ) {
     const ourValue = this.props.trigger
-        , elem = this.button
-        , classList = elem.classList
+      , elem = this.button
+      , classList = elem.classList
 
     var selected
 

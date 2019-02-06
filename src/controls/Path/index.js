@@ -45,8 +45,8 @@ class Path extends React.Component {
 
       return (
         [
-        <span className={classes + ' seg'} key={id+'seg'}>{ seg }</span>,
-        <span className={classes + ' delim'} key={id+'delim'}>/</span>
+          <span className={classes + ' seg'} key={id+'seg'}>{ seg }</span>,
+          <span className={classes + ' delim'} key={id+'delim'}>/</span>
         ]
       )
     }

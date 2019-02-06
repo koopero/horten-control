@@ -200,11 +200,11 @@ class Pixels extends Base {
 
   setMode( mode ) {
     switch( mode ) {
-      case 'none':
-      case 'dropper':
-      case 'paint':
-      case 'drum':
-        this.doDeselectAll()
+    case 'none':
+    case 'dropper':
+    case 'paint':
+    case 'drum':
+      this.doDeselectAll()
     }
     this.setState( { mode } )
   }
@@ -214,7 +214,7 @@ class Pixels extends Base {
     let { sliders } = this.state
     sliders = sliders.split('')
     sliders = sliders.map( channel => {
-      return channel == " " ? <span className='spacer'>&nbsp;</span> : <VBoxSlider 
+      return channel == ' ' ? <span className='spacer'>&nbsp;</span> : <VBoxSlider 
         colour={this.state.colour}
         value={this.state.colour.getChannel( channel )}
         colourChannel={channel}
@@ -256,18 +256,18 @@ class Pixels extends Base {
     console.log('onCellMouseEvent', { index, type, event  } )
     let action
     switch ( type ) {
-      case 'mousedown':  
+    case 'mousedown':  
+      this.doCellTouch( index, event.shiftKey || event.ctrlKey )
+      break
+
+    case 'mouseenter':
+      if ( event.buttons )
         this.doCellTouch( index, event.shiftKey || event.ctrlKey )
       break
 
-      case 'mouseenter':
-        if ( event.buttons )
-          this.doCellTouch( index, event.shiftKey || event.ctrlKey )
-      break
-
-      case 'mouseleave':
-      case 'mouseup':
-        this.doCellUntouch( index )
+    case 'mouseleave':
+    case 'mouseup':
+      this.doCellUntouch( index )
       break
     }
   }
@@ -280,25 +280,25 @@ class Pixels extends Base {
       mode = 'check'
 
     switch ( mode ) {
-      case 'dropper':
-        this.doSetColourFromCell( index )
+    case 'dropper':
+      this.doSetColourFromCell( index )
       break
 
-      case 'select':
-        this.doSetColourFromCell( index )
-        this.doSelectSingle( index )
+    case 'select':
+      this.doSetColourFromCell( index )
+      this.doSelectSingle( index )
       break
 
-      case 'check':
-        this.doSelectInverse( index )
+    case 'check':
+      this.doSelectInverse( index )
       break
 
-      case 'drum':
-        this.doSaveCell( index )
-        this.doSelectSet( index )
+    case 'drum':
+      this.doSaveCell( index )
+      this.doSelectSet( index )
 
-      case 'paint':
-        this.doPaintCell( index )
+    case 'paint':
+      this.doPaintCell( index )
       break
     }
   }
@@ -308,9 +308,9 @@ class Pixels extends Base {
     const { mode } = state
 
     switch ( mode ) {
-      case 'drum':
-        this.doRestoreCell( index )
-        this.doDeselectCell( index )
+    case 'drum':
+      this.doRestoreCell( index )
+      this.doDeselectCell( index )
       break
     }
   }
@@ -384,12 +384,12 @@ class Pixels extends Base {
     let selected = new Array( size )
     for ( let i = 0; i < size; i ++ )   
       switch ( action ) {
-        case 'select':
-          selected[i] = this.state.selected[i] ? 0 : i == index ? 1 : 0 
+      case 'select':
+        selected[i] = this.state.selected[i] ? 0 : i == index ? 1 : 0 
         break
 
-        case 'add':
-          selected[i] = Math.max( parseFloat( this.state.selected[i] ) || 0, i == index ? 1 : 0 )
+      case 'add':
+        selected[i] = Math.max( parseFloat( this.state.selected[i] ) || 0, i == index ? 1 : 0 )
         break
       }
           

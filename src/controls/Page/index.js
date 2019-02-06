@@ -59,29 +59,29 @@ class Page extends React.Component {
     file.idPrefix = `${file.name}-`
 
     switch( ext ) {
-      case 'md':
-      case 'markdown':
-        file.index = mdutil.makeIndex( { path: [ file.name ], markdown: file.contents, idPrefix: file.idPrefix } ) 
-        file.markdown = file.contents
-        // file.index = 'foo?'
+    case 'md':
+    case 'markdown':
+      file.index = mdutil.makeIndex( { path: [ file.name ], markdown: file.contents, idPrefix: file.idPrefix } ) 
+      file.markdown = file.contents
+      // file.index = 'foo?'
 
       break
 
-      case 'yaml':
-        let data, error
-        try {
-          data = yaml.load( file.contents )
-        } catch( err ) {
-          error = err
-        }
+    case 'yaml':
+      let data, error
+      try {
+        data = yaml.load( file.contents )
+      } catch( err ) {
+        error = err
+      }
 
-        if ( error ) {
-          file.error = error
-        } else {
-          Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
-          console.log( data )
-          this.state.meta = _.merge( this.state.meta, data.meta )
-        }
+      if ( error ) {
+        file.error = error
+      } else {
+        Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
+        console.log( data )
+        this.state.meta = _.merge( this.state.meta, data.meta )
+      }
       break
     }
 
@@ -112,8 +112,8 @@ class Page extends React.Component {
 
       if ( page.markdown )
         content = <Markdown 
-         {...page}
-         meta={meta}
+          {...page}
+          meta={meta}
         />
 
       return <section className={className} key={index}>

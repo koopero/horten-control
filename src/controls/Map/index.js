@@ -1,8 +1,8 @@
 'use strict'
 
 const _ = require('lodash')
-    , React = require('react')
-    , Base = require('../Base')
+  , React = require('react')
+  , Base = require('../Base')
 
 class Map extends Base {
   constructor( props ) {

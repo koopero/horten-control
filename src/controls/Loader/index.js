@@ -1,6 +1,6 @@
 const request = require('browser-request')
-    , React = require('react')
-    , yaml = require('js-yaml')
+  , React = require('react')
+  , yaml = require('js-yaml')
 
 const Control = require('../Control')
 

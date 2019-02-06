@@ -90,7 +90,7 @@ class Slider extends Base {
 
   renderMarkers() {
     var self = this
-        , ranger = self.ranger
+      , ranger = self.ranger
 
     var markers = this.props.markers || [ this.ranger.min, this.ranger.max ]
 
@@ -141,7 +141,7 @@ class Slider extends Base {
     this.inputRange.value = this.ranger.toUnit( value )
     if ( !this.state.textSelected ) {
       if ( this.inputText.type == 'number' )
-      this.inputText.value = value
+        this.inputText.value = value
       else
         this.inputText.value = this.valuePretty()
     }

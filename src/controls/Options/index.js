@@ -2,10 +2,10 @@
 
 
 const React = require('react')
-    , equal = require('deep-equal')
-    , Base = require('../Base')
-    , Trigger = require('../../components/Trigger')
-    , H = require('horten')
+  , equal = require('deep-equal')
+  , Base = require('../Base')
+  , Trigger = require('../../components/Trigger')
+  , H = require('horten')
 
 class Options extends Base {
   constructor( props ) {

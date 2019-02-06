@@ -1,8 +1,8 @@
 'use strict'
 
 const React = require('react')
-    , Base = require('../Base')
-import TextareaAutosize from 'react-textarea-autosize';
+  , Base = require('../Base')
+import TextareaAutosize from 'react-textarea-autosize'
 require('./index.less')
 
 class Text extends Base {
@@ -16,16 +16,16 @@ class Text extends Base {
   renderSelf() {
     let size = parseInt( this.props.size ) || 24
     return (
-        <input
-          className='button text unselected'
-          type="text"
-          size= { size }
-          defaultValue={ this.state.value }
-          ref={(node) => this.inputText = node }
-          onFocus={ this.onTextFocus.bind( this ) }
-          onBlur={ this.onTextBlur.bind( this ) }
-          onChange={ this.onTextChange.bind( this ) }
-        />
+      <input
+        className='button text unselected'
+        type="text"
+        size= { size }
+        defaultValue={ this.state.value }
+        ref={(node) => this.inputText = node }
+        onFocus={ this.onTextFocus.bind( this ) }
+        onBlur={ this.onTextBlur.bind( this ) }
+        onChange={ this.onTextChange.bind( this ) }
+      />
     )
   }
 

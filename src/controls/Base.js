@@ -4,7 +4,7 @@ const _ = require('lodash')
 const H = require('horten')
 
 const Control = require('./Control')
-    , Path = require('./Path')
+  , Path = require('./Path')
 
 class Base extends React.Component {
   constructor( props ) {
@@ -41,11 +41,11 @@ class Base extends React.Component {
         prop = [ prop ]
 
       return _( prop )
-      .map( ( prop ) => _.split( prop, ',' ) )
-      .flatten()
-      .map( ( prop ) => _.trim( prop ) )
-      .uniq()
-      .value()
+        .map( ( prop ) => _.split( prop, ',' ) )
+        .flatten()
+        .map( ( prop ) => _.trim( prop ) )
+        .uniq()
+        .value()
     }
   }
 

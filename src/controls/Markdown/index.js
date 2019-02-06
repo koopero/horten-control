@@ -1,7 +1,7 @@
 'use strict'
 
 const Base = require('../Base')
-    , React = require('react')
+  , React = require('react')
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
@@ -15,28 +15,28 @@ require('./index.less')
 
 const CodeBlock = function ( props ) {
   const source = props.value || ''
-      , language = props.language
-      , meta = ( this && this.props && this.props.meta ) || {}
+    , language = props.language
+    , meta = ( this && this.props && this.props.meta ) || {}
 
   switch( language ) {
-    case 'control':
-      var config = safeLoad( source )
-      config.meta = H.util.compose( meta, config.meta )
-      var Control = require('../Control')
-      return (
-        <div className='md-element'>
-          <Control {...config} />
-        </div>
-      )
+  case 'control':
+    var config = safeLoad( source )
+    config.meta = H.util.compose( meta, config.meta )
+    var Control = require('../Control')
+    return (
+      <div className='md-element'>
+        <Control {...config} />
+      </div>
+    )
     break
-    default:
-      return (
-        <div className='md-element'>
-          <span className='horten control source'>
-            <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
-          </span>
-        </div>
-      )
+  default:
+    return (
+      <div className='md-element'>
+        <span className='horten control source'>
+          <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
+        </span>
+      </div>
+    )
   }
 }
 
@@ -66,7 +66,7 @@ class OurMarkdown extends Base {
       }
     )
 
-    console.log( "**********", Markdown.renderers )
+    console.log( '**********', Markdown.renderers )
   }
 
 

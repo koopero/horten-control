@@ -35,9 +35,9 @@ class VBoxSlider extends React.Component {
 
   render() {
     const style = {
-          backgroundImage: this.renderGradient(),
-          position: 'relative'
-        }
+      backgroundImage: this.renderGradient(),
+      position: 'relative'
+    }
     const onMouse = this.onMouse.bind( this )
     const onTouch = this.onTouch.bind( this )
 
