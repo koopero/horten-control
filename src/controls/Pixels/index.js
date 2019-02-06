@@ -84,8 +84,6 @@ class Pixels extends Base {
         this.state.colours[index] = new Colour( this.state.colour )
     }
 
-
-
     if ( props.pixels ) {
       this.setPixels( props.pixels )
     }
@@ -394,8 +392,7 @@ class Pixels extends Base {
           selected[i] = Math.max( parseFloat( this.state.selected[i] ) || 0, i == index ? 1 : 0 )
         break
       }
-      
-    
+          
     let colour = new Colour( state.colours[index] )
     this.setState( { selected, colour  } )
   }

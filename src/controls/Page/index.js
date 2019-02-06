@@ -9,6 +9,7 @@ const YAML = require('../../components/YAML')
 const request = require('browser-request')
 const pathlib = require('path')
 const mdutil = require('../Markdown/util')
+const HortenWebSocket = require('horten-websocket')
 
 require('./index.less')
 
@@ -20,6 +21,8 @@ class Page extends React.Component {
     this.state = this.state || {}
     this.state.files = {}
     _.merge( this.state, { meta: require('../meta.js') }, this.props, __HortenPage )
+
+    this.state.websocket = new (HortenWebSocket.Client)()
   }
 
   loadFile( url ) {
@@ -79,6 +82,7 @@ class Page extends React.Component {
           console.log( data )
           this.state.meta = _.merge( this.state.meta, data.meta )
         }
+      break
     }
 
 

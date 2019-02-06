@@ -6,7 +6,7 @@ const Base = require('../Base')
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { ocean } from 'react-syntax-highlighter/styles/hljs'
+import { ocean } from 'react-syntax-highlighter/dist/styles/hljs'
 
 const mdutil = require('./util')
 
