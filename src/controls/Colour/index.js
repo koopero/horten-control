@@ -1,10 +1,10 @@
 'use strict'
 
-const _ = require('lodash')
-  , React = require('react')
-  , deepcolour = require('deepcolour')
-  , Base = require('../Base')
-  , Slider = require('../Slider')
+import _ from 'lodash'
+import React from 'react'
+import deepcolour from 'deepcolour'
+import Base from '../Base'
+import Slider from '../Slider'
 
 const CHANNEL = {
   type: 'float',
@@ -51,7 +51,7 @@ const CHANNELS = {
   }
 }
 
-class Colour extends Base {
+export default class Colour extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'colour'
@@ -91,27 +91,29 @@ class Colour extends Base {
     this.sliders = sliders
 
     const self = this
-    return _('hsVa')
-      .split('')
-      .map( ( char ) =>
-        CHANNELS[ char ] &&
-        _.extend( {},
-          CHANNEL,
-          CHANNELS[ char ]
-        )
+    let channels = 'hsVa'
+    channels = channels.split('')
+    channels = channels.map( ( char ) =>
+      CHANNELS[ char ] &&
+      _.extend( {},
+        CHANNEL,
+        CHANNELS[ char ]
       )
-      // .map( console.log.bind( console ) )
-      .filter()
-      .map( ( props, id ) => (
-        <span key={ id } className='channel' >
-          <Slider
-            {...props }
-            onUserInput = { self.onChannelInput.bind( self, props.key ) }
-            ref={ ( slider ) => sliderRef( props.key, slider ) }
-          />
-        </span>
-      ) )
-      .value()
+    )
+    channels = _.filter( channels )
+    channels = channels.map( ( props, id ) => (
+      <span key={ id } className='channel' >
+        <Slider
+          {...props }
+          onUserInput = { self.onChannelInput.bind( self, props.key ) }
+          ref={ ( slider ) => sliderRef( props.key, slider ) }
+        />
+      </span>
+    ) )
+
+    return channels 
+      
+
 
     function sliderRef( key, ref ) {
       if ( !sliders[key] )
@@ -151,5 +153,3 @@ class Colour extends Base {
 
   }
 }
-
-module.exports = Colour

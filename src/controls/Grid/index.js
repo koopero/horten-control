@@ -1,11 +1,11 @@
 'use strict'
 
-const _ = require('lodash')
-  , React = require('react')
-  , Base = require('../Base')
-  , Trigger = require('../../components/Trigger')
+import _ from 'lodash'
+import React from 'react'
+import Base from '../Base'
+import Trigger from '../../components/Trigger'
 
-class Grid extends Base {
+export default class Grid extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'grid'
@@ -51,5 +51,3 @@ class Grid extends Base {
     }
   }
 }
-
-module.exports = Grid

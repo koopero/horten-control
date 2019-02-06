@@ -1,13 +1,10 @@
-'use strict'
-
-
-const React = require('react')
-  , Base = require('../Base')
-  , YAML = require('../../components/YAML')
+import React from 'react'
+import Base from '../Base'
+import YAML from '../../components/YAML'
 
 require('./index.less')
 
-class Display extends Base {
+export default class Display extends Base {
   constructor( props ) {
     super( props )
     this.state.cursor.delay = 50
@@ -31,5 +28,3 @@ class Display extends Base {
       this.setState( Object.assign( {}, this.state, { value: value } ) )
   }
 }
-
-module.exports = Display

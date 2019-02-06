@@ -1,4 +1,4 @@
-const H = require('horten')
+import H from 'horten'
 
 new H.Tracer({
   path: '/',
@@ -8,7 +8,7 @@ new H.Tracer({
 require('../style/index.less')
 
 var React = require('react')
-var Page = require('../controls/Page')
+var Page = require('../controls/Page').default
 
 var ReactDOM = require('react-dom')
 

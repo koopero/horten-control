@@ -1,6 +1,6 @@
-const React = require('react')
-const Base = require('../Base')
-const Trigger = require('../../components/Trigger')
+import React from 'react'
+import Base from '../Base'
+import Trigger from '../../components/Trigger'
 
 require('./index.less')
 
@@ -10,4 +10,4 @@ class TriggerControl extends Base {
   }
 }
 
-module.exports = TriggerControl
+export default TriggerControl

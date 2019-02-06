@@ -1,10 +1,10 @@
 'use strict'
 
-const _ = require('lodash')
-  , React = require('react')
-  , Base = require('../Base')
+import _ from 'lodash'
+import React from 'react'
+import Base from '../Base'
 
-class Map extends Base {
+export default class Map extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'grid'
@@ -29,4 +29,3 @@ class Map extends Base {
   }
 }
 
-module.exports = Map

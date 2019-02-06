@@ -109,4 +109,4 @@ class Ranger {
 
 
 
-module.exports = Ranger
+export default Ranger

@@ -1,11 +1,9 @@
-'use strict'
-
-const React = require('react')
-  , Base = require('../Base')
+import React from 'react'
+import Base from '../Base'
 import TextareaAutosize from 'react-textarea-autosize'
 require('./index.less')
 
-class Text extends Base {
+export default class Text extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'text'
@@ -48,5 +46,3 @@ class Text extends Base {
       this.inputText.value = String( value )
   }
 }
-
-module.exports = Text

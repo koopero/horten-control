@@ -1,5 +1,5 @@
-const React = require('react')
-const string2png = require('string2png')
+import React from 'react'
+import string2png from 'string2png'
 
 module.exports = function PixelsBG( {
   // data = [],

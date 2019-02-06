@@ -3,17 +3,10 @@ const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-
-
 const devMode = process.env.NODE_ENV !== 'production'
 
-// const extractLess = new ExtractTextPlugin({
-//     filename: "[name].[contenthash].css",
-//     allChunks: true,
-//     disable: process.env.NODE_ENV === "development"
-// });
-
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   entry: ['./src/entry/bootstrap.js','./src/style/index.less'],
   output: {
@@ -33,16 +26,22 @@ module.exports = {
       {
         test : /\.jsx?/,
         include : resolve('src/'),
-        loader : 'babel-loader'
+        use: {
+          loader : 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['lodash'],
+          }
+        },
       },
-      {
-        test: /node_modules\/horten\/.*\.js/,
-        loader: "babel-loader"
-      },
-      {
-        test: /deepcolour\/.*\.js/,
-        loader: "babel-loader"
-      },
+      // {
+      //   test: /node_modules\/horten\/.*\.js/,
+      //   loader: "babel-loader"
+      // },
+      // {
+      //   test: /deepcolour\/.*\.js/,
+      //   loader: "babel-loader"
+      // },
       {
         test : /\.json/,
         include : resolve('node_modules/entities'),

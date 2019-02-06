@@ -1,4 +1,4 @@
-const H = require('horten')
+import H from 'horten'
 
 new H.Tracer({
   path: '/',

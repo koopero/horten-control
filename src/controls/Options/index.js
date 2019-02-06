@@ -1,13 +1,10 @@
-'use strict'
+import React from 'react'
+import equal from 'deep-equal'
+import Base from '../Base'
+import Trigger from '../../components/Trigger'
+import H from 'horten'
 
-
-const React = require('react')
-  , equal = require('deep-equal')
-  , Base = require('../Base')
-  , Trigger = require('../../components/Trigger')
-  , H = require('horten')
-
-class Options extends Base {
+export default class Options extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'options'
@@ -72,4 +69,3 @@ class Options extends Base {
   }
 }
 
-module.exports = Options

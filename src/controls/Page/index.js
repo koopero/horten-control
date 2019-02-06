@@ -1,20 +1,20 @@
 'use strict'
 
-const _ = require('lodash')
-const React = require('react')
-const Control = require('../Control')
-const Markdown = require('../Markdown')
-const yaml = require('js-yaml')
-const YAML = require('../../components/YAML')
-const request = require('browser-request')
-const pathlib = require('path')
-const mdutil = require('../Markdown/util')
-const HortenWebSocket = require('horten-websocket')
+import _ from 'lodash'
+import React from 'react'
+import Control from '../Control'
+import Markdown from '../Markdown'
+import yaml from 'js-yaml'
+import YAML from '../../components/YAML'
+import request from 'browser-request'
+import pathlib from 'path'
+import * as mdutil from '../Markdown/util'
+import HortenWebSocket from 'horten-websocket'
 
 require('./index.less')
 
 
-class Page extends React.Component {
+export default class Page extends React.Component {
 
   constructor( props ) {
     super( props )
@@ -210,9 +210,5 @@ class Page extends React.Component {
         self.setState( state )
       }
     }
-
-
   }
 }
-
-module.exports = Page

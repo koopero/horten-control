@@ -6,7 +6,7 @@ var H = require('horten')
 
 require('./index.less')
 
-class Path extends React.Component {
+export default class Path extends React.Component {
   constructor( props ) {
     super( props )
     this.state = {}
@@ -52,5 +52,3 @@ class Path extends React.Component {
     }
   }
 }
-
-module.exports = Path

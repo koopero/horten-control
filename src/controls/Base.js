@@ -1,12 +1,12 @@
-const React = require('react')
+import React from 'react'
 
-const _ = require('lodash')
-const H = require('horten')
+import _ from 'lodash'
+import H from 'horten'
 
-const Control = require('./Control')
-  , Path = require('./Path')
+import Control from './Control'
+import Path from './Path'
 
-class Base extends React.Component {
+export default class Base extends React.Component {
   constructor( props ) {
     super( props )
     this.state = this.propsToState( props )
@@ -40,12 +40,13 @@ class Base extends React.Component {
       if ( _.isString( prop ) )
         prop = [ prop ]
 
-      return _( prop )
-        .map( ( prop ) => _.split( prop, ',' ) )
-        .flatten()
-        .map( ( prop ) => _.trim( prop ) )
-        .uniq()
-        .value()
+      prop = _.map( prop, ( prop ) => _.split( prop, ',' ) )
+      prop = _.flatten( prop )
+      prop = _.map( prop, ( prop ) => _.trim( prop ) )
+      prop = _.uniq( prop )
+      prop = _.value( prop )
+
+      return prop
     }
   }
 
@@ -182,5 +183,3 @@ class Base extends React.Component {
     // blank in base
   }
 }
-
-module.exports = Base

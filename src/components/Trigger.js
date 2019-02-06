@@ -1,13 +1,13 @@
-const _ = require('lodash')
-const React = require('react')
-const H = require('horten')
-const Base = require('../controls/Base')
-const YAML = require('./YAML')
-const deepequal = require('deep-equal')
+import _ from 'lodash'
+import React from 'react'
+import H from 'horten'
+import Base from '../controls/Base'
+import YAML from './YAML'
+import deepequal from 'deep-equal'
 
 function now() { return new Date().getTime() }
 
-class Trigger extends Base {
+export default class Trigger extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'trigger'
@@ -18,7 +18,7 @@ class Trigger extends Base {
       , trigger = this.props.trigger
 
     var text = title
-    if ( !text && !_.isUndefined( trigger ) )
+    if ( !text && !isUndefined( trigger ) )
       text = ( <YAML data={ trigger } /> )
 
 
@@ -73,13 +73,13 @@ class Trigger extends Base {
 
     if ( this.props.toggle ) {
       value = !this.state.cursor.value
-    } else if ( !_.isUndefined( this.props.trigger ) ) {
+    } else if ( !isUndefined( this.props.trigger ) ) {
       value = this.props.trigger
     } else {
       value = now()
     }
 
-    if ( !_.isUndefined( value ) )
+    if ( !isUndefined( value ) )
       this.onUserInput( value )
   }
 
@@ -90,7 +90,7 @@ class Trigger extends Base {
 
     var selected
 
-    if ( !_.isUndefined( ourValue ) ) {
+    if ( !isUndefined( ourValue ) ) {
       selected = deepequal( ourValue, value )
     } else {
       selected = !!value
@@ -104,4 +104,3 @@ class Trigger extends Base {
   }
 }
 
-module.exports = Trigger

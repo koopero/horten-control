@@ -1,6 +1,6 @@
-const React = require('react')
-const VBoxSlider = require('../VBoxSlider')
-const Colour = require('deepcolour')
+import React from 'react'
+import VBoxSlider from '../VBoxSlider'
+import Colour from 'deepcolour'
 
 
 const KEY_TO_CHANNEL = {
@@ -13,7 +13,7 @@ const KEY_TO_CHANNEL = {
   'a': 'alpha',
 }
 
-class Pixel extends React.Component {
+export default class Pixel extends React.Component {
   constructor( props ) {
     super( props )
     this.state = this.state || {}
@@ -99,4 +99,3 @@ class Pixel extends React.Component {
 
 }
 
-module.exports = Pixel

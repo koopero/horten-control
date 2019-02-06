@@ -1,10 +1,10 @@
-const request = require('browser-request')
-  , React = require('react')
-  , yaml = require('js-yaml')
+import request from 'browser-request'
+import React from 'react'
+import yaml from 'js-yaml'
 
-const Control = require('../Control')
+import Control from '../Control'
 
-class Loader extends React.Component {
+export default class Loader extends React.Component {
   constructor(props) {
     super( props )
     this.state = {
@@ -59,7 +59,6 @@ class Loader extends React.Component {
   render() {
     const control = this.state.control
 
-    return <span>Loader</span>
     if ( this.state.error ) {
       return (
         <b>{ this.state.error}</b>
@@ -79,5 +78,3 @@ class Loader extends React.Component {
     }
   }
 }
-
-module.exports = Loader

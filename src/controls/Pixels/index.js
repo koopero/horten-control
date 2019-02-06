@@ -1,14 +1,11 @@
-'use strict'
-
 require('./index.less')
 
-
-const _ = require('lodash')
-const React = require('react')
-const Base = require('../Base')
-const Colour = require('deepcolour')
-const VBoxSlider = require('../VBoxSlider')
-const string2png = require('string2png')
+import _ from 'lodash'
+import React from 'react'
+import Base from '../Base'
+import Colour from 'deepcolour'
+import VBoxSlider from '../VBoxSlider'
+import string2png from 'string2png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlash, faEyeDropper, faPaintBrush, faMousePointer, faDrum, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
@@ -49,7 +46,7 @@ class Selector extends React.Component {
 }
 
 
-class Pixels extends Base {
+export default class Pixels extends Base {
   constructor( props ) {
     super( props )
     this.componentWillReceiveProps( props )
@@ -415,5 +412,3 @@ class Pixels extends Base {
   }
 
 }
-
-module.exports = Pixels

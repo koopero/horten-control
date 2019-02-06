@@ -1,12 +1,12 @@
 'use strict'
 
-const React = require('react')
-const _ = require('lodash')
-const Base = require('../Base')
+import React from 'react'
+import _ from 'lodash'
+import Base from '../Base'
 
-const floatToStr = require('../../util/floatToStr')
+import floatToStr from '../../util/floatToStr'
 
-const Ranger = require('../../util/Ranger')
+import Ranger from '../../util/Ranger'
 
 require('./index.less')
 
@@ -172,4 +172,4 @@ Slider.defaultProps = {
   unit: ''
 }
 
-module.exports = Slider
+export default Slider

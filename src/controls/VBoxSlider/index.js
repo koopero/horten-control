@@ -1,13 +1,13 @@
-const React = require('react')
+import React from 'react'
 
-const string2png = require('string2png')
-const Colour = require('deepcolour')
+import string2png from 'string2png'
+import Colour from 'deepcolour'
 
 // Aped from CSS
 let _border = 6
 
 
-class VBoxSlider extends React.Component {
+export default class VBoxSlider extends React.Component {
   constructor( props ) {
     super( props )
     this.ref = this.ref || {}
@@ -135,4 +135,3 @@ class VBoxSlider extends React.Component {
 
 }
 
-module.exports = VBoxSlider
