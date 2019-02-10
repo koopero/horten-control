@@ -3,7 +3,6 @@
 @vboxslider_round: 24px;
 
 .horten.control.pixels {
-
   .toolbar {
     margin-bottom: 0.5em;
     .button {
@@ -23,8 +22,10 @@
     }
   }
 
+
+
   .sliders {
-    margin: 1em auto 0;
+    white-space: nowrap;
     .spacer {
       width: 16px;
       display: block;
@@ -33,8 +34,10 @@
   }
 
   .vboxslider {
-    width: 32px;
-    height: 200px;
+    // width: 16px;
+    width: 100%;
+    min-width: 20px;
+    height: 100%;
     margin-right: 8px;
     box-sizing: border-box;
     border-radius: @vboxslider_round / 2 + 3px;
@@ -61,38 +64,99 @@
   }
 
   .inner .sliders, .inner table  {
-    float: left;
-    display: inline-block;
+    // float: left;
+    // display: inline-block;
+
+
   }
 
-  .inner table {
-    border-spacing: 0;
-    border-collapse: collapse;
+  // & > .inner {
+  //   display: table-row;
+  // }
+  table.inner {
+    // vertical-align: middle;
+    // max-height: 128px;
+    width: 100%;
+    // height: 100%;
+
+    td.delim {
+      font-size: 200%;
+      text-align: center;
+      color: rgba(0,0,0,50%);
+    }
+
+    td {
+      // position: relative;
+    }
+
+    tr {
+      // height: 128px;
+    }
+
+    td.grid {
+      position: relative;
+      width: 75%;
+      height: 100%;
+      tbody, tr {
+        width: 100%;
+      }
+    }
+  }
+
+  .grid table {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    // height: 100%;
+
+    tr {
+      width: 100%;
+    }
+
+    td div {
+      display: block;
+    }
+
+    .button {
+      box-sizing: border-box;
+      border: 2px solid rgba(0,0,0,0);
+    }
+
+    .button.selected {
+      border: 2px solid white;
+    }
+
 
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 
+
+
+
     tr,td {
       margin: 0;
-      padding: 0;
+      padding: 2px;
+      // width: 100%;
+      // height: 100%;
+
+
+      .button {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
 
 
-.fingersize {
-  width: 33px;
-  height: 33px;
-  // overflow: hidden;
-  margin: 1px;
-  padding: 0;
-  // box-sizing: border-box;
-  // box-shadow: 0px 0px 10px black inset;
-}
 
-button.selected {
-  box-shadow: 1px 2px 6px black inset;
-  // border: solid 2px white; 
-}
+// button.selected {
+//   box-shadow: 1px 2px 6px black inset;
+//   // border: solid 2px white; 
+// }

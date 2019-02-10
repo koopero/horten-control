@@ -46,11 +46,12 @@
 
   &.seethru {
     border: none;
-    box-shadow: @button-unselected-highlight, @button-unselected-shadow;
+    box-shadow: @button-unselected-shadow;
   }
 
   &.seethru.selected {
     border: @button-border-width solid @button-selected-border;
+    box-shadow: @button-selected-shadow, @button-seethru-selected-highlight;
   }
 
   &.down {

@@ -118,7 +118,7 @@ export default class Page extends React.Component {
 
       return <section className={className} key={index}>
         <span className='url'>{ page.url }</span>
-        <pre className='debug'>{ JSON.stringify( meta, null, 2 ) }</pre>
+        {/* <pre className='debug'>{ JSON.stringify( meta, null, 2 ) }</pre> */}
         { content }
       </section>
     })

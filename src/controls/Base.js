@@ -30,6 +30,12 @@ export default class Base extends React.Component {
     state.subs = props.subs || []
     state.hide = parseVisibility( props.hide )
     state.show = parseVisibility( props.show )
+    state.cols = parseInt( props.cols )
+    state.rows = parseInt( props.rows )
+
+    if ( isNaN( state.cols ) ) state.cols = 4
+    if ( isNaN( state.rows ) ) state.rows = 0
+
 
     return state
 
@@ -73,14 +79,30 @@ export default class Base extends React.Component {
 
   render() {
     const style = _.pick( this.props, ['clear'] )
+    let className = 'horten control'
+    className += ' '+this.state.type
+    className += ' '+this.renderControlSizeClasses()
+
     return (
-      <span className={'horten control '+this.state.type } style={ style } >
+      <span className={ className } style={ style } >
         { this.renderHeader() }
         { this.renderSelf() }
         { this.renderSubs() }
       </span>
     )
   }
+
+  renderControlSizeClasses() {
+    let classes = ''
+
+    if ( this.state.cols )
+      classes += ' grid-cols-'+this.state.cols
+
+    if ( this.state.rows )
+      classes += ' grid-rows-'+this.state.rows
+    return classes
+  }
+
 
   renderHeader() {
     return (
@@ -94,9 +116,14 @@ export default class Base extends React.Component {
           : undefined
         }
 
-        { this.isChildVisible( 'short' ) ?
-          this.renderShort()
+        { this.isChildVisible( 'tools' ) ?
+          this.renderTools()
           : undefined
+        }
+
+        { this.isChildVisible( 'short' ) ?
+        this.renderShort()
+        : undefined
         }
 
         { this.isChildVisible( 'description' ) && this.props.description  ?
@@ -110,6 +137,10 @@ export default class Base extends React.Component {
   }
 
   renderSelf() {
+  }
+
+  renderTools() {
+
   }
 
   renderShort() {

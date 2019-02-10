@@ -21,13 +21,17 @@ module.exports = {
       type: 'slider'
     },
     slider: {
-      _class: require('./Slider').default
+      _class: require('./Slider').default,
+      cols: 3,
+      rows: 2,
     },
     options: {
-      _class: require('./Options').default
+      _class: require('./Options').default,
+      cols: 3,
     },
     trigger: {
-      _class: require('./Trigger').default
+      _class: require('./Trigger').default,
+      cols: 3,
     },
     text: {
       _class: require('./Text').default
@@ -45,13 +49,19 @@ module.exports = {
       _class: require('./Page').default
     },
     pixels: {
-      _class: require('./Pixels').default
+      _class: require('./Pixels').default,
+      cols: 6,
+      rows: 4,
     },
     text: {
       _class: require('./Text').default
     },
     yaml: {
-      _class: require('./YAML').default
+      _class: require('./YAML').default,
+      cols: 3,
+    },
+    collector: {
+      _class: require('./Collector').default
     }
   }
 }

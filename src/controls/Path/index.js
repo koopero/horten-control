@@ -29,9 +29,10 @@ export default class Path extends React.Component {
     function segment( seg, id, arr ) {
       var classes = []
 
-      if ( seg == prefix[id] )
+      if ( seg == prefix[id] ) {
+        return
         classes.push('prefix')
-      else if ( first ) {
+      } else if ( first ) {
         classes.push('first')
         first = false
       }

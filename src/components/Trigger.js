@@ -15,13 +15,16 @@ export default class Trigger extends Base {
 
   render() {
     const title = this.props.title
-      , trigger = this.props.trigger
+    const trigger = this.props.trigger
 
     var text = title
-    if ( !text && !isUndefined( trigger ) )
+    if ( !text && !_.isUndefined( trigger ) )
       text = ( <YAML data={ trigger } /> )
 
-
+    let className = this.props.className || ''
+    if ( this.state.selected ) 
+      className += ' selected'
+    
 
     return (
       <span
@@ -39,13 +42,20 @@ export default class Trigger extends Base {
     )
   }
 
+  componentDidMount() {
+    super.componentDidMount()
+    this.onValueSelf( this.state.cursor.value )
+  }
+
+  
+
   onTouch( type, event ) {
     // console.log( 'onTouch', type, event )
   }
 
   onMouse( type, event ) {
     var elem = this.button
-      , classList = elem.classList
+    const classList = elem.classList
 
     switch ( type ) {
     case 'down':
@@ -73,33 +83,58 @@ export default class Trigger extends Base {
 
     if ( this.props.toggle ) {
       value = !this.state.cursor.value
-    } else if ( !isUndefined( this.props.trigger ) ) {
+    } else if ( !_.isUndefined( this.props.trigger ) ) {
       value = this.props.trigger
     } else {
       value = now()
     }
 
-    if ( !isUndefined( value ) )
+    if ( !_.isUndefined( value ) ) {
+      this.onValueSelf( value )
       this.onUserInput( value )
+    }
   }
 
   onValueSelf( value ) {
     const ourValue = this.props.trigger
-      , elem = this.button
-      , classList = elem.classList
+
 
     var selected
 
-    if ( !isUndefined( ourValue ) ) {
-      selected = deepequal( ourValue, value )
+    function compare( a, b ) {
+      console.log( 'compare', a, b )
+
+      if ( a == b ) return true
+      if ( _.isObject( a ) && !_.isUndefined( b ) ) {
+        for ( let key in a ) 
+          if ( !compare( a[key], b[key] ) )
+            return false
+        
+        return true
+      }
+
+      return a == b
+    }
+
+    if ( !_.isUndefined( ourValue ) ) {
+      selected = compare( ourValue, value )
     } else {
       selected = !!value
     }
 
+    this.state.selected = selected
+    const elem = this.button
+
+    if ( !elem )
+      return 
+
+    const classList = elem.classList
     if ( selected ) {
       classList.add('selected')
+      // classList.remove('unselected')
     } else {
       classList.remove('selected')
+      // classList.add('unselected')
     }
   }
 }

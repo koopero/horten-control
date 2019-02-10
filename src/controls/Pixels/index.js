@@ -8,10 +8,10 @@ import VBoxSlider from '../VBoxSlider'
 import string2png from 'string2png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlash, faEyeDropper, faPaintBrush, faMousePointer, faDrum, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import { faBed, faEyeDropper, faPaintBrush, faMousePointer, faDrum, faCheckSquare, faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 
 const MODE_TO_ICON = {
-  'none': faSlash,
+  'none': faBed,
   'dropper': faEyeDropper,
   'paint': faPaintBrush,
   'select': faMousePointer,
@@ -23,7 +23,7 @@ const MODE_TO_ICON = {
 class Selector extends React.Component {
   render() {
     const onMouseEvent = this.props.onMouseEvent
-    const className = ['button', 'pixel', 'seethru', 'fingersize' ]
+    const className = ['button', 'pixel', 'seethru' ]
     const colour = new Colour( this.props.colour )
     const style = {
       backgroundColor: colour.toCSS()
@@ -40,7 +40,7 @@ class Selector extends React.Component {
 
         className={className.join(' ')}
         style={style}
-      />
+      ></div>
     )
   }
 }
@@ -55,20 +55,25 @@ export default class Pixels extends Base {
   componentWillReceiveProps( props ) {
     super.componentWillReceiveProps( props )
 
-    let rows = parseInt( props.rows ) || 0
-    let cols = parseInt( props.cols ) || 0
-    let size = rows * cols
+    let height = parseInt( props.height )
+    let width = parseInt( props.width )
+    
+    if ( isNaN( width ) ) width = 1
+    if ( isNaN( height ) ) height = 1
 
-    this.state.rows = rows
-    this.state.cols = cols
+
+    let size = height * width
+
+    this.state.height = height
+    this.state.width = width
     this.state.size = size
     this.state.channels = props.channels || 'rgba'
     this.state.sliders = props.sliders || 'hsv rgb a'
     this.state.selected = new Array( size )
 
-    this.state.mode = props.mode || this.state.mode || 'none'
+    this.state.mode = props.mode || this.state.mode || 'paint'
 
-    this.state.modes = [ 'none', 'select', 'check', 'dropper', 'paint', 'drum' ]
+    this.state.modes = [ 'paint', 'drum', 'dropper','select', 'check'  ]
 
     if ( !this.state.colour )
       this.state.colour = new Colour()
@@ -88,7 +93,7 @@ export default class Pixels extends Base {
 
   setPixels( value ) {
     value = value && value.data
-    let colours = string2png.channels( value || '', { channels: this.state.channels, width: this.state.cols, height: this.state.rows } )
+    let colours = string2png.channels( value || '', { channels: this.state.channels, width: this.state.width, height: this.state.height } )
     colours = colours.slice( 0, this.state.size )
 
     colours.map( ( colour, index ) => {
@@ -103,35 +108,44 @@ export default class Pixels extends Base {
 
     const grid = this.renderGrid()
     const sliders = this.isChildVisible('sliders') && this.state.mode != 'none' && this.renderSliders()
-    const modes = this.isChildVisible('modes') && this.renderModes()
     const mode = this.state.mode
-
+    let rows = Math.max( 0 , this.state.rows - 1 )
     let className = `inner pixels-mode-${mode}`
+    className += ` grid-rows-${rows}`
+
     return (
-      <div className={className}>
-        { modes }
-        { grid }
-        { sliders }
-      </div>
+      <table className={className}>
+        <tr>
+          { sliders }
+          <td className="delim"><FontAwesomeIcon icon={faArrowCircleRight} /></td>
+          <td className="grid">{ grid }</td>
+        </tr>
+      </table>
     )
+  }
+
+  renderTools() {
+    const modes = this.isChildVisible('modes') && this.renderModes()
+    return [ super.renderTools(), modes ]
   }
 
   renderGrid() {
     const self = this
-    const rows = this.state.rows
+    const height = this.state.height
     let size = this.state.size
-    let width = this.state.cols
+    let width = this.state.width
 
     return renderTable()
 
     function renderTable( ) {
       let indexes = []
-      for ( let i = 0; i < rows; i ++ )
+      for ( let i = 0; i < height; i ++ )
         indexes[i] = i * width
 
+      let rows = Math.max( 0 , self.state.rows - 1 )
 
       return (
-        <table>
+        <table className={`grid-rows-${rows}`}>
           <tbody>
             { indexes.map( renderRow ) }
           </tbody>
@@ -147,7 +161,7 @@ export default class Pixels extends Base {
       return (
         <tr key={row}>
           { indexes.map( ( index ) => (
-            <td key={index}>{ renderCell( index ) }</td>
+            <td key={index} style={{ height: `${100/height}%`}}>{ renderCell( index ) }</td>
           ) ) }
         </tr>
       )
@@ -188,7 +202,7 @@ export default class Pixels extends Base {
       </button>
     })
 
-    return <div className="modes toolbar">{ modes }</div>
+    return modes
   }
 
   onModeClick( mode ) {
@@ -211,17 +225,15 @@ export default class Pixels extends Base {
     let { sliders } = this.state
     sliders = sliders.split('')
     sliders = sliders.map( channel => {
-      return channel == ' ' ? <span className='spacer'>&nbsp;</span> : <VBoxSlider 
+      return channel == ' ' ? <td className='spacer'>&nbsp;</td> : <td className='vslider'><VBoxSlider 
         colour={this.state.colour}
         value={this.state.colour.getChannel( channel )}
         colourChannel={channel}
         onUserInput={ value => this.onSetColourChannel( channel, value ) }
-      />
+      /></td>
     })
 
-    return <div className='sliders'>
-      { sliders }
-    </div>
+    return sliders
   }
 
   onSetColourChannel( channel, value ) {
@@ -250,7 +262,6 @@ export default class Pixels extends Base {
   onCellMouseEvent( index, event ) {
     const { type } = event
     event = Object.assign( {}, event )
-    console.log('onCellMouseEvent', { index, type, event  } )
     let action
     switch ( type ) {
     case 'mousedown':  
@@ -395,13 +406,14 @@ export default class Pixels extends Base {
   }
 
   onPixelInput() {
-    const { colours, cols } = this.state
+    const { colours, width, height } = this.state
     let data = colours.map( c => c.toHexChannels( this.state.channels ) )
-    data = data.map( ( pixel, index ) => '#' + pixel + ( index % cols == cols - 1 ? '\n' : ' ' ))
+    data = data.map( ( pixel, index ) => '#' + pixel + ( index % width == width - 1 ? '\n' : ' ' ))
     data = data.join('')
 
     const pixels = {
       format: 'hex',
+      width, height,
       data
     }
     this.onUserInput( pixels )

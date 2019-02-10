@@ -5,6 +5,12 @@ meta:
       type: slider
       min: -180
       max: 180
-      markers: [ -180, -90, -45, 0, 45, 90, 180 ]
+      # markers: [ -180, -90, -45, 0, 45, 90, 180 ]
       unit: °
+      quant: 1
+
+    pitch:
+      type: angle
+      min: -30
+      max: 30
 

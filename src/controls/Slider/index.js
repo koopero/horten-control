@@ -88,11 +88,25 @@ class Slider extends Base {
     setTimeout( () => this.inputChangingType = false,100 )
   }
 
+  markersDefaultUnit() {
+    let markers = [ 0, 1 ]
+    let levels = 2
+    let quant = 1
+    for ( let level = 0; level < levels; level ++ ) {
+      for ( let x = 0; x < quant; x ++ ) 
+        markers.push( ( x + 0.5 ) / ( quant) )
+      quant *= 2
+    }
+
+    return markers
+  }
+
   renderMarkers() {
     var self = this
       , ranger = self.ranger
 
-    var markers = this.props.markers || [ this.ranger.min, this.ranger.max ]
+    var markers = this.props.markers || [ 0, 1 ]
+    markers = this.markersDefaultUnit().map( v => ranger.fromUnit( v ) )
 
     return (
       <span className='markers-wrap'>

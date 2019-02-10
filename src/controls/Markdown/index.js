@@ -49,7 +49,7 @@ const Heading = function( props ) {
   hash = mdutil.unique( state.headingHashs, hash )
   let H = 'h'+props.level
   
-  return (<H id={hash}>{ props.children }</H>)
+  return (<H className="md-element" id={hash}>{ props.children }</H>)
   return <pre>{ JSON.stringify( props, null, 2 ) }</pre>
 }
 

@@ -3,6 +3,7 @@
 
 @track-color: rgba(0,0,0,30%);
 
+@slider-border-size: 2px;
 @thumb-color: #ddd;
 @thumb-height: 24px;
 @thumb-radius: 12px;
@@ -14,14 +15,14 @@
 @thumb-border-color: white;
 
 @track-width: 100%;
-@track-height: @thumb-height + 12;
+@track-height: 28px;
 @track-shadow-size: 2px;
 @track-shadow-blur: 2px;
 @track-shadow-color: #222;
 @track-border-width: 1px;
 @track-border-color: black;
 
-@track-radius: 4px;
+@track-radius: 16px;
 @contrast: 5%;
 
 .shadow(@shadow-size,@shadow-blur,@shadow-color) {
@@ -34,6 +35,8 @@
   height: @track-height;
   cursor: pointer;
   animate: 0.2s;
+  
+  border: 1px solid rgba( 200, 205, 208, 0.4 ) 
 }
 
 .thumb() {
@@ -41,9 +44,11 @@
   width: @thumb-width;
   cursor: pointer;
   // .button();
+  margin: 0 10px 0 1px;
   background: transparent;
   box-shadow: 0 1px 8px rgba(255,255,255,0.5) inset;
   border: 1px solid #ddd;
+  border-radius: @thumb-radius;
 }
 
 .thumbFocused() {
@@ -82,7 +87,7 @@ input[type=range] {
   &::-webkit-slider-thumb {
     .thumb();
     -webkit-appearance: none;
-    margin-top: ((-@track-border-width * 2 + @track-height) / 2) - (@button-height / 2);
+    margin-top: ((@track-height) / 2) - (@thumb-height / 2) - 1;
   }
 
   &:focus::-webkit-slider-runnable-track {

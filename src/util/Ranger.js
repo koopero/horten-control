@@ -5,7 +5,8 @@ var DEFAULTS = {
   sign: 0,
   digits: 3,
   metric: 0,
-  precision: 0
+  precision: 0,
+  quant: 1000,
 }
 
 class Ranger {
@@ -37,6 +38,9 @@ class Ranger {
 
       this[k] = v
     }
+
+    console.log('RANGER CONFIG', this, config )
+
   }
 
   toUnit( v ) {
@@ -46,6 +50,8 @@ class Ranger {
     // pow
     v = Math.pow( v, 1/this.pow )
 
+    v = v || 0
+
     return v
   }
 
@@ -54,20 +60,22 @@ class Ranger {
   }
 
   fromUnit( v ) {
-
     // pow
     v = Math.pow( v, this.pow )
 
     // min, max
     v = v * ( this.max - this.min ) + this.min
 
+    // quant
+    if ( this.quant )
+      v = Math.round( v * this.quant ) / this.quant
+
     return v
   }
 
-  toPretty ( num, digits ) {
-    digits = ('undefined' == typeof digits) ? Math.floor( this.digits ) : (parseFloat( digits ) || 0)
-    var metric = ''
-      , unit = this.unit
+  toPretty ( num ) {
+    let { digits, unit } = this
+    let metric = ''
 
     if ( this.metric ) {
       var abs = Math.abs( num )

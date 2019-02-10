@@ -6,6 +6,10 @@ import jsYaml from 'js-yaml'
 const safeDump = ( v ) => 'undefined' == typeof v ? '# undefined' : jsYaml.safeDump( v )
 const YAML = ( props ) => {
   return (
+    <pre className="yaml">{ safeDump ( props.data ) }</pre>
+  )
+
+  return (
     <SyntaxHighlighter className="yaml" language={'yaml'} style={ props.highkey ? atelierLakesideLight : atelierLakesideDark }>{ safeDump ( props.data ) }</SyntaxHighlighter>
   )
 }
