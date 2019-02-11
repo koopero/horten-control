@@ -36,6 +36,8 @@ export default class Base extends React.Component {
     if ( isNaN( state.cols ) ) state.cols = 4
     if ( isNaN( state.rows ) ) state.rows = 0
 
+    if ( props.code && _.isString( props.code ) )
+      state.code = props.code
 
     return state
 
@@ -81,7 +83,7 @@ export default class Base extends React.Component {
     const style = _.pick( this.props, ['clear'] )
     let className = 'horten control'
     className += ' '+this.state.type
-    className += ' '+this.renderControlSizeClasses()
+    className += ' '+this.renderControlWidthClasses()
 
     return (
       <span className={ className } style={ style } >
@@ -92,14 +94,20 @@ export default class Base extends React.Component {
     )
   }
 
-  renderControlSizeClasses() {
+  renderControlWidthClasses() {
     let classes = ''
 
     if ( this.state.cols )
       classes += ' grid-cols-'+this.state.cols
 
+    return classes
+  }
+
+  renderControlHeightClasses() {
+    let classes = ''
     if ( this.state.rows )
       classes += ' grid-rows-'+this.state.rows
+
     return classes
   }
 

@@ -67,8 +67,8 @@ export default class Pixels extends Base {
     this.state.height = height
     this.state.width = width
     this.state.size = size
-    this.state.channels = props.channels || 'rgba'
-    this.state.sliders = props.sliders || 'hsv rgb a'
+    this.state.channels = props.channels || 'rgb'
+    this.state.sliders = props.sliders || 'rgb'
     this.state.selected = new Array( size )
 
     this.state.mode = props.mode || this.state.mode || 'paint'
@@ -109,7 +109,7 @@ export default class Pixels extends Base {
     const grid = this.renderGrid()
     const sliders = this.isChildVisible('sliders') && this.state.mode != 'none' && this.renderSliders()
     const mode = this.state.mode
-    let rows = Math.max( 0 , this.state.rows - 1 )
+    let rows = this.state.rows
     let className = `inner pixels-mode-${mode}`
     className += ` grid-rows-${rows}`
 
@@ -145,7 +145,7 @@ export default class Pixels extends Base {
       let rows = Math.max( 0 , self.state.rows - 1 )
 
       return (
-        <table className={`grid-rows-${rows}`}>
+        <table className={ self.renderControlHeightClasses() }>
           <tbody>
             { indexes.map( renderRow ) }
           </tbody>

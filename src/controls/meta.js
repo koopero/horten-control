@@ -33,6 +33,9 @@ module.exports = {
       _class: require('./Trigger').default,
       cols: 3,
     },
+    tabs: {
+      _class: require('./Map').default
+    },
     text: {
       _class: require('./Text').default
     },

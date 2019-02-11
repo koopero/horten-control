@@ -1,6 +1,4 @@
 import React from 'react'
-
-import string2png from 'string2png'
 import Colour from 'deepcolour'
 
 // Aped from CSS
@@ -110,10 +108,14 @@ export default class VBoxSlider extends React.Component {
   }
 
   onMouseMove( event ) {
+    console.log('VBoxSlider.onMouseMove', this.ref.main.getBoundingClientRect() )
+
+    let bounds = this.ref.main.getBoundingClientRect()
+
     let thumbH = this.ref.thumb.clientHeight + _border
-      , ourH = this.ref.main.clientHeight
-      , y = event.pageY - this.ref.main.offsetTop
-      , v = ( y - thumbH / 2 ) / ( ourH - thumbH )
+    let ourH = this.ref.main.clientHeight
+    let y = event.clientY - bounds.top
+    let v = ( y - thumbH / 2 ) / ( ourH - thumbH )
 
     v = v > 1 ? 1 : v < 0 ? 0 : v
     v = 1 - v
@@ -121,14 +123,17 @@ export default class VBoxSlider extends React.Component {
     this.setValue( v )
 
 
-    if ( this.props.onUserInput )
+    if ( this.props.onUserInput ) {
+
       this.props.onUserInput( v )
+    }
   }
 
   setValue( v ) {
+    console.log('VBoxSlider.setValue', this.ref.thumb.clientHeight )
     let thumbH = this.ref.thumb.clientHeight + _border
-      , ourH = this.ref.main.clientHeight
-      , y = (1-v) * ( ourH - thumbH )
+    let ourH = this.ref.main.clientHeight
+    let y = (1-v) * ( ourH - thumbH )
 
     this.ref.thumb.style.top = y+'px'
   }

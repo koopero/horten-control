@@ -62,7 +62,38 @@ path: preset/collected/
 ### Tabs
 
 ``` control
+type: yaml
+path: airports/
+default:
+  CYVR: 
+    lat: 49.194
+    lng: -123.183
+  
+  CYYZ:
+    lat: 43.677
+    lng: -79.63
+```
+
+``` control
 type: tabs
-source: airplane/
-path: preset/collected/
+path: airports/
+sub:
+  subs:
+    wind:
+      type: slider
+      cols: 12
+      default: 0
+      unit: kn
+      max: 120
+      pow: 2
+      quant: 1
+      digits: 0
+```
+
+
+``` control
+path: airports/CZZZ
+trigger:
+  lat: 49.194
+  lng: -123.183
 ```

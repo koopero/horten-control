@@ -3,11 +3,72 @@
 import _ from 'lodash'
 import React from 'react'
 import Base from '../Base'
+import Trigger from '../../components/Trigger'
+
+import H from 'horten'
+
+
 
 export default class Map extends Base {
   constructor( props ) {
     super( props )
     this.state.type = 'grid'
+    this.resolveKeys()
+  }
+
+  componentDidMount() {
+    super.componentDidMount()
+    this.resolveKeys()
+  }
+
+  resolveKeys( keys ) {
+    var state = this.state = this.state || {}
+    keys = keys || this.props.keys
+
+    keys = state.cursor.mutant.keys()
+
+    let subs = keys.map( ( key, index ) => ({
+      key,
+      path: H.path.resolve( state.path, key ),
+    }))
+
+    return this.setState({ subs, keys })
+  }
+
+  renderSelf() {
+    const self = this
+    let state = this.state
+    let keys = state.keys || []
+
+    return (
+      <div className='options'>{ keys.map( Option ) }</div>
+    )
+
+    function Option( key, index ) {
+      var classes = ['button','option']
+
+      if ( key == state.key ) 
+        classes.push( 'selected' )
+      else 
+        classes.push( 'unselected' )
+
+      if ( index == 0 )
+        classes.push('first')
+
+      classes = classes.join(' ')
+
+      return (
+        <a
+          className={ classes }
+          onClick={ () => self.setKey( key ) }
+          key={index}
+        >{ key }</a>
+      )
+    }
+  }
+
+  setKey( key ) {
+    this.setState( { key } )
   }
 
   propsToState( props ) {
@@ -21,11 +82,9 @@ export default class Map extends Base {
   }
 
   onCursorKeys( keys ) {
-    let subs = {}
-    keys.map( key => {
-      subs[key] = {}
-    })
-    this.setState( Object.assign( {}, this.state, { keys, subs } ) )
+    // let subs = {}
+    this.resolveKeys()
+    // this.setState( Object.assign( {}, this.state, { keys, subs } ) )
   }
 }
 
