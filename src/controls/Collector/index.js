@@ -1,5 +1,5 @@
 import React from 'react'
-import Base from '../Base'
+import Base from '../../base/ControlHasSource'
 import YAML from '../../components/YAML'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -90,35 +90,5 @@ export default class Collector extends Base {
   }
 
 
-  //
-  // Move to HasSource
-  //
 
-  propsToState( props ) {
-    let state = super.propsToState( props )
-
-    state.mode = props.mode || state.mode || 'record'
-
-    state.source = new H.Cursor()
-    state.source.delay = 0
-    state.source.echo = false
-    state.source.path = props.source
-    state.source.on('delta', this.onSourceDelta.bind( this ) )
-
-    return state
-  }
-
-
-  componentDidMount() {
-    super.componentDidMount()
-    if ( this.state.source ) 
-      this.state.source.listening = true 
-    
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount()
-    this.state.cursor.listening = false
-    this.state.source.listening = false
-  }
 }

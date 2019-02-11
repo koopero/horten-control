@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import React from 'react'
 import deepcolour from 'deepcolour'
-import Base from '../Base'
+import Base from '../../base/Control'
 import Slider from '../Slider'
 
 const CHANNEL = {

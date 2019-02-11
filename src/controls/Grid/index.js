@@ -2,7 +2,7 @@
 
 import _ from 'lodash'
 import React from 'react'
-import Base from '../Base'
+import Base from '../../base/Control'
 import Trigger from '../../components/Trigger'
 
 export default class Grid extends Base {

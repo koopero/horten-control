@@ -1,10 +1,6 @@
-'use strict'
+const React = require('react')
+const H = require('horten')
 
-var React = require('react')
-
-var H = require('horten')
-
-require('./index.less')
 
 export default class Path extends React.Component {
   constructor( props ) {

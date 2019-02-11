@@ -2,7 +2,7 @@
 
 import React from 'react'
 import _ from 'lodash'
-import Base from '../Base'
+import Base from '../../base/Control'
 
 import floatToStr from '../../util/floatToStr'
 
@@ -149,7 +149,6 @@ class Slider extends Base {
   }
 
   valueSet( value ) {
-    var oldValue = this.state.value
     this.state.value = value
 
     this.inputRange.value = this.ranger.toUnit( value )
@@ -165,7 +164,9 @@ class Slider extends Base {
 
   onValueSelf( value ) {
     this.state.value = value
-    this.inputRange.value = this.ranger.toUnit( value )
+
+    if ( this.inputRange )
+      this.inputRange.value = this.ranger.toUnit( value )
     if ( !this.state.textSelected )
       this.inputText.value = this.ranger.toPretty( value )
   }

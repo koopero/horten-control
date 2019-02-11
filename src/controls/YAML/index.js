@@ -1,5 +1,5 @@
 import React from 'react'
-import Base from '../Base'
+import Base from '../../base/Control'
 import YAML from '../../components/YAML'
 
 require('./index.less')

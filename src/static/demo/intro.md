@@ -26,6 +26,19 @@ subs:
       - cruise
       - toga
   pitch: { type: pitch }
+  destination:
+    type: options
+    source: airports/
+
+  ////:
+    options:
+      land:
+        pitch: -5
+        engines: idle
+      takeoff:
+        pitch: 10
+        engines: toga
+
   //:
     description: Landin' time
     trigger:
@@ -43,7 +56,7 @@ subs:
 ``` control
 path: airplane/lights
 type: pixels
-sliders: hsv
+sliders: rgb hsv
 channels: rgb
 width: 3
 colour: '880000'

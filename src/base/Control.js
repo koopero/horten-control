@@ -3,10 +3,10 @@ import React from 'react'
 import _ from 'lodash'
 import H from 'horten'
 
-import Control from './Control'
-import Path from './Path'
+import ControlFromProps from '../controls/Control'
+import Path from '../components/Path'
 
-export default class Base extends React.Component {
+export default class Control extends React.Component {
   constructor( props ) {
     super( props )
     this.state = this.propsToState( props )
@@ -177,7 +177,7 @@ export default class Base extends React.Component {
         props.path = path
 
       return (<span className='sub' key={index}>
-        <Control {...props}/>
+        <ControlFromProps {...props}/>
       </span>)
     }
   }

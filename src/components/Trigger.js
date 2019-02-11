@@ -1,13 +1,11 @@
 import _ from 'lodash'
 import React from 'react'
-import H from 'horten'
-import Base from '../controls/Base'
+import Control from '../base/Control'
 import YAML from './YAML'
-import deepequal from 'deep-equal'
 
 function now() { return new Date().getTime() }
 
-export default class Trigger extends Base {
+export default class Trigger extends Control {
   constructor( props ) {
     super( props )
     this.state.type = 'trigger'

@@ -2,7 +2,7 @@ require('./index.less')
 
 import _ from 'lodash'
 import React from 'react'
-import Base from '../Base'
+import Base from '../../base/Control'
 import Colour from 'deepcolour'
 import VBoxSlider from '../VBoxSlider'
 import string2png from 'string2png'

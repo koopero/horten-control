@@ -2,7 +2,7 @@
 
 import _ from 'lodash'
 import React from 'react'
-import Base from '../Base'
+import Base from '../../base/Control'
 import Trigger from '../../components/Trigger'
 
 import H from 'horten'
@@ -31,6 +31,9 @@ export default class Map extends Base {
       key,
       path: H.path.resolve( state.path, key ),
     }))
+
+    if ( this.props.type == 'tabs' )
+      subs = subs.filter( sub => sub.key == state.key )
 
     return this.setState({ subs, keys })
   }
@@ -68,7 +71,8 @@ export default class Map extends Base {
   }
 
   setKey( key ) {
-    this.setState( { key } )
+    this.state.key = key
+    this.resolveKeys()
   }
 
   propsToState( props ) {

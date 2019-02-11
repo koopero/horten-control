@@ -40,7 +40,7 @@ module.exports = {
       _class: require('./Text').default
     },
     group: {
-      _class: require('./Base').default
+      _class: require('../base/Control').default
     },
     grid: {
       _class: require('./Grid').default

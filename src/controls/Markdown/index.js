@@ -1,4 +1,4 @@
-import Base from '../Base'
+import Base from '../../base/Control'
 import React from 'react'
 
 import Markdown from 'react-markdown'
