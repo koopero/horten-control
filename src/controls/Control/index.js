@@ -5,6 +5,9 @@ import React from 'react'
 import H from 'horten'
 
 export default function HortenControl( props ) {
+  if ( _.isString( props ) )
+    props = { type: props }
+
   props = _.clone( props )
   const meta = new H.Mutant( props.meta )
 

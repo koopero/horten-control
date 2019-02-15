@@ -11,6 +11,8 @@ import pathlib from 'path'
 import * as mdutil from '../Markdown/util'
 import HortenWebSocket from 'horten-websocket'
 
+const frontmatter = require()
+
 require('./index.less')
 
 
@@ -23,6 +25,10 @@ export default class Page extends React.Component {
     _.merge( this.state, { meta: require('../meta.js') }, this.props, __HortenPage )
 
     this.state.websocket = new (HortenWebSocket.Client)()
+  }
+
+  componentDidMount() {
+    this.state.websocket.open()
   }
 
   loadFile( url ) {
@@ -61,6 +67,7 @@ export default class Page extends React.Component {
     switch( ext ) {
     case 'md':
     case 'markdown':
+      let front = frontmatter( )
       file.index = mdutil.makeIndex( { path: [ file.name ], markdown: file.contents, idPrefix: file.idPrefix } ) 
       file.markdown = file.contents
       // file.index = 'foo?'
@@ -96,7 +103,7 @@ export default class Page extends React.Component {
     this.state.timer = setTimeout( () => this.forceUpdate() )
   }
 
-  render() {
+  renderOLD() {
     let pages = this.state.pages || []
     pages = _.map( pages, ( page ) => this.loadFile( page ) )
     pages = _.sortBy( pages, 'order' )
@@ -129,6 +136,51 @@ export default class Page extends React.Component {
       { index }
       { pages }
     </div> )
+  }
+
+  render() {
+    let regions = ['content','sidebar','afterContent']
+    let regionsRendered = regions.map( region => this.renderRegion( region ) )
+    let hasRegions = _.filter( regions, (region,index) => !!regionsRendered[index] )
+
+    hasRegions = hasRegions.map( region => `has-${region}`)
+    hasRegions = hasRegions.join(' ')
+
+    let className = ''
+    className += hasRegions
+    return ( <div className={className}>
+      { regionsRendered }
+    </div> )      
+  }
+
+  renderRegion( region ) {
+    let src = this.state[region]
+    if ( !src ) return
+    if ( !_.isArrayLikeObject( src ) )
+      src = [ src ]
+
+      
+
+    let className = `region-${region}`
+    let content = src.map( src => this.renderContent( src ) )
+
+    return <section className={className} key={region}>{ content }</section>
+  }
+
+  renderContent( src ) {
+    let content = this.loadFile( src )
+
+    let className = ''
+    let meta = _.merge( {}, this.state.meta,content.meta )
+
+    if ( content.markdown )
+      return <Markdown 
+        {...content}
+        meta={meta}
+      />
+
+
+    return src
   }
 
   renderIndex() {

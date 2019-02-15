@@ -25,8 +25,10 @@ export default class Options extends Base {
       _.map( options, option )
     }
 
-    var sourceKeys = state.source.mutant.keys()
-    sourceKeys.forEach( ( key ) => option( key ) )
+    if ( state.source && state.source.path.length ) {
+      var sourceKeys = state.source.mutant.keys()
+      sourceKeys.forEach( ( key ) => option( key ) )
+    }
 
 
     return this.setState( { values, titles } )
@@ -34,8 +36,12 @@ export default class Options extends Base {
     function option( value, title ) {
       title = title || value
       title = String( title )
-      values.push( value )
-      titles.push( title )
+      let titleInd = titles.indexOf( title )
+
+      if ( titleInd == -1 ) {
+        values.push( value )
+        titles.push( title )
+      }
     }
   }
 

@@ -3,7 +3,8 @@ import React from 'react'
 
 import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
-import SyntaxHighlighter from 'react-syntax-highlighter'
+import SyntaxHighlighter from '../../components/SyntaxHighlighter'
+
 import { ocean } from 'react-syntax-highlighter/dist/styles/hljs'
 import Control from '../Control'
 

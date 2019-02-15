@@ -40,6 +40,9 @@
     "css-loader": "^2.1.0",
     "deep-equal": "^1.0.1",
     "deepcolour": "^2.0.0",
+    "deindent": "^0.1.0",
+    "front-matter": "^3.0.1",
+    "highlight.js": "^9.14.2",
     "horten": "^0.9.0",
     "horten-websocket": "^0.2.8",
     "js-yaml": "^3.12.1",
@@ -85,7 +88,6 @@
   "directories": {
     "test": "test"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/koopero/horten-control.git"

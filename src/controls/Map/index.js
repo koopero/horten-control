@@ -23,19 +23,30 @@ export default class Map extends Base {
 
   resolveKeys( keys ) {
     var state = this.state = this.state || {}
-    keys = keys || this.props.keys
+    let { key } = state
 
-    keys = state.cursor.mutant.keys()
+    keys = keys || this.props.options || []
+
+    if ( state.source && state.source.path.length )
+      keys = keys.concat( state.source.mutant.keys() )
+
+    keys = _.uniq( keys )
+    keys = _.filter( keys, a => !!a )
+
+    if ( !key && keys.length )
+      key = keys[0]
 
     let subs = keys.map( ( key, index ) => ({
       key,
       path: H.path.resolve( state.path, key ),
     }))
 
+    subs = _.filter( subs )
+
     if ( this.props.type == 'tabs' )
       subs = subs.filter( sub => sub.key == state.key )
 
-    return this.setState({ subs, keys })
+    return this.setState({ key, subs, keys })
   }
 
   renderSelf() {
@@ -79,9 +90,6 @@ export default class Map extends Base {
     let state = super.propsToState( props )
     state.cursor.on('keys', this.onCursorKeys.bind( this ) )
     state.subs = {}
-    state.cursor.mutant.keys().map( key => {
-      state.subs[key] = {}
-    })
     return state
   }
 

@@ -33,7 +33,7 @@ export default class Control extends React.Component {
     state.cols = parseInt( props.cols )
     state.rows = parseInt( props.rows )
 
-    if ( isNaN( state.cols ) ) state.cols = 4
+    if ( isNaN( state.cols ) ) state.cols = 0
     if ( isNaN( state.rows ) ) state.rows = 0
 
     if ( props.code && _.isString( props.code ) )
@@ -162,6 +162,9 @@ export default class Control extends React.Component {
         meta: this.props.meta
       }
 
+    if ( _.isString( template ) )
+      template = { type: template }
+
     return (
       <div className='subs'>
         { _.map( this.state.subs, Sub ) }
@@ -169,6 +172,8 @@ export default class Control extends React.Component {
       </div>
     )
     function Sub( props, index, collection ) {
+      if ( _.isString( props ) )
+        props = { type: props }
       props = Object.assign( {}, template, props, copy, { pathPrefix: path } )
 
       if ( !props.path && !Array.isArray( collection ) )
