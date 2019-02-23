@@ -5,6 +5,7 @@ import Trigger from '../../components/Trigger'
 import H from 'horten'
 
 const _ = require('lodash')
+const wildcarder = require('../../util/wildcarder')
 
 export default class Options extends Base {
   constructor( props ) {
@@ -27,6 +28,7 @@ export default class Options extends Base {
 
     if ( state.source && state.source.path.length ) {
       var sourceKeys = state.source.mutant.keys()
+      sourceKeys = wildcarder.filter( sourceKeys, this.props.wildcard )
       sourceKeys.forEach( ( key ) => option( key ) )
     }
 

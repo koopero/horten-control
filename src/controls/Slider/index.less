@@ -20,23 +20,22 @@
 }
 
 
-.horten .slider {
-  position: relative;
-  // height: @button-height + @marker-height+ @gutter;
-  // min-width: 540px;
-  // max-width: 800px;
-  // width: 100%;
+.horten.control.slider {
+  .inner {
+    overflow: auto;
+  }
 
   .major {
     position: relative;
     margin: 0;
     display: block;
+    padding: 8px 4px;
     // padding-right: @control-slider-detail-width;
     box-sizing: content-box;
   }
 
   .secondary {
-    width: 8em;
+    width: 6em;
     text-align: center;
     background: transparent;
     color: #89a;
@@ -48,11 +47,10 @@
     top: @button-height;
     left: 0;
     right: 0;
-    top: 4px;
+    top: 10px;
     z-index: -90;
     height: @marker-height;
     overflow: hidden;
-
   }
 
   

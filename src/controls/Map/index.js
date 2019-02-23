@@ -59,7 +59,7 @@ export default class Map extends Base {
     )
 
     function Option( key, index ) {
-      var classes = ['button','option']
+      var classes = ['button','option','tab']
 
       if ( key == state.key ) 
         classes.push( 'selected' )
