@@ -9,14 +9,14 @@
     "size": "webpack --json | webpack-bundle-size-analyzer",
     "build": "webpack",
     "watch": "webpack --watch",
-    "server": "webpack-dev-server",
+    "server": "webpack-dev-server --host 0.0.0.0",
     "demo": "node ./demo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "babel": {
     "presets": [
       [
-        "@babel/env",
+        "@babel/preset-env",
         {
           "targets": {
             "browsers": [
@@ -36,7 +36,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
     "@fortawesome/free-solid-svg-icons": "^5.7.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "8.0.5",
     "browser-request": "^0.3.3",
     "css-loader": "^2.1.0",
     "deep-equal": "^1.0.1",
@@ -51,6 +51,7 @@
     "less-loader": "^4.1.0",
     "lodash": "^4.17.4",
     "mini-css-extract-plugin": "^0.5.0",
+    "minimatch": "^3.0.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-markdown": "^4.0.6",
@@ -76,7 +77,7 @@
     "webpack": "^4.29.1",
     "webpack-bundle-size-analyzer": "^3.0.0",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "3.1.14"
   },
   "engines": {
     "node": ">=6.9.1"

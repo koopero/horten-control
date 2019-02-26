@@ -5,8 +5,6 @@ export default class ControlHasSource extends Control {
   propsToState( props ) {
     let state = super.propsToState( props )
 
-    state.mode = props.mode || state.mode || 'record'
-
     state.source = new H.Cursor()
     state.source.delay = 0
     state.source.echo = false

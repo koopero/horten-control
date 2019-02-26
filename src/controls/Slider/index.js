@@ -21,7 +21,7 @@ class Slider extends Base {
 
   renderSelf() {
     return (
-      <div className='slider'>
+      <div className='inner'>
         <span className='major'>
           <input
             type="range"
@@ -34,7 +34,6 @@ class Slider extends Base {
           />
           { this.renderMarkers() }
         </span>
-        <div className='clearfix'>{' '}</div>
       </div>
     )
   }

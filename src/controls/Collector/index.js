@@ -18,10 +18,19 @@ const MODES = {
 const TOOLS = {
   'trash': { icon: faTrash },
   'save': { icon: faPlay },
-  'copy': { icon: faCopy },
+  // 'copy': { icon: faCopy },
 }
 
 export default class Collector extends Base {
+  propsToState( props ) {
+    let state = super.propsToState( props )
+
+    state.mode = props.mode || state.mode || 'pause'
+
+    return state
+  }
+
+
   renderTools() {
     const { state } = this
 
@@ -64,8 +73,8 @@ export default class Collector extends Base {
       case 'trash':
         return this.setState( { value: null } )
 
-      case 'pause':
-        return this.setState( { tool: 'pause' } )
+      case 'save':
+        return this.state.cursor.mutant.set( this.state.value )
     }
   }
 
