@@ -11,7 +11,7 @@ import pathlib from 'path'
 import * as mdutil from '../Markdown/util'
 import HortenWebSocket from 'horten-websocket'
 
-const frontmatter = require()
+const frontmatter = require('front-matter')
 
 require('./index.less')
 
@@ -67,8 +67,9 @@ export default class Page extends React.Component {
     switch( ext ) {
     case 'md':
     case 'markdown':
-      let front = frontmatter( )
-      file.index = mdutil.makeIndex( { path: [ file.name ], markdown: file.contents, idPrefix: file.idPrefix } ) 
+      let markdown = file.contents
+      let front = frontmatter( markdown )
+      file.index = mdutil.makeIndex( { path: [ file.name ], markdown, idPrefix: file.idPrefix } ) 
       file.markdown = file.contents
       // file.index = 'foo?'
 
