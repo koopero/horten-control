@@ -10,6 +10,7 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "server": "webpack-dev-server",
+    "demo": "node ./demo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "babel": {
