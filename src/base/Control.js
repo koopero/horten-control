@@ -191,7 +191,10 @@ export default class Control extends React.Component {
   //
   isChildVisible( name ) {
     if ( this.state.hide == 'all' ) {
-      return this.state.show.indexOf( name ) != -1
+      if ( Array.isArray( this.state.show ))
+        return this.state.show.indexOf( name ) != -1
+
+      return false
     }
 
     if ( Array.isArray( this.state.hide ) )
