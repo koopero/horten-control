@@ -2,7 +2,7 @@
 
 import _ from 'lodash'
 import React from 'react'
-import Base from '../../base/Control'
+import Base from '../../base/ControlHasSource'
 import Trigger from '../../components/Trigger'
 
 import H from 'horten'
@@ -54,9 +54,10 @@ export default class Map extends Base {
     let state = this.state
     let keys = state.keys || []
 
-    return (
-      <div className='options'>{ keys.map( Option ) }</div>
-    )
+    if ( this.props.type == 'tabs')
+      return (
+        <div className='options'>{ keys.map( Option ) }</div>
+      )
 
     function Option( key, index ) {
       var classes = ['button','option','tab']

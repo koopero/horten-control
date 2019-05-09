@@ -6,7 +6,8 @@ require('./index.less')
 
 class TriggerControl extends Base {
   renderSelf() {
-    return <Trigger {...this.props}/>
+    let title = this.props.title || ''
+    return <Trigger {...this.props} title={title}/>
   }
 }
 
