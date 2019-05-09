@@ -22,7 +22,12 @@ export default class Page extends React.Component {
     super( props )
     this.state = this.state || {}
     this.state.files = {}
-    _.merge( this.state, { meta: require('../meta.js') }, this.props, __HortenPage )
+    _.merge( this.state, 
+      { content: 'index.md', sidebar: '!nav' },
+      { meta: require('../meta.js') }, 
+      this.props, 
+      __HortenPage 
+    )
 
     this.state.websocket = new (HortenWebSocket.Client)()
   }
@@ -76,6 +81,7 @@ export default class Page extends React.Component {
       break
 
     case 'yaml':
+    case 'json':
       let data, error
       try {
         data = yaml.load( file.contents )
@@ -87,7 +93,7 @@ export default class Page extends React.Component {
         file.error = error
       } else {
         Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
-        console.log( data )
+        // console.log( data )
         this.state.meta = _.merge( this.state.meta, data.meta )
       }
       break
@@ -104,40 +110,40 @@ export default class Page extends React.Component {
     this.state.timer = setTimeout( () => this.forceUpdate() )
   }
 
-  renderOLD() {
-    let pages = this.state.pages || []
-    pages = _.map( pages, ( page ) => this.loadFile( page ) )
-    pages = _.sortBy( pages, 'order' )
+  // renderOLD() {
+  //   let pages = this.state.pages || []
+  //   pages = _.map( pages, ( page ) => this.loadFile( page ) )
+  //   pages = _.sortBy( pages, 'order' )
 
-    pages = _.map( pages, (page, index ) => {
-      if ( 'undefined' != typeof page.error ) {
-        return <pre className="error">{ page.url } { page.error.toString() }</pre>
-      }
+  //   pages = _.map( pages, (page, index ) => {
+  //     if ( 'undefined' != typeof page.error ) {
+  //       return <pre className="error">{ page.url } { page.error.toString() }</pre>
+  //     }
 
-      let content
-      let className = ''
-      let meta = _.merge( {}, this.state.meta, page.meta )
+  //     let content
+  //     let className = ''
+  //     let meta = _.merge( {}, this.state.meta, page.meta )
 
-      if ( page.markdown )
-        content = <Markdown 
-          {...page}
-          meta={meta}
-        />
+  //     if ( page.markdown )
+  //       content = <Markdown 
+  //         {...page}
+  //         meta={meta}
+  //       />
 
-      return <section className={className} key={index}>
-        <span className='url'>{ page.url }</span>
-        {/* <pre className='debug'>{ JSON.stringify( meta, null, 2 ) }</pre> */}
-        { content }
-      </section>
-    })
+  //     return <section className={className} key={index}>
+  //       <span className='url'>{ page.url }</span>
+  //       {/* <pre className='debug'>{ JSON.stringify( meta, null, 2 ) }</pre> */}
+  //       { content }
+  //     </section>
+  //   })
 
-    let index = this.renderIndex()
+  //   let index = this.renderIndex()
 
-    return ( <div className='horten page'>
-      { index }
-      { pages }
-    </div> )
-  }
+  //   return ( <div className='horten page'>
+  //     { index }
+  //     { pages }
+  //   </div> )
+  // }
 
   render() {
     let regions = ['content','sidebar','afterContent']
@@ -156,11 +162,8 @@ export default class Page extends React.Component {
 
   renderRegion( region ) {
     let src = this.state[region]
-    if ( !src ) return
-    if ( !_.isArrayLikeObject( src ) )
+    if ( src && !_.isArrayLikeObject( src ) )
       src = [ src ]
-
-      
 
     let className = `region-${region}`
     let content = src.map( src => this.renderContent( src ) )
