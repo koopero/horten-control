@@ -10,6 +10,7 @@ import request from 'browser-request'
 import pathlib from 'path'
 import * as mdutil from '../Markdown/util'
 import HortenWebSocket from 'horten-websocket'
+import ErrorTag from '../../components/ErrorTag'
 
 const frontmatter = require('front-matter')
 
@@ -17,13 +18,13 @@ require('./index.less')
 
 
 export default class Page extends React.Component {
-
+  
   constructor( props ) {
     super( props )
     this.state = this.state || {}
     this.state.files = {}
     _.merge( this.state, 
-      { content: 'index.md', sidebar: '!nav' },
+      { content: '/horten-control/demo/intro.md', sidebar: '!nav' },
       { meta: require('../meta.js') }, 
       this.props, 
       __HortenPage 
@@ -166,8 +167,8 @@ export default class Page extends React.Component {
       src = [ src ]
 
     let className = `region-${region}`
-    let content = src.map( src => this.renderContent( src ) )
-
+    let content = src && src.map( src => this.renderContent( src ) )
+    content = content || <pre>No Content</pre>
     return <section className={className} key={region}>{ content }</section>
   }
 
@@ -176,6 +177,11 @@ export default class Page extends React.Component {
 
     let className = ''
     let meta = _.merge( {}, this.state.meta,content.meta )
+
+    if ( content.error )
+      return <ErrorTag
+        {...content.error}
+      />
 
     if ( content.markdown )
       return <Markdown 

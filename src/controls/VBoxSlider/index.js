@@ -108,8 +108,6 @@ export default class VBoxSlider extends React.Component {
   }
 
   onMouseMove( event ) {
-    console.log('VBoxSlider.onMouseMove', this.ref.main.getBoundingClientRect() )
-
     let bounds = this.ref.main.getBoundingClientRect()
 
     let thumbH = this.ref.thumb.clientHeight + _border
@@ -130,7 +128,6 @@ export default class VBoxSlider extends React.Component {
   }
 
   setValue( v ) {
-    console.log('VBoxSlider.setValue', this.ref.thumb.clientHeight )
     let thumbH = this.ref.thumb.clientHeight + _border
     let ourH = this.ref.main.clientHeight
     let y = (1-v) * ( ourH - thumbH )

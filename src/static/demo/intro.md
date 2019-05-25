@@ -90,6 +90,7 @@ default:
 ``` control
 type: tabs
 path: airports/
+source: airports/
 sub:
   subs:
     wind:

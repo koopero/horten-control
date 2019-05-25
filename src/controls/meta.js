@@ -23,7 +23,7 @@ module.exports = {
     slider: {
       _class: require('./Slider').default,
       cols: 3,
-      rows: 2,
+      rows: 1,
     },
     options: {
       _class: require('./Options').default,
