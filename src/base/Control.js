@@ -121,7 +121,7 @@ export default class Control extends React.Component {
           <Path path={ this.state.path } pathPrefix={ this.props.pathPrefix }/>
           : undefined
         }
-        { this.isChildVisible( 'title' ) ?
+        { this.isChildVisible( 'title'  ) && this.props.title ?
           <span className='title'>{ this.props.title || '' }</span>
           : undefined
         }
@@ -129,11 +129,6 @@ export default class Control extends React.Component {
         { this.isChildVisible( 'tools' ) ?
           this.renderTools()
           : undefined
-        }
-
-        { this.isChildVisible( 'short' ) ?
-        this.renderShort()
-        : undefined
         }
 
         { this.isChildVisible( 'description' ) && this.props.description  ?
@@ -167,6 +162,19 @@ export default class Control extends React.Component {
     if ( _.isString( template ) )
       template = { type: template }
 
+
+    let hasSubs = false 
+    for ( let nil in this.state.subs ) {
+      hasSubs = true 
+      break
+    }
+    
+    if ( !hasSubs )
+      return null
+
+    if ( !this.state.subs || ( Array.isArray( this.state.sub ) && !this.state.subs.length ) )
+      return null
+
     return (
       <div className='subs'>
         { _.map( this.state.subs, Sub ) }
@@ -181,6 +189,9 @@ export default class Control extends React.Component {
         props.path = H.path.resolve( path, index )
       else if ( !props.path )
         props.path = path
+
+
+      return <ControlFromProps {...props}/>
 
       return (<span className='sub' key={index}>
         <ControlFromProps {...props}/>

@@ -68,6 +68,7 @@ module.exports = {
       fonts: [
         { family: "Source Sans Pro", variants: [ '200', 'regular', '600' ] },
         { family: "Source Code Pro" },
+        { family: "Raleway" },
         { family: "Roboto", variants: [ '100', '300', 'regular', '500' ] }
       ]
     }),

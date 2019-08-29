@@ -1,4 +1,16 @@
 @import "../../style/button.less";
+@import "../../style/well.less";
+
+.headerBox() {
+  .well();
+  padding: 1em 1em;
+  margin: 1em 0.8em;
+}
+
+.markdownTitle() {
+  text-align: center;
+
+}
 
 .horten.markdown {
   .fullWidth();
@@ -7,12 +19,46 @@
   border: none;
   box-shadow: none;
 
-  & > .inner {
+  // & > .inner {
+
+  // }
+
+  .markdown-content {
+    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
     & > *:first-child {
       margin-top: 0;
     }
+
+    &> p {
+      .well();
+      padding: 1em;
+      max-width: 40em;
+    }
+
+    &> hr {
+      width: 100%;
+      border-top: 1px dashed fadeout( white, 90% );
+      border-bottom: none;
+      margin: 2em;
+    }
+
+    &> h1 {
+      .markdownTitle();
+      width: 100%;
+    }
+
+    &> h3 {
+      .headerBox();
+    }
   }
 }
+
+
 
 .md-element {
   margin-bottom:  0.5em;
@@ -31,6 +77,9 @@
   min-width: 240px;
 }
 
+section > .horten.control {
+  margin: 0;
+}
 
 .horten .source {
   display: inline-block;

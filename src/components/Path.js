@@ -9,12 +9,18 @@ export default class Path extends React.Component {
     this.state.path = props.path
   }
   render () {
-    var path = this.state.path
-      , array = H.path.split( path )
-      , string = H.path.string( path )
-      , prefix = H.path.split( this.props.pathPrefix )
-      , segs = array.map( segment )
-      , first = true
+    let path = this.state.path
+    let array = H.path.split( path )
+
+    if ( !array.length ) {
+      return null
+    }
+
+
+    let string = H.path.string( path )
+    let prefix = H.path.split( this.props.pathPrefix )
+    let segs = array.map( segment )
+    let first = true
 
     return (
       <span className='path' id={string}>
@@ -42,8 +48,8 @@ export default class Path extends React.Component {
 
       return (
         [
-          <span className={classes + ' seg'} key={id+'seg'}>{ seg }</span>,
-          <span className={classes + ' delim'} key={id+'delim'}>/</span>
+          <span className={classes + ' delim'} key={id+'delim'}>/</span>,
+          <span className={classes + ' seg'} key={id+'seg'}>{ seg }</span>
         ]
       )
     }

@@ -26,19 +26,17 @@ const CodeBlock = function ( props ) {
     config.meta = H.util.compose( meta, config.meta )
     // var Control = require('../Control').default
     return (
-      <div className='md-element'>
-        <Control {...config} />
-      </div>
+      <Control {...config} />
     )
     break
 
   default:
     return (
-      <div className='md-element'>
+      // <div className='md-element'>
         <span className='horten control source'>
           <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
         </span>
-      </div>
+      // </div>
     )
   }
 }
@@ -85,7 +83,7 @@ export default class OurMarkdown extends Base {
     this.state.headingHashs = {}
     return (
       <Markdown
-        className='inner'
+        className='markdown-content'
         source={ this.state.markdown }
         renderers={ this.state.renderers }
       />

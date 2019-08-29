@@ -17,9 +17,9 @@ export default class Display extends Base {
     let size = parseInt( this.props.size ) || 24
 
     return (
-      <span className='horten display'>
-        <YAML data={ this.state.value }/>
-      </span>
+      // <span className='horten display'>
+        <YAML className='display' data={ this.state.value }/>
+      // </span>
     )
   }
 

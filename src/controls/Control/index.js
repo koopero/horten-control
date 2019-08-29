@@ -38,7 +38,9 @@ export default function HortenControl( props ) {
 
   if ( !_class ) {
     return (
-      <div className="horten error">No class found for type { type }!</div>
+      <div className="horten control error">
+        <p>No class found for type { type }!</p>
+      </div>
     )
   }
 

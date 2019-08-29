@@ -36,7 +36,9 @@ export default class VBoxSlider extends React.Component {
   render() {
     const style = {
       // backgroundImage: this.renderGradient(),
-      position: 'relative'
+      backgroundSize: '200% 200%',
+      backgroundRepeat: 'none',
+      position: 'relative',
     }
     const onMouse = this.onMouse.bind( this )
     const onTouch = this.onTouch.bind( this )
@@ -64,6 +66,10 @@ export default class VBoxSlider extends React.Component {
   }
 
   renderGradient() {
+    return ''
+    
+    return `linear-gradient( 0, red 0%, blue 100% )`
+
     const steps = 13
 
     let colour = new Colour( this.props.colour )
@@ -134,6 +140,8 @@ export default class VBoxSlider extends React.Component {
     let ourH = this.ref.main.clientHeight
     let y = (1-v) * ( ourH - thumbH )
 
+    // console.log( this.ref )
+    this.ref.main.style.backgroundPosition = `0px ${y}px`
     this.ref.thumb.style.top = y+'px'
   }
 
