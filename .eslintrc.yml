@@ -28,3 +28,9 @@ rules:
   semi:
     - error
     - never
+
+overrides:
+  - files: [ 'test/*/**.js']
+    env: 
+      mocha: true
+      node: true
