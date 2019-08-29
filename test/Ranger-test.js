@@ -1,6 +1,6 @@
 var assert = require('chai').assert
 describe('ranger',() => {
-  var Ranger = require('../component/util/Ranger')
+  var Ranger = require('../src/util/Ranger')
   it("Doesn't smoke", () => {
     var ranger = new Ranger()
         , value = Math.random()

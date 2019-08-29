@@ -1,5 +1,5 @@
 import React from 'react'
-import VBoxSlider from '../VBoxSlider'
+import VBoxSlider from '../../components/VBoxSlider'
 import Colour from 'deepcolour'
 
 

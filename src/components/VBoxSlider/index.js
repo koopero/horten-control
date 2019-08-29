@@ -4,6 +4,8 @@ import Colour from 'deepcolour'
 // Aped from CSS
 let _border = 6
 
+require('./index.less')
+
 
 export default class VBoxSlider extends React.Component {
   constructor( props ) {
@@ -33,7 +35,7 @@ export default class VBoxSlider extends React.Component {
 
   render() {
     const style = {
-      backgroundImage: this.renderGradient(),
+      // backgroundImage: this.renderGradient(),
       position: 'relative'
     }
     const onMouse = this.onMouse.bind( this )
@@ -65,7 +67,7 @@ export default class VBoxSlider extends React.Component {
     const steps = 13
 
     let colour = new Colour( this.props.colour )
-    colour.hue = this.props.colour.hue
+    // colour.hue = this.props.colour.hue
     let channel = this.props.colourChannel
     let result = []
 

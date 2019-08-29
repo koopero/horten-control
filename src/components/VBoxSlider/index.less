@@ -1,0 +1,29 @@
+@import "../../style/variables.less";
+
+.horten {
+  .vboxslider {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: @vboxslider_round / 2 + 3px;
+    border: solid white 1px;
+    background-size: 100% 100%;
+    cursor: crosshair;
+
+    .track {
+      width: 100%;
+      height: 100%;
+    }
+
+    .thumb {
+      box-sizing: border-box;
+      width: 100%;
+      height: @vboxslider_round;
+      // background: rgba(0,0,0,50%);
+      border-radius: @vboxslider_round / 2;
+      border: solid white 3px;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px black;
+    }
+  }
+}

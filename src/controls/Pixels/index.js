@@ -4,7 +4,7 @@ import _ from 'lodash'
 import React from 'react'
 import Base from '../../base/Control'
 import Colour from 'deepcolour'
-import VBoxSlider from '../VBoxSlider'
+import VBoxSlider from '../../components/VBoxSlider'
 import string2png from 'string2png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
