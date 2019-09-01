@@ -22,9 +22,9 @@
 
 .horten.control {
 
-  &>.vboxslider {
-    min-height: 120px;
-  }
+  // &>.vboxslider {
+  //   min-height: 120px;
+  // }
 
   // .major {
   //   min-height: 48px;
@@ -37,53 +37,64 @@
   //   box-sizing: content-box;
   // }
 
-  .secondary {
-    width: 6em;
-    text-align: center;
-    background: transparent;
-    color: #89a;
-    .mediumBorder();
-  }
 
-  .markers-wrap {
-    position: absolute;
-    top: @button-height;
-    left: 0;
-    right: 0;
-    top: 10px;
-    z-index: -90;
-    height: @marker-height;
-    overflow: hidden;
-  }
+
+  // .secondary {
+  //   // width: 6em;
+  //   text-align: center;
+  //   background: transparent;
+  //   color: #89a;
+  //   // .mediumBorder();
+  //   border: none;
+
+  //   text-align: center;
+  //   width: 100%;
+  //   display: block;
+
+  //   input {
+  //     margin: 0;
+  //   }
+  // }
+
+  // .markers-wrap {
+  //   position: absolute;
+  //   top: @button-height;
+  //   left: 0;
+  //   right: 0;
+  //   top: 10px;
+  //   z-index: -90;
+  //   height: @marker-height;
+  //   overflow: hidden;
+  // }
 
   
 
-  .markers {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: @slider-thumb-width;
-    z-index: 90;
-    display: block;
+  // .markers {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: @slider-thumb-width;
+  //   z-index: 90;
+  //   display: block;
 
-    user-select: none;
-    cursor: default;
+  //   user-select: none;
+  //   cursor: default;
 
-    font-family: @font-family-mono;
-    font-size: @marker-height;
-    color: @marker-color;
+  //   font-family: @font-family-mono;
+  //   font-size: @marker-height;
+  //   color: @marker-color;
 
-    .marker {
-      display: block;
-      width: 100%;
-      position: absolute;
-      .inner {
+  //   .marker {
+  //     display: block;
+  //     width: 100%;
+  //     position: absolute;
+  //     .inner {
 
-        width: @slider-thumb-width;
-        text-align: center;
-      }
-    }
-  }
+  //       width: @slider-thumb-width;
+  //       text-align: center;
+  //     }
+  //   }
+  // }
 }
 
 

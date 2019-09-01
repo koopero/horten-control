@@ -1,15 +1,87 @@
+.solidBorder( @colour ) {
+  border-top: 1px solid fadeout( @colour, 60% );
+  border-left: 1px solid fadeout( @colour, 78% );
+  border-bottom: 1px solid fadeout( @colour, 92% );
+  border-right: 1px solid fadeout( @colour, 98% );
+}
 
-.object() {
-  border-top: 1px solid fadeout( white, 70% );
-  border-left: 1px solid fadeout( white, 76% );
-  border-bottom: 1px solid fadeout( white, 96% );
 
-  background: rgba(0,0,0,0.05);
+
+.docStyle( @dark, @mid, @light ) {
+  background-image: 
+    linear-gradient( -30deg, 
+      fadeout(@mid,90%) 0, 
+      fadeout(@mid,100%) 20%, 
+      fadeout(@mid,80%) 100% 
+    );
+  border-left: 1px dashed fadeout( @mid, 70% );
+  border-right: 1px dashed fadeout( @mid, 90% );
+  border-top: 1px dashed fadeout( @mid, 50% );
+  border-bottom: 1px dashed fadeout( @mid, 90% );
+  border-radius: 5px;
+  
+  // border-image: linear-gradient( 0, fadeout( white, 0% ) 0%, fadeout( white, 100% ) 100% );
+  // color: black;
+}
+
+@fade_bg: 50%;
+@fade_button: 40%;
+@fade_slider_A: 50%;
+@fade_slider_B: 80%;
+
+
+
+.colourSpace( @dark, @mid, @light ) {
+  .solidBorder( @mid );
+
+  & , .control {
+    color: @light;
+    background: fadeout( @dark, @fade_bg );
+  }
+
+  .markdown-content > p, h3, h4  {
+    .docStyle( @dark, @mid, @light );
+  }
+
+  input {
+    color: @light;
+  }
+
+  .area {
+    border: 1px solid fadeout( @mid, 20% );
+  }
+
+  .highlight {
+    border: 1px solid fadeout( @light, 0% );
+  }
+
+  .slider {
+    background-image: linear-gradient( 0, fadeout( @dark, @fade_slider_A), fadeout( @dark, @fade_slider_B), fadeout( @mid, @fade_slider_A) 100% );
+  }
+
+  .button.unselected {
+    background: fadeout( @dark, @fade_button );
+    color: @light;
+    border-color: @light;
+  }
+
+  .button.selected {
+    background: @light;
+    color: @dark;
+    border-color: @mid;
+  }
+
+  header {
+    border-bottom: 1px dashed fadeout( @dark, 80% );
+  }
 
 }
 
+
+
 .horten.control {
-  .object();
+  // .colourSpace( #000, #555, #fff ); 
+  // .object();
 
 
   display: flex;
@@ -33,6 +105,9 @@
     height: auto;
   }
 
+  input {
+    font-size: 14px;
+  }
 
 
   &>.options {
@@ -53,6 +128,7 @@
     overflow: auto;
     display: flex;
     flex-wrap: wrap;
+    i
     &:empty {
       border: none;
     }
@@ -63,8 +139,6 @@
   }
 }
 
-@colour_B: white;
-
 .horten.control > header {
   // margin-bottom: 0.25em;
   background: rgba(15, 15, 15, 0.173);
@@ -72,9 +146,8 @@
   min-height: 24px;
   display: flex;
 
-  border-bottom: 1px dashed fadeout( @colour_B, 80% );
 
-  padding: 3px 6px 8px;
+  padding: 2px 4px 6px;
   
   &:empty {
     display: none;
@@ -106,3 +179,51 @@
   }
 }
 
+.horten .colour-red {
+  .colourSpace( #411, #b22, #f00 ); 
+}
+
+.horten .colour-blue {
+  .colourSpace( rgb(17, 43, 68), rgb(28, 69, 158), rgb(86, 187, 255) ); 
+}
+
+.horten .colour-green {
+  .colourSpace( rgb(16, 66, 37), rgb(26, 141, 26), rgb(0, 255, 0) ); 
+}
+
+.horten .colour-yellow {
+  // .colourSpace( #411, #b22, #f00 ); 
+  .colourSpace( #421, rgb(145, 134, 43), rgb(255, 238, 0) ); 
+
+}
+
+
+.horten .colour-orange {
+    .colourSpace( #421, #b52, #e63 ); 
+  // .colourSpace( #411, #b22, #f00 ); 
+  // .colourSpace( rgb(17, 43, 68), rgb(28, 69, 158), rgb(86, 187, 255) ); 
+}
+
+.horten .colour-cyan {
+  .colourSpace( rgb(16, 72, 94), rgb(35, 109, 138), rgb(0, 255, 255) ); 
+}
+
+
+.horten .colour-magenta {
+  .colourSpace( rgb(119, 34, 153), rgb(131, 37, 115), rgb(255, 0, 255) ); 
+}
+
+.horten .colour-white {
+  .colourSpace( rgb(255, 255, 255), rgb(168, 168, 168), rgb(0, 0, 0) ); 
+}
+
+
+
+
+.horten.control.error {
+  border-style: dashed;
+  border-color: red;
+  background: fadeout( red, 95% );
+  color: red;
+
+}

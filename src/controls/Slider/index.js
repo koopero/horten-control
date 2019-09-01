@@ -12,7 +12,8 @@ class Slider extends NumberControl {
       this.renderShort(),
 
       <VBoxSlider
-      
+        ref = { self => this.actualSlider = self }
+        onUserInput = { v => this.onUnitInput( v )}
       />
     ]
   }

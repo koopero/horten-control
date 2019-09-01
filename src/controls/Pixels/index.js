@@ -109,18 +109,22 @@ export default class Pixels extends Base {
     const grid = this.renderGrid()
     const sliders = this.isChildVisible('sliders') && this.state.mode != 'none' && this.renderSliders()
     const mode = this.state.mode
-    let rows = this.state.rows
+
+
+    // return [
+    //   grid,
+    //   <div className="sliders">{ sliders }</div>,
+    // ]
+
     let className = `inner pixels-mode-${mode}`
-    className += ` grid-rows-${rows}`
+    let rows = this.state.rows
 
     return (
-      <table className={className}>
-        <tr>
-          { sliders }
-          <td className="delim"><FontAwesomeIcon icon={faArrowCircleRight} /></td>
-          <td className="grid">{ grid }</td>
-        </tr>
-      </table>
+      <div className={className}>
+        { sliders }
+        <td className="delim"><FontAwesomeIcon icon={faArrowCircleRight} /></td>
+        { grid }
+      </div>
     )
   }
 
@@ -144,8 +148,10 @@ export default class Pixels extends Base {
 
       let rows = Math.max( 0 , self.state.rows - 1 )
 
+      let className = self.renderControlHeightClasses() + ' inner'
+
       return (
-        <table className={ self.renderControlHeightClasses() }>
+        <table className={ className }>
           <tbody>
             { indexes.map( renderRow ) }
           </tbody>
@@ -161,7 +167,7 @@ export default class Pixels extends Base {
       return (
         <tr key={row}>
           { indexes.map( ( index ) => (
-            <td key={index} style={{ height: `${100/height}%`}}>{ renderCell( index ) }</td>
+            <td key={index} style={{ width: `${100/height}%`}}>{ renderCell( index ) }</td>
           ) ) }
         </tr>
       )
@@ -224,13 +230,14 @@ export default class Pixels extends Base {
   renderSliders() {
     let { sliders } = this.state
     sliders = sliders.split('')
-    sliders = sliders.map( channel => {
-      return channel == ' ' ? <td className='spacer'>&nbsp;</td> : <td className='vslider'><VBoxSlider 
+    sliders = sliders.map( ( channel, key ) => {
+      return channel == ' ' ? <div className='spacer'>&nbsp;</div> : <VBoxSlider 
+        key={key}
         colour={this.state.colour}
         value={this.state.colour.getChannel( channel )}
         colourChannel={channel}
         onUserInput={ value => this.onSetColourChannel( channel, value ) }
-      /></td>
+      />
     })
 
     return sliders

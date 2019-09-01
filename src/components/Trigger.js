@@ -100,8 +100,6 @@ export default class Trigger extends Control {
     var selected
 
     function compare( a, b ) {
-      console.log( 'compare', a, b )
-
       if ( a == b ) return true
       if ( _.isObject( a ) && !_.isUndefined( b ) ) {
         for ( let key in a ) 

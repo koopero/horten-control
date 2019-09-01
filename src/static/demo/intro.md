@@ -1,6 +1,92 @@
 # Horten Control
 
-Is a paragraph.
+
+****Lorem Ipsum** is *simply dummy text* of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.**
+
+---
+
+``` control
+path: airplane/throttle
+type: slider
+quant: 10
+pow: 2
+colour: green
+```
+
+``` control
+path: airplane/throttle
+type: slider
+quant: 10
+pow: 2
+colour: blue
+```
+
+``` control
+path: airplane/flaps
+type: slider
+hide: exact
+quant: 10
+pow: 2
+colour: red
+```
+
+``` control
+path: airplane/throttle
+type: slider
+quant: 10
+pow: 2
+colour: yellow
+```
+
+``` control
+path: airplane/throttle
+type: slider
+quant: 10
+pow: 2
+colour: orange
+```
+
+``` control
+path: airplane/flaps
+type: slider
+hide: exact
+quant: 10
+pow: 2
+colour: cyan
+```
+
+``` control
+path: airplane/flaps
+type: slider
+hide: exact
+quant: 10
+pow: 2
+colour: magenta
+```
+
+``` control
+path: airplane/flaps
+type: slider
+hide: exact
+quant: 10
+pow: 2
+colour: purple
+```
+
+``` control
+display: 
+  colour: white
+
+colour: white
+```
+
+---
+
+Before we go any further, be sure that you are viewing this document in the `horten-control` client. Since horten controls are written in *markdown*, they are readable in any old markdown viewer, but controls will not be rendered. If you see a circular dial above, you're good to go. Otherwise, please view this demo at [Demo link] for full interactive experience.
+
+## *An Imaginary Airplane...*
+
+For the purposes of demonstration.
 
 ``` control
 path: airplane/
@@ -12,9 +98,9 @@ default:
   altitude: 10000
 ```
 
-**Lorem Ipsum** is *simply dummy text* of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
 ---
+
+### Flight Controls
 
 ``` control
 path: airplane/flaps
@@ -22,6 +108,9 @@ type: slider
 pow: 2
 ```
 
+--- 
+
+### Advanced Flight Controls
 
 ``` control
 path: airplane/
@@ -57,7 +146,9 @@ subs:
         engines: cruise
 ```
 
-### Pixels
+--- 
+
+### Lights
 
 ``` control
 path: airplane/lights
@@ -70,15 +161,9 @@ default:
   data: '000000 108030'
 ```
 
-### Collector
+---
 
-``` control
-type: collector
-source: airplane/
-path: preset/collected/
-```
-
-### Tabs
+### Airports
 
 ``` control
 type: yaml
@@ -116,4 +201,18 @@ path: airports/CZZZ
 trigger:
   lat: 49.194
   lng: -123.183
+```
+
+
+## Colours
+
+``` control
+colour: white
+subs:
+  a: 
+    type: number
+
+  //:
+    display:
+      colour: white
 ```

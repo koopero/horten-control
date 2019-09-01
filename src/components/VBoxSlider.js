@@ -2,9 +2,9 @@ import React from 'react'
 import Colour from 'deepcolour'
 
 // Aped from CSS
-let _border = 6
+let _border = 1
 
-require('./index.less')
+require('../style/sliders.less')
 
 
 export default class VBoxSlider extends React.Component {
@@ -35,8 +35,8 @@ export default class VBoxSlider extends React.Component {
 
   render() {
     const style = {
-      // backgroundImage: this.renderGradient(),
-      backgroundSize: '200% 200%',
+      backgroundImage: this.renderGradient(),
+      // backgroundSize: '200% 200%',
       backgroundRepeat: 'none',
       position: 'relative',
     }
@@ -45,7 +45,7 @@ export default class VBoxSlider extends React.Component {
 
     return (
       <div
-        className={'vboxslider'}
+        className={'slider vertical area'}
         onMouseMove={ onMouse }
         onMouseDown={ onMouse }
         onMouseLeave={ onMouse }
@@ -55,20 +55,19 @@ export default class VBoxSlider extends React.Component {
         ref={(div) => this.ref.main = div }
       >
         <div
-          className='thumb'
+          className='thumb vertical'
           ref={(div) => this.ref.thumb = div }
           style={{
             position: 'absolute'
           }}
-        />
+        ><div className='nail highlight'/></div>
       </div>
     )
   }
 
   renderGradient() {
-    return ''
-    
-    return `linear-gradient( 0, red 0%, blue 100% )`
+    if ( !this.props.colour )
+      return ''
 
     const steps = 13
 
@@ -130,7 +129,6 @@ export default class VBoxSlider extends React.Component {
 
 
     if ( this.props.onUserInput ) {
-
       this.props.onUserInput( v )
     }
   }
@@ -139,10 +137,11 @@ export default class VBoxSlider extends React.Component {
     let thumbH = this.ref.thumb.clientHeight + _border
     let ourH = this.ref.main.clientHeight
     let y = (1-v) * ( ourH - thumbH )
+    this.ref.thumb.style.top = y+'px'
 
+    if ( this.props.colour ) y= 0
     // console.log( this.ref )
     this.ref.main.style.backgroundPosition = `0px ${y}px`
-    this.ref.thumb.style.top = y+'px'
   }
 
 }

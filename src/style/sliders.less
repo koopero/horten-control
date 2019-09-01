@@ -1,0 +1,66 @@
+@import "./variables.less";
+
+.horten {
+  .exact {
+    margin-top: 4px;
+    padding: 0 6px;
+
+    input {
+      width: 10em;
+      text-align: center;
+
+      box-sizing: border-box;
+      background: none;
+      border: none;
+    }
+  }
+
+  .slider {
+    // width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: solid white 1px;
+    background-size: 100% 100%;
+    cursor: crosshair;
+
+    margin: @margin-small;
+
+    // background-image: linear-gradient( 0, fadeout( black, 80%), fadeout( black, 100%), fadeout( white, 80%) 100% );
+
+
+
+    .thumb {
+      position: relative;
+      left: -1px;
+      box-sizing: border-box;
+
+      // background: rgba(0,0,0,50%);
+      // border-radius: @vboxslider_round / 2;
+      // border: solid white 2px;
+      // box-shadow: 0 0 5px black;
+
+      // padding: 2px;
+
+
+    }
+  }
+
+  .thumb.vertical {
+    width: 100%;
+    width: calc( 100% - 6px );
+    height: 20px;
+    margin-left: 3px;
+    
+    .nail {
+      width: 100%; 
+      height: 14px;
+      margin-top: 2px;
+    }
+  }
+
+  .slider.vertical {
+    min-height: 160px;
+    min-width: 32px;
+  }
+}

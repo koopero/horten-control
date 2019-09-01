@@ -32,9 +32,14 @@ class NumberControl extends Base {
     )
   }
 
+  renderTypeName() {
+    let className = 'number'
+    return className
+  }
+
   renderShort() {
     return (
-      <span className='short'>
+      <span className='exact'>
         <input
           className='secondary'
           type="text"
@@ -52,6 +57,10 @@ class NumberControl extends Base {
     this.valueSet( this.ranger.fromUnit( this.inputRange.value ) )
   }
 
+  onUnitInput( value ) {
+    this.valueSet( this.ranger.fromUnit( value ) )
+  }
+
   onTextChange( event ) {
     this.valueSet( parseFloat( this.inputText.value ) )
   }
@@ -66,7 +75,7 @@ class NumberControl extends Base {
     input.value = this.state.value
     input.select()
     this.state.textSelected = true
-    setTimeout( () => this.inputChangingType = false,100 )
+    setTimeout( () => this.inputChangingType = false, 100 )
   }
 
   onTextBlur( event ) {
@@ -78,7 +87,7 @@ class NumberControl extends Base {
     input.type = 'text'
     input.value = this.valuePretty()
     this.state.textSelected = false
-    setTimeout( () => this.inputChangingType = false,100 )
+    setTimeout( () => this.inputChangingType = false, 100 )
   }
 
   markersDefaultUnit() {
@@ -144,7 +153,9 @@ class NumberControl extends Base {
   valueSet( value ) {
     this.state.value = value
 
-    this.inputRange.value = this.ranger.toUnit( value )
+    if ( this.actualSlider )
+      this.actualSlider.setValue( this.ranger.toUnit( value ) )
+
     if ( !this.state.textSelected ) {
       if ( this.inputText.type == 'number' )
         this.inputText.value = value
@@ -158,8 +169,10 @@ class NumberControl extends Base {
   onValueSelf( value ) {
     this.state.value = value
 
-    if ( this.inputRange )
-      this.inputRange.value = this.ranger.toUnit( value )
+    if ( this.actualSlider )
+      this.actualSlider.setValue( this.ranger.toUnit( value ) )
+
+
     if ( !this.state.textSelected )
       this.inputText.value = this.ranger.toPretty( value )
   }

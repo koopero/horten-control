@@ -1,11 +1,7 @@
 @import "../../style/button.less";
 @import "../../style/well.less";
 
-.headerBox() {
-  .well();
-  padding: 1em 1em;
-  margin: 1em 0.8em;
-}
+
 
 .markdownTitle() {
   text-align: center;
@@ -28,15 +24,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 
     & > *:first-child {
       margin-top: 0;
     }
 
     &> p {
-      .well();
-      padding: 1em;
+      padding: 0.3em 0.5em ;
       max-width: 40em;
     }
 
@@ -44,7 +39,7 @@
       width: 100%;
       border-top: 1px dashed fadeout( white, 90% );
       border-bottom: none;
-      margin: 2em;
+      margin: 1em 2em;
     }
 
     &> h1 {
@@ -52,8 +47,15 @@
       width: 100%;
     }
 
+    &> h2 {
+      .markdownTitle();
+      width: 100%;
+    }
+
     &> h3 {
-      .headerBox();
+      padding: 1em 1em;
+      margin: 1em 0.8em;
+      max-width: 240px;
     }
   }
 }

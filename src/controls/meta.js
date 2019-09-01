@@ -4,8 +4,9 @@ module.exports = {
     float: 'float',
     options: 'options',
     markdown: 'markdown',
+    display: 'display',
     trigger: 'trigger',
-    text: 'text'
+    text: 'text',
   },
   type: {
     loader: {
@@ -17,7 +18,13 @@ module.exports = {
     map: {
       _class: require('./Map').default
     },
+    display: {
+      _class: require('./YAML').default
+    },
     float: {
+      type: 'slider'
+    },
+    number: {
       type: 'slider'
     },
     slider: {

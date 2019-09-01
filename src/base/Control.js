@@ -80,18 +80,31 @@ export default class Control extends React.Component {
 
 
   render() {
-    const style = _.pick( this.props, ['clear'] )
-    let className = 'horten control'
-    className += ' '+this.state.type
-    className += ' '+this.renderControlWidthClasses()
+    const style = {}
 
     return (
-      <span className={ className } style={ style } >
+      <span className={ this.renderClassName() } style={ style } >
         { this.renderHeader() }
         { this.renderSelf() }
         { this.renderSubs() }
       </span>
     )
+  }
+
+  renderClassName() {
+    let className = 'horten control'
+    className += ' '+this.renderTypeName()
+    className += ' '+this.renderControlWidthClasses()
+
+    let colour = this.props.colour || this.props.color || ''
+    if ( colour )
+      className += ' colour-'+colour
+
+    return className
+  }
+
+  renderTypeName() {
+    return this.state.type
   }
 
   renderControlWidthClasses() {
@@ -122,7 +135,7 @@ export default class Control extends React.Component {
           : undefined
         }
         { this.isChildVisible( 'title'  ) && this.props.title ?
-          <span className='title'>{ this.props.title || '' }</span>
+          <h4 className='title'>{ this.props.title || '' }</h4>
           : undefined
         }
 

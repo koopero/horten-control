@@ -15,10 +15,11 @@ export default class Display extends Base {
 
   renderSelf() {
     let size = parseInt( this.props.size ) || 24
+    let value = this.props.display || this.state.value
 
     return (
       // <span className='horten display'>
-        <YAML className='display' data={ this.state.value }/>
+        <YAML className='display' data={ value }/>
       // </span>
     )
   }
