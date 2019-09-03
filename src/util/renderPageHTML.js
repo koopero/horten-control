@@ -10,6 +10,7 @@ module.exports = function renderPageHTML( page ) {
     <title>${ title }</title>
     <meta name="viewport" content="width=device-width">
     <link href="/horten-control/style/main.css" rel="stylesheet"/>
+    <link href="/horten-control/fonts.css" rel="stylesheet"/>
   </head>
   <body class='horten'>
     <div id="app"></div>

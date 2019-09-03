@@ -12,6 +12,8 @@ import * as mdutil from '../Markdown/util'
 import HortenWebSocket from 'horten-websocket'
 import ErrorTag from '../../components/ErrorTag'
 
+const embarkdown = require('embarkdown')
+
 const frontmatter = require('front-matter')
 
 require('./index.less')
@@ -34,82 +36,110 @@ export default class Page extends React.Component {
   }
 
   componentDidMount() {
+    this.initializeLoad()
     this.state.websocket.open()
   }
 
-  loadFile( url ) {
-    let file = this.state.files[url] = this.state.files[url] || { url, loaded: false } 
-    if ( !file.request ) {
-      Object.defineProperty( file, 'request', { enumerable: false, writable: true } )
-      file.request = request( { url }, 
-        ( err, res ) => this._onFileLoaded({
-          err, res, url, file
-        })
-      )
-    }
+  async initializeLoad() {
+    let site = await embarkdown.ingest( this.state.content )
+    let pages = site.pages( {
+      minLevel: 1,
+      maxLevel: 1,
+    }) 
 
-    return file
+    this.setState( Object.assign( {}, this.state, { site, pages } ) )
   }
 
-  _onFileLoaded( { err, res, url, file } ) {
-    if ( err || res.statusCode >= 400 ) {
-      file.error = err || res.statusText
-      file.loaded = false
-      this.refreshNext()
-      return
-    }
-
-    let extOrig = pathlib.extname( url )
-    let ext = extOrig.toLowerCase()
-    while( ext[0] == '.' ) ext = ext.substr( 1 )
-
-    file.loaded = true
-    file.contents = res.body
-    // file.contents = res.body
-    file.ext = ext
-    file.name = pathlib.basename( url, extOrig )
-    file.idPrefix = `${file.name}-`
-
-    switch( ext ) {
-    case 'md':
-    case 'markdown':
-      let markdown = file.contents
-      let front = frontmatter( markdown )
-      file.index = mdutil.makeIndex( { path: [ file.name ], markdown, idPrefix: file.idPrefix } ) 
-      file.markdown = file.contents
-      // file.index = 'foo?'
-
-      break
-
-    case 'yaml':
-    case 'json':
-      let data, error
-      try {
-        data = yaml.load( file.contents )
-      } catch( err ) {
-        error = err
-      }
-
-      if ( error ) {
-        file.error = error
-      } else {
-        Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
-        // console.log( data )
-        this.state.meta = _.merge( this.state.meta, data.meta )
-      }
-      break
-    }
+  render() {
 
 
-    this.refreshNext()
+    let regions = ['topbar','content','sidebar','afterContent']
+    let regionsRendered = regions.map( region => this.renderRegion( region ) )
+    let hasRegions = _.filter( regions, (region,index) => !!regionsRendered[index] )
+
+    hasRegions = hasRegions.map( region => `has-${region}`)
+    hasRegions = hasRegions.join(' ')
+
+    let className = ''
+    className += hasRegions
+    return ( <div className={className}>
+      { regionsRendered }
+    </div> )      
   }
 
-  refreshNext() {
-    if ( this.state.timer ) 
-      clearTimeout( this.state.timer )
 
-    this.state.timer = setTimeout( () => this.forceUpdate() )
-  }
+  // loadFile( url ) {
+  //   let file = this.state.files[url] = this.state.files[url] || { url, loaded: false } 
+  //   if ( !file.request ) {
+  //     Object.defineProperty( file, 'request', { enumerable: false, writable: true } )
+  //     file.request = request( { url }, 
+  //       ( err, res ) => this._onFileLoaded({
+  //         err, res, url, file
+  //       })
+  //     )
+  //   }
+
+  //   return file
+  // }
+
+  // _onFileLoaded( { err, res, url, file } ) {
+  //   if ( err || res.statusCode >= 400 ) {
+  //     file.error = err || res.statusText
+  //     file.loaded = false
+  //     this.refreshNext()
+  //     return
+  //   }
+
+  //   let extOrig = pathlib.extname( url )
+  //   let ext = extOrig.toLowerCase()
+  //   while( ext[0] == '.' ) ext = ext.substr( 1 )
+
+  //   file.loaded = true
+  //   file.contents = res.body
+  //   // file.contents = res.body
+  //   file.ext = ext
+  //   file.name = pathlib.basename( url, extOrig )
+  //   file.idPrefix = `${file.name}-`
+
+  //   switch( ext ) {
+  //   case 'md':
+  //   case 'markdown':
+  //     let markdown = file.contents
+  //     let front = frontmatter( markdown )
+  //     file.index = mdutil.makeIndex( { path: [ file.name ], markdown, idPrefix: file.idPrefix } ) 
+  //     file.markdown = file.contents
+  //     // file.index = 'foo?'
+
+  //     break
+
+  //   case 'yaml':
+  //   case 'json':
+  //     let data, error
+  //     try {
+  //       data = yaml.load( file.contents )
+  //     } catch( err ) {
+  //       error = err
+  //     }
+
+  //     if ( error ) {
+  //       file.error = error
+  //     } else {
+  //       Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
+  //       // console.log( data )
+  //       this.state.meta = _.merge( this.state.meta, data.meta )
+  //     }
+  //     break
+  //   }
+
+  //   this.refreshNext()
+  // }
+
+  // refreshNext() {
+  //   if ( this.state.timer ) 
+  //     clearTimeout( this.state.timer )
+
+  //   this.state.timer = setTimeout( () => this.forceUpdate() )
+  // }
 
   // renderOLD() {
   //   let pages = this.state.pages || []
@@ -146,34 +176,41 @@ export default class Page extends React.Component {
   //   </div> )
   // }
 
-  render() {
-    let regions = ['content','sidebar','afterContent']
-    let regionsRendered = regions.map( region => this.renderRegion( region ) )
-    let hasRegions = _.filter( regions, (region,index) => !!regionsRendered[index] )
-
-    hasRegions = hasRegions.map( region => `has-${region}`)
-    hasRegions = hasRegions.join(' ')
-
-    let className = ''
-    className += hasRegions
-    return ( <div className={className}>
-      { regionsRendered }
-    </div> )      
-  }
 
   renderRegion( region ) {
-    let src = this.state[region]
-    if ( src && !_.isArrayLikeObject( src ) )
-      src = [ src ]
-
     let className = `region-${region}`
-    let content = src && src.map( src => this.renderContent( src ) )
-    content = content || <pre>No Content</pre>
-    return <section className={className} key={region}>{ content }</section>
+    let content 
+
+    switch( region ) {
+      case 'topbar':
+        content = this.renderTopBar()
+      break
+
+      case 'content':
+        content = <YAML data={this.state.pages}/>
+      break
+
+    }
+
+
+    // let src = this.state[region]
+    // if ( src && !_.isArrayLikeObject( src ) )
+    //   src = [ src ]
+    // let content = src && src.map( src => this.renderContent( src ) )
+    if ( content )
+      return <section className={className} key={region}>{ content }</section>
+
+    return null
+  }
+
+  renderTopBar() {
+    let title = 'Title'
+
+    return <h1 className='topbar-title'>{ title }</h1>
   }
 
   renderContent( src ) {
-    let content = this.loadFile( src )
+    let content = 'no content yet' || this.state.pages[0]
 
     let className = ''
     let meta = _.merge( {}, this.state.meta,content.meta )
