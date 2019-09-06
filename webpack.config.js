@@ -34,14 +34,6 @@ module.exports = {
           }
         },
       },
-      // {
-      //   test: /node_modules\/horten\/.*\.js/,
-      //   loader: "babel-loader"
-      // },
-      // {
-      //   test: /deepcolour\/.*\.js/,
-      //   loader: "babel-loader"
-      // },
       {
         test : /\.json/,
         include : resolve('node_modules/entities'),
@@ -50,7 +42,12 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader?name=font/[name].[ext]'
+      },
+      {
+        test: /\.(png)$/,
+        loader: 'file-loader?name=./image/[name].[ext]'
       }
+
     ]
   },
   plugins: [

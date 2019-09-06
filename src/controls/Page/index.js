@@ -2,21 +2,14 @@
 
 import _ from 'lodash'
 import React from 'react'
-import Control from '../Control'
 import Markdown from '../Markdown'
-import yaml from 'js-yaml'
 import YAML from '../../components/YAML'
-import request from 'browser-request'
-import pathlib from 'path'
-import * as mdutil from '../Markdown/util'
 import HortenWebSocket from 'horten-websocket'
 import ErrorTag from '../../components/ErrorTag'
 
 const embarkdown = require('embarkdown')
 
-const frontmatter = require('front-matter')
-
-require('./index.less')
+// require('./index.less')
 
 
 export default class Page extends React.Component {
