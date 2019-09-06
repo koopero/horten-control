@@ -179,8 +179,16 @@ export default class Page extends React.Component {
         content = this.renderTopBar()
       break
 
+      case 'sidebar':
+        content = this.renderSidebar()
+      break
+
       case 'content':
-        content = <YAML data={this.state.pages}/>
+        if ( _.isArray( this.state.pages ) ) {
+          content = this.renderContent( this.state.pages[0] )
+        } else {
+          content = <YAML data={this.state.pages}/>
+        }
       break
 
     }
@@ -202,11 +210,34 @@ export default class Page extends React.Component {
     return <h1 className='topbar-title'>{ title }</h1>
   }
 
-  renderContent( src ) {
-    let content = 'no content yet' || this.state.pages[0]
+
+  renderSidebar() {
+    const navItem = ( item ) => {
+      let { title, path } = item
+      let onClick = () => {
+        let state = _.merge( {}, this.state, { path } )
+        this.setState( state )
+      }
+      let className = 'nav'
+      if ( pathMatches( this.state.path, path ) )
+        className += ' active'
+
+      return  <a className={className} onClick={onClick} >{ title }</a>
+    }
+
+    let items = _.map( this.state.pages, ( page, index ) => {
+      return <li key={ index }>{ navItem( page ) }</li>
+    } ) 
+
+    return <nav><ul>{ items }</ul></nav>
+  }
+
+
+  renderContent() {
+    let content = _.find( this.state.pages, page => pathMatches( page.path, this.state.path ) ) || {}
 
     let className = ''
-    let meta = _.merge( {}, this.state.meta,content.meta )
+    let meta = _.merge( {}, this.state.meta, content.meta )
 
     if ( content.error )
       return <ErrorTag
@@ -220,7 +251,7 @@ export default class Page extends React.Component {
       />
 
 
-    return src
+    return 'No content'
   }
 
   renderIndex() {
@@ -294,7 +325,7 @@ export default class Page extends React.Component {
       }
 
       return (
-        <a href={ href } key={ index } onClick={ onClick }>{ item.title }</a>
+        <a href={ href } key={ index } onClick={ onClick } href="#">{ item.title }</a>
       )
 
       function onNavLink() {
@@ -303,4 +334,16 @@ export default class Page extends React.Component {
       }
     }
   }
+}
+
+function pathMatches( a, b ) {
+  if ( !_.isArray( a ) || !_.isArray( b ) )
+    return false
+
+  let k = Math.min( a.length, b.length )
+  for ( let i = 0; i < k; i ++ ) 
+    if ( a[i] != b[i] )
+      return false 
+
+  return true
 }

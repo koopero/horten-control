@@ -67,7 +67,8 @@ export default class Options extends Base {
     )
 
     function Option( title, index ) {
-      var value = state.values[index], title
+      var value = state.values[index]
+      var title
       var classes = []
 
       if ( index == 0 )

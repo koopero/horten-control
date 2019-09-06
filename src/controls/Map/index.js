@@ -50,6 +50,10 @@ export default class Map extends Base {
   }
 
   renderSelf() {
+    return null
+  }
+
+  renderTabs() {
     const self = this
     let state = this.state
     let keys = state.keys || []

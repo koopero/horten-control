@@ -1,3 +1,5 @@
+@import "./variables.less";
+
 .horten {
 
 
@@ -24,6 +26,33 @@ section.region-topbar {
     margin: 0 1em;
     text-shadow: none;
   }
+}
+
+section.region-sidebar {
+  nav ul {
+    list-style: none;
+    margin: 0;
+    text-align: right;
+    padding: 0;
+
+    li {
+      margin: 0.33em 0;
+      border-bottom: 1px dashed fadeout( white, 60% );
+    }
+
+    a {
+      font-family: @font-family-titles;
+      font-weight: 100;
+      margin: 0.125em 0.5em;
+      color: #aaa;
+    }
+
+    a.active { 
+      color: white;
+    }
+  }
+
+
 }
 
 .has-topbar {

@@ -135,7 +135,12 @@ export default class Control extends React.Component {
           : undefined
         }
         { this.isChildVisible( 'title'  ) && this.props.title ?
-          <h4 className='title'>{ this.props.title || '' }</h4>
+          <span className='title'>{ this.props.title || '' }</span>
+          : undefined
+        }
+
+        { this.isChildVisible( 'tabs' ) ?
+          this.renderTabs()
           : undefined
         }
 
@@ -155,6 +160,11 @@ export default class Control extends React.Component {
   }
 
   renderSelf() {
+
+  }
+
+  renderTabs() {
+
   }
 
   renderTools() {

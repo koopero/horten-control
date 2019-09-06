@@ -89,4 +89,8 @@ export default class OurMarkdown extends Base {
       />
     )
   }
+
+  renderHeader() {
+    return null;
+  }
 }
