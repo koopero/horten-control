@@ -30,58 +30,7 @@
 @fade_slider_B: 80%;
 
 
-
-.colourSpace( @dark, @mid, @light ) {
-  .solidBorder( @mid );
-
-  & , .control {
-    color: @light;
-    background: fadeout( @dark, @fade_bg );
-  }
-
-  .markdown-content > p, h3, h4  {
-    .docStyle( @dark, @mid, @light );
-  }
-
-  input {
-    color: @light;
-  }
-
-  .area {
-    border: 1px solid fadeout( @mid, 20% );
-  }
-
-  .highlight {
-    border: 1px solid fadeout( @light, 0% );
-  }
-
-  .slider {
-    background-image: linear-gradient( 0, fadeout( @dark, @fade_slider_A), fadeout( @dark, @fade_slider_B), fadeout( @mid, @fade_slider_A) 100% );
-  }
-
-  .button.unselected {
-    background: fadeout( @dark, @fade_button );
-    color: @light;
-    border-color: @light;
-  }
-
-  .button.selected {
-    background: @light;
-    color: @dark;
-    border-color: @mid;
-  }
-
-  header {
-    border-bottom: 1px dashed fadeout( @dark, 80% );
-  }
-
-}
-
-
-
 .horten.control {
-  .colourSpace( #000, #555, #fff ); 
-  // .object();
 
   display: flex;
   flex-direction: column;
@@ -181,46 +130,6 @@
     margin: 0;
   }
 }
-
-.horten .colour-red {
-  .colourSpace( #411, #b22, #f00 ); 
-}
-
-.horten .colour-blue {
-  .colourSpace( rgb(17, 43, 68), rgb(28, 69, 158), rgb(86, 187, 255) ); 
-}
-
-.horten .colour-green {
-  .colourSpace( rgb(16, 66, 37), rgb(26, 141, 26), rgb(0, 255, 0) ); 
-}
-
-.horten .colour-yellow {
-  // .colourSpace( #411, #b22, #f00 ); 
-  .colourSpace( #421, rgb(145, 134, 43), rgb(255, 238, 0) ); 
-
-}
-
-
-.horten .colour-orange {
-    .colourSpace( #421, #b52, #e63 ); 
-  // .colourSpace( #411, #b22, #f00 ); 
-  // .colourSpace( rgb(17, 43, 68), rgb(28, 69, 158), rgb(86, 187, 255) ); 
-}
-
-.horten .colour-cyan {
-  .colourSpace( rgb(16, 72, 94), rgb(35, 109, 138), rgb(0, 255, 255) ); 
-}
-
-
-.horten .colour-magenta {
-  .colourSpace( rgb(119, 34, 153), rgb(131, 37, 115), rgb(255, 0, 255) ); 
-}
-
-.horten .colour-white {
-  .colourSpace( rgb(255, 255, 255), rgb(168, 168, 168), rgb(0, 0, 0) ); 
-}
-
-
 
 
 .horten.control.error {

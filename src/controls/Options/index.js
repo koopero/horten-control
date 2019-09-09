@@ -17,10 +17,9 @@ export default class Options extends Base {
     var state = this.state = this.state || {}
     options = options || this.props.options
     
-    let values = []
-    let titles = []
+    let items = []
 
-    if ( Array.isArray( options ) ) {
+    if ( _.isArrayLikeObject( options ) ) {
       options.map( ( a ) => option( a )  )
     } else if ( _.isObject( options ) ) {
       _.map( options, option )
@@ -32,18 +31,25 @@ export default class Options extends Base {
       sourceKeys.forEach( ( key ) => option( key ) )
     }
 
+    items = _.sortBy( items, 'order' )
 
-    return this.setState( { values, titles } )
+    return this.setState( { items } )
 
-    function option( value, title ) {
-      title = title || value
-      title = String( title )
-      let titleInd = titles.indexOf( title )
+    function option( item ) {
 
-      if ( titleInd == -1 ) {
-        values.push( value )
-        titles.push( title )
-      }
+      if ( !_.isObject( item ) ) 
+        item = { value: item }
+      else 
+        item = _.clone( item )
+
+      if ( !item.title )
+        item.title = String( item.value )
+
+      // title = title || value
+      // title = String( title )
+
+      // let item = { value, title, colour, icon, order }
+      items.push( item )
     }
   }
 
@@ -63,12 +69,11 @@ export default class Options extends Base {
     var options = this.props.options
 
     return (
-      <div className='options'>{ state.titles.map( Option ) }</div>
+      <div className='options'>{ state.items.map( Option ) }</div>
     )
 
-    function Option( title, index ) {
-      var value = state.values[index]
-      var title
+    function Option( item, index ) {
+      let { value, title, colour, icon } = item
       var classes = []
 
       if ( index == 0 )
@@ -85,6 +90,8 @@ export default class Options extends Base {
           show="control"
           title={ title }
           trigger={ value }
+          colour={ colour }
+          icon={ icon }
         />)
     }
   }

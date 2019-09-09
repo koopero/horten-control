@@ -20,13 +20,21 @@ export default class Trigger extends Control {
       text = ( <YAML data={ trigger } /> )
 
     let className = this.props.className || ''
+    className += 'horten control button unselected'
+
+
     if ( this.state.selected ) 
       className += ' selected'
     
+    if ( _.isString( this.props.colour ) )
+      className += ' colour-'+this.props.colour 
+    
+
+    // text = JSON.stringify( this.props )
 
     return (
       <span
-        className={'button unselected '+(this.props.className || '')}
+        className={ className }
         onClick={ this.onMouse.bind( this, 'click' ) }
         onMouseEnter={ this.onMouse.bind( this, 'enter' ) }
         onMouseMove={ this.onMouse.bind( this, 'move' ) }

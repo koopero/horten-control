@@ -45,6 +45,7 @@
     "deindent": "^0.1.0",
     "front-matter": "^3.0.1",
     "highlight.js": "^9.14.2",
+    "history": "^4.9.0",
     "horten": "^0.9.0",
     "horten-websocket": "^0.2.8",
     "js-yaml": "^3.12.1",

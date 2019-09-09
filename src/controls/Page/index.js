@@ -6,6 +6,7 @@ import Markdown from '../Markdown'
 import YAML from '../../components/YAML'
 import HortenWebSocket from 'horten-websocket'
 import ErrorTag from '../../components/ErrorTag'
+import { createHashHistory } from 'history'
 
 const embarkdown = require('embarkdown')
 
@@ -29,8 +30,29 @@ export default class Page extends React.Component {
   }
 
   componentDidMount() {
+    const history = this.state.history || createHashHistory()
     this.initializeLoad()
     this.state.websocket.open()
+    this.state.history = history
+    console.log('initial', history )
+    this.state.unlistenHistory = history.listen( this.onHistory.bind( this ) )
+    this.setNavPathname( history.location.pathname )
+  }
+
+  setNavPathname( pathname ) {
+    pathname = _.trimStart( pathname, '/' )
+    let path = pathname.split('/')
+    let state = _.merge( {}, this.state, { path } )
+    this.setState( state )    
+  }
+
+  onHistory( location, action ) {
+    console.log( "onHistory", location, action )
+    this.setNavPathname( location.pathname )
+  }
+
+  componentWillUnmount() {
+
   }
 
   async initializeLoad() {
@@ -44,8 +66,6 @@ export default class Page extends React.Component {
   }
 
   render() {
-
-
     let regions = ['topbar','content','sidebar','afterContent']
     let regionsRendered = regions.map( region => this.renderRegion( region ) )
     let hasRegions = _.filter( regions, (region,index) => !!regionsRendered[index] )
@@ -59,116 +79,6 @@ export default class Page extends React.Component {
       { regionsRendered }
     </div> )      
   }
-
-
-  // loadFile( url ) {
-  //   let file = this.state.files[url] = this.state.files[url] || { url, loaded: false } 
-  //   if ( !file.request ) {
-  //     Object.defineProperty( file, 'request', { enumerable: false, writable: true } )
-  //     file.request = request( { url }, 
-  //       ( err, res ) => this._onFileLoaded({
-  //         err, res, url, file
-  //       })
-  //     )
-  //   }
-
-  //   return file
-  // }
-
-  // _onFileLoaded( { err, res, url, file } ) {
-  //   if ( err || res.statusCode >= 400 ) {
-  //     file.error = err || res.statusText
-  //     file.loaded = false
-  //     this.refreshNext()
-  //     return
-  //   }
-
-  //   let extOrig = pathlib.extname( url )
-  //   let ext = extOrig.toLowerCase()
-  //   while( ext[0] == '.' ) ext = ext.substr( 1 )
-
-  //   file.loaded = true
-  //   file.contents = res.body
-  //   // file.contents = res.body
-  //   file.ext = ext
-  //   file.name = pathlib.basename( url, extOrig )
-  //   file.idPrefix = `${file.name}-`
-
-  //   switch( ext ) {
-  //   case 'md':
-  //   case 'markdown':
-  //     let markdown = file.contents
-  //     let front = frontmatter( markdown )
-  //     file.index = mdutil.makeIndex( { path: [ file.name ], markdown, idPrefix: file.idPrefix } ) 
-  //     file.markdown = file.contents
-  //     // file.index = 'foo?'
-
-  //     break
-
-  //   case 'yaml':
-  //   case 'json':
-  //     let data, error
-  //     try {
-  //       data = yaml.load( file.contents )
-  //     } catch( err ) {
-  //       error = err
-  //     }
-
-  //     if ( error ) {
-  //       file.error = error
-  //     } else {
-  //       Object.defineProperty( file, 'yaml', { value: data, enumerable: false } )
-  //       // console.log( data )
-  //       this.state.meta = _.merge( this.state.meta, data.meta )
-  //     }
-  //     break
-  //   }
-
-  //   this.refreshNext()
-  // }
-
-  // refreshNext() {
-  //   if ( this.state.timer ) 
-  //     clearTimeout( this.state.timer )
-
-  //   this.state.timer = setTimeout( () => this.forceUpdate() )
-  // }
-
-  // renderOLD() {
-  //   let pages = this.state.pages || []
-  //   pages = _.map( pages, ( page ) => this.loadFile( page ) )
-  //   pages = _.sortBy( pages, 'order' )
-
-  //   pages = _.map( pages, (page, index ) => {
-  //     if ( 'undefined' != typeof page.error ) {
-  //       return <pre className="error">{ page.url } { page.error.toString() }</pre>
-  //     }
-
-  //     let content
-  //     let className = ''
-  //     let meta = _.merge( {}, this.state.meta, page.meta )
-
-  //     if ( page.markdown )
-  //       content = <Markdown 
-  //         {...page}
-  //         meta={meta}
-  //       />
-
-  //     return <section className={className} key={index}>
-  //       <span className='url'>{ page.url }</span>
-  //       {/* <pre className='debug'>{ JSON.stringify( meta, null, 2 ) }</pre> */}
-  //       { content }
-  //     </section>
-  //   })
-
-  //   let index = this.renderIndex()
-
-  //   return ( <div className='horten page'>
-  //     { index }
-  //     { pages }
-  //   </div> )
-  // }
-
 
   renderRegion( region ) {
     let className = `region-${region}`
@@ -207,7 +117,31 @@ export default class Page extends React.Component {
   renderTopBar() {
     let title = 'Title'
 
-    return <h1 className='topbar-title'>{ title }</h1>
+    return [ 
+      <h1 className='topbar-title'>{ title }</h1>,
+      this.renderSelectNav()
+    ]
+  }
+
+  renderSelectNav() {
+    let items = _.map( this.state.pages, ( page, index ) => {
+      let { title, path } = page
+
+      return <option key={ index } value={ path.join('/')}>{ page.title }</option>
+    } ) 
+
+    const onChange = ( event ) => {
+      let path = event.target.value
+      this.state.history.replace( '/'+path)
+    }
+
+    let path = this.state.path || []
+
+    return <select value={ path.join('/') } onChange={onChange}>{ items }</select>
+  }
+
+  onNavigatePage( page ) {
+    this.state.history.replace( '/'+page.path.join('/'))
   }
 
 
@@ -222,7 +156,9 @@ export default class Page extends React.Component {
       if ( pathMatches( this.state.path, path ) )
         className += ' active'
 
-      return  <a className={className} onClick={onClick} >{ title }</a>
+      let hash = pageToHash( item )
+
+      return  <a className={className} onClick={ ()=>this.onNavigatePage( item ) }>{ title }</a>
     }
 
     let items = _.map( this.state.pages, ( page, index ) => {
@@ -237,7 +173,9 @@ export default class Page extends React.Component {
     let content = _.find( this.state.pages, page => pathMatches( page.path, this.state.path ) ) || {}
 
     let className = ''
-    let meta = _.merge( {}, this.state.meta, content.meta )
+    console.log("Meta what?", content )
+    let meta = _.merge( {}, this.state.meta, content.data && content.data.meta )
+    console.log("Meta what?!", meta )
 
     if ( content.error )
       return <ErrorTag
@@ -346,4 +284,8 @@ function pathMatches( a, b ) {
       return false 
 
   return true
+}
+
+function pageToHash( page ) {
+  return '#'+page.path.join('-')
 }
