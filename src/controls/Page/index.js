@@ -66,7 +66,7 @@ export default class Page extends React.Component {
   }
 
   render() {
-    let regions = ['topbar','content','sidebar','afterContent']
+    let regions = ['content','sidebar','topbar']
     let regionsRendered = regions.map( region => this.renderRegion( region ) )
     let hasRegions = _.filter( regions, (region,index) => !!regionsRendered[index] )
 
@@ -140,8 +140,9 @@ export default class Page extends React.Component {
     return <select value={ path.join('/') } onChange={onChange}>{ items }</select>
   }
 
-  onNavigatePage( page ) {
+  onNavigatePage( event, page ) {
     this.state.history.replace( '/'+page.path.join('/'))
+    event.preventDefault()
   }
 
 
@@ -158,7 +159,7 @@ export default class Page extends React.Component {
 
       let hash = pageToHash( item )
 
-      return  <a className={className} onClick={ ()=>this.onNavigatePage( item ) }>{ title }</a>
+      return  <a className={className} onClick={ ( event )=>this.onNavigatePage( event, item ) } href={hash}>{ title }</a>
     }
 
     let items = _.map( this.state.pages, ( page, index ) => {
@@ -254,16 +255,11 @@ export default class Page extends React.Component {
     function navItem( item, index ) {
       var href, onClick
 
-      if ( item.page ) {
-        href = '/page/'+item.page
-        onClick = () => null
-      } else {
-        href = '#'
-        onClick = onNavLink
-      }
+      href = pageToHash( item )
+      onClick = onNavLink
 
       return (
-        <a href={ href } key={ index } onClick={ onClick } href="#">{ item.title }</a>
+        <a href={ href } key={ index } onClick={ onClick } href={href}>{ item.title }</a>
       )
 
       function onNavLink() {

@@ -1,11 +1,23 @@
 import React from 'react'
 import Colour from 'deepcolour'
 
+// import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+
+function preventDefault( e ) {
+  e.preventDefault()
+}
+
+function disableBodyScroll() {
+  document.addEventListener('touchmove', preventDefault, { passive: false } )
+}
+
+function enableBodyScroll() {
+  document.removeEventListener('touchmove', preventDefault, { passive: false } )
+}
+
+
 // Aped from CSS
 let _border = 1
-
-require('../style/sliders.less')
-
 
 export default class VBoxSlider extends React.Component {
   constructor( props ) {
@@ -51,6 +63,9 @@ export default class VBoxSlider extends React.Component {
         onMouseLeave={ onMouse }
         onTouchMove={ onTouch }
         onTouchStart={ onTouch }
+        onTouchEnd={ onTouch }
+        // onTouchCancel={ onTouch }
+
         style={style}
         ref={(div) => this.ref.main = div }
       >
@@ -101,9 +116,12 @@ export default class VBoxSlider extends React.Component {
     if ( !this.state.mouseActive )
       return
 
+    console.log('onMouse', event )
+  
+
     this.onMouseMove( event )
     event.preventDefault()
-
+    event.stopPropagation()
   }
 
   onTouch( event ) {
@@ -111,7 +129,22 @@ export default class VBoxSlider extends React.Component {
 
     if ( touches.length )
       this.onMouseMove( touches[0] )
+
+    console.log('onTouch', event.type )
+
+    switch( event.type ) {
+      case 'touchstart':
+      case 'touchmove':
+        disableBodyScroll( this.ref.main )
+      break
+      
+      case 'touchend':
+        enableBodyScroll( this.ref.main )
+      break
+    }
+
     event.preventDefault()
+    event.stopPropagation()
   }
 
   onMouseMove( event ) {

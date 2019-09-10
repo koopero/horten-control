@@ -8,7 +8,7 @@ module.exports = function renderPageHTML( page ) {
   <head>
     <meta charset="utf-8">
     <title>${ title }</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="/horten-control/style/main.css" rel="stylesheet"/>
     <link href="/horten-control/fonts.css" rel="stylesheet"/>
   </head>

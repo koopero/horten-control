@@ -23,7 +23,9 @@ const MODE_TO_ICON = {
 class Selector extends React.Component {
   render() {
     const onMouseEvent = this.props.onMouseEvent
-    const className = ['button', 'pixel', 'seethru' ]
+    const className = [
+      // 'button',
+      'pixel', 'seethru' ]
     const colour = new Colour( this.props.colour )
     const style = {
       backgroundColor: colour.toCSS()
@@ -32,7 +34,7 @@ class Selector extends React.Component {
     className.push( this.props.selected  ? 'selected' : 'unselected') 
 
     return (
-      <div
+      <td
         onMouseDown={ onMouseEvent }
         onMouseUp={ onMouseEvent }
         onMouseEnter={ onMouseEvent }
@@ -40,7 +42,7 @@ class Selector extends React.Component {
 
         className={className.join(' ')}
         style={style}
-      ></div>
+      ></td>
     )
   }
 }
@@ -121,8 +123,7 @@ export default class Pixels extends Base {
 
     return (
       <div className={className}>
-        { sliders }
-        <td className="delim"><FontAwesomeIcon icon={faArrowCircleRight} /></td>
+        <div className="sliders">{ sliders }</div>
         { grid }
       </div>
     )
@@ -148,14 +149,16 @@ export default class Pixels extends Base {
 
       let rows = Math.max( 0 , self.state.rows - 1 )
 
-      let className = self.renderControlHeightClasses() + ' inner'
+      let className = ''
 
       return (
+        <div className="table-wrapper">
         <table className={ className }>
           <tbody>
             { indexes.map( renderRow ) }
           </tbody>
         </table>
+        </div>
       )
     }
 
@@ -167,7 +170,9 @@ export default class Pixels extends Base {
       return (
         <tr key={row}>
           { indexes.map( ( index ) => (
-            <td key={index} style={{ width: `${100/height}%`}}>{ renderCell( index ) }</td>
+            // <td key={index} style={{ width: `${100/height}%`}}>
+             renderCell( index )
+            // {/* </td> */}
           ) ) }
         </tr>
       )

@@ -13,19 +13,38 @@
     align-content: stretch;
     padding-bottom: 6px;
 
-    .delim {
-      font-size: 200%;
-      text-align: center;
-      color: rgba(0,0,0,50%);
-      display: table-row;
-      vertical-align: middle;
-    }
+    // .delim {
+    //   font-size: 200%;
+    //   text-align: center;
+    //   color: rgba(0,0,0,50%);
+    //   display: table-row;
+    //   vertical-align: middle;
+    // }
+    height: 100%;
   }
 
   // .toolbar {
   //   margin-bottom: 0.5em;
   //   .button {
   //     margin-right: 0.5em;
+  //   }
+  // }
+
+  td.pixel {
+    // background: red;
+  }
+  // td.pixel {
+  //   // width: 100%;
+  //   height: 100%;
+  //   box-sizing: border-box;
+  //   min-height: 1.25em;
+  //   min-width: 2em;
+
+  //   border: 1px solid red;
+
+  //   div {
+  //     width: 100%;
+  //     height: 100%;
   //   }
   // }
 
@@ -59,68 +78,22 @@
     }
   }
 
-
-
-  // .vboxslider {
-  //   // width: 16px;
-  //   width: 100%;
-  //   min-width: 12px;
-  //   height: 200px;
-  //   margin-right: 8px;
-  //   box-sizing: border-box;
-  //   border-radius: @vboxslider_round / 2 + 3px;
-  //   border: solid white 1px;
-  //   background-size: 100% 100%;
-  //   cursor: crosshair;
-  //   float: left;
-
-  //   .track {
-  //     width: 100%;
-  //     height: 100%;
-  //   }
-
-  //   .thumb {
-  //     box-sizing: border-box;
-  //     width: 100%;
-  //     height: @vboxslider_round;
-  //     // background: rgba(0,0,0,50%);
-  //     border-radius: @vboxslider_round / 2;
-  //     border: solid white 3px;
-  //     box-sizing: border-box;
-  //     box-shadow: 0 0 5px black;
-  //   }
-  // }
-
-  .inner .sliders, .inner table  {
-    // float: left;
-    // display: inline-block;
-
-
-  }
-
   // & > .inner {
   //   display: table-row;
   // }
-  .inner > table {
-    margin-top: 0.125em;
-    display: flex;
+  .inner  table {
+    // margin-top: 0.125em;
+    // display: flex;
 
+    // background: yellow;
 
-
-    tr {
-      // height: 128px;
-      width: 100%;
-      display: flex;
-      justify-content: stretch;
-    }
-
-    box-sizing: border-box;
-    // width: 100%;
-    min-height: 48px;
-    // height: 100%;
+    // box-sizing: border-box;
+    width: 100%;
+    // min-height: 48px;
+    height: 100%;
 
     tbody, tr {
-      width: 100%;
+      // width: 100%;
       // height: 100%;
     }
 
@@ -153,13 +126,23 @@
       // padding: 2px;
       // width: 25%;
       // height: 100%;
+      margin: 3px;
+      border-radius: 3px;
+      min-width: 32px;
+      min-height: 32px;
 
 
       .pixel {
-        display: block;
+        // display: block;
         // width: 1000px;
         // height: 100px;
         // height: 100%;
+      }
+
+      div {
+        display: flex;
+        width: 100%;
+        height: 100%;
       }
     }
   }
