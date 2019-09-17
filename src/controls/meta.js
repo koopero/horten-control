@@ -76,6 +76,9 @@ module.exports = {
     },
     collector: {
       _class: require('./Collector').default
+    },
+    upload: {
+      _class: require('./Upload').default
     }
   }
 }
