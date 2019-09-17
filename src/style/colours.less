@@ -1,8 +1,15 @@
+@fade_bg: 50%;
+@fade_button: 40%;
+@fade_slider_A: 50%;
+@fade_slider_B: 80%;
+
+
 .colourSpace( @dark, @mid, @light ) {
-  .solidBorder( @mid );
+  color: @light;
+  .solidBorder( @dark, @mid, @light );
 
   & , .control {
-    color: @light;
+
     background: fadeout( @dark, @fade_bg );
   }
 

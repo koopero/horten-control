@@ -52,7 +52,7 @@ export default class Control extends React.Component {
       prop = _.flatten( prop )
       prop = _.map( prop, ( prop ) => _.trim( prop ) )
       prop = _.uniq( prop )
-      prop = _.value( prop )
+      // prop = _.value( prop )
 
       return prop
     }
@@ -99,6 +99,10 @@ export default class Control extends React.Component {
     let colour = this.props.colour || this.props.color || ''
     if ( colour )
       className += ' colour-'+colour
+
+    let layout = this.props.layout || ''
+    if ( layout )
+      className += ' layout-'+layout
 
     return className
   }
