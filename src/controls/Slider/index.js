@@ -12,6 +12,7 @@ class Slider extends NumberControl {
       this.renderShort(),
 
       <VBoxSlider
+        direction={this.props.direction}
         ref = { self => this.actualSlider = self }
         onUserInput = { v => this.onUnitInput( v )}
       />

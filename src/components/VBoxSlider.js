@@ -44,7 +44,6 @@ export default class VBoxSlider extends React.Component {
       this.state.value = value
   }
 
-
   render() {
     const style = {
       backgroundImage: this.renderGradient(),
@@ -55,9 +54,11 @@ export default class VBoxSlider extends React.Component {
     const onMouse = this.onMouse.bind( this )
     const onTouch = this.onTouch.bind( this )
 
+    const { direction, orientation } = this.getOrientation()
+
     return (
       <div
-        className={'slider vertical area'}
+        className={`slider ${orientation} area  direction-${direction}`}
         onMouseMove={ onMouse }
         onMouseDown={ onMouse }
         onMouseLeave={ onMouse }
@@ -70,7 +71,7 @@ export default class VBoxSlider extends React.Component {
         ref={(div) => this.ref.main = div }
       >
         <div
-          className='thumb vertical'
+          className={`thumb ${orientation}`}
           ref={(div) => this.ref.thumb = div }
           style={{
             position: 'absolute'
@@ -147,19 +148,74 @@ export default class VBoxSlider extends React.Component {
     event.stopPropagation()
   }
 
+  getOrientation() {
+    let orientation 
+    let direction
+    let reverse
+
+    switch ( this.props.direction ) {
+      case 'down':
+        orientation = 'vertical'
+        direction = 'down'
+        reverse = false
+      break
+
+      case 'left':
+        orientation = 'horizontal'
+        direction = 'left'     
+        reverse = true
+      break
+
+      case 'right':
+        orientation = 'horizontal'
+        direction = 'right'     
+        reverse = false
+      break
+
+      default:
+      case 'up':
+        orientation = 'vertical'
+        direction = 'up'
+        reverse = true
+      break
+    }
+
+    var sizeKey, posKey, topKey, dirKey 
+
+    switch ( orientation ) {
+      case 'horizontal':
+        sizeKey = 'clientWidth'
+        posKey = 'clientX'
+        topKey = 'left'
+        dirKey = 0
+      break
+      case 'vertical':
+        sizeKey = 'clientHeight'
+        posKey = 'clientY'
+        topKey = 'top'
+        dirKey = 1
+      break
+    }
+
+    return { direction, orientation, reverse, sizeKey, posKey, topKey, dirKey }
+  }
+
   onMouseMove( event ) {
     let bounds = this.ref.main.getBoundingClientRect()
 
-    let thumbH = this.ref.thumb.clientHeight + _border
-    let ourH = this.ref.main.clientHeight
-    let y = event.clientY - bounds.top
+
+    const { direction, orientation, reverse, sizeKey, posKey, topKey } = this.getOrientation()
+    let thumbH = this.ref.thumb[sizeKey] + _border
+    let ourH = this.ref.main[sizeKey]
+    let y = event[posKey] - bounds[topKey]
     let v = ( y - thumbH / 2 ) / ( ourH - thumbH )
 
     v = v > 1 ? 1 : v < 0 ? 0 : v
-    v = 1 - v
+
+    if ( reverse )
+      v = 1 - v
 
     this.setValue( v )
-
 
     if ( this.props.onUserInput ) {
       this.props.onUserInput( v )
@@ -167,14 +223,24 @@ export default class VBoxSlider extends React.Component {
   }
 
   setValue( v ) {
-    let thumbH = this.ref.thumb.clientHeight + _border
-    let ourH = this.ref.main.clientHeight
-    let y = (1-v) * ( ourH - thumbH )
-    this.ref.thumb.style.top = y+'px'
+    const { dirKey, reverse, sizeKey, posKey, topKey } = this.getOrientation()
+
+    let thumbH = this.ref.thumb[sizeKey] + _border
+    let ourH = this.ref.main[sizeKey]
+
+    if ( reverse )
+      v = 1 - v  
+
+    let y = v * ( ourH - thumbH )
+    this.ref.thumb.style[topKey] = y+'px'
 
     if ( this.props.colour ) y= 0
     // console.log( this.ref )
-    this.ref.main.style.backgroundPosition = `0px ${y}px`
+
+    let pos = [0,0]
+    pos[dirKey] = y
+
+    this.ref.main.style.backgroundPosition = `${pos[0]}px ${pos[1]}px`
   }
 
 }
