@@ -79,7 +79,7 @@ export default class Options extends Base {
       if ( index == 0 )
         classes.push('first')
 
-      classes = classes.join(' ')
+      classes = classes.join(' ')+' '
 
       return (
         <Trigger
