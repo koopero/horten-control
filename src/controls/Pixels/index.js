@@ -23,6 +23,8 @@ const MODE_TO_ICON = {
 class Selector extends React.Component {
   render() {
     const onMouseEvent = this.props.onMouseEvent
+    const onTouchEvent = this.props.onTouchEvent
+
     const className = [
       // 'button',
       'pixel', 'seethru' ]
@@ -39,6 +41,9 @@ class Selector extends React.Component {
         onMouseUp={ onMouseEvent }
         onMouseEnter={ onMouseEvent }
         onMouseLeave={ onMouseEvent }
+
+        onTouchStart={ onTouchEvent }
+        onTouchEnd={ onTouchEvent }
 
         className={className.join(' ')}
         style={style}
@@ -186,6 +191,7 @@ export default class Pixels extends Base {
           selected={ !!self.state.selected[index] }
           colour={ new Colour( self.state.colours && self.state.colours[index] ) }
           onMouseEvent={ ( event ) => self.onCellMouseEvent( index, event) }
+          onTouchEvent={ ( event ) => self.onCellTouchEvent( index, event) }
           onUserInputColour={ ( value ) => self.onCellUserInputColour( index, value ) }
         />
       )
@@ -274,19 +280,33 @@ export default class Pixels extends Base {
   onCellMouseEvent( index, event ) {
     const { type } = event
     event = Object.assign( {}, event )
-    let action
     switch ( type ) {
     case 'mousedown':  
-      this.doCellTouch( index, event.shiftKey || event.ctrlKey )
+      if ( event.buttons == 1 )
+        this.doCellTouch( index, event.shiftKey || event.ctrlKey )
       break
 
     case 'mouseenter':
-      if ( event.buttons )
+      if ( event.buttons == 1 )
         this.doCellTouch( index, event.shiftKey || event.ctrlKey )
       break
 
     case 'mouseleave':
     case 'mouseup':
+      this.doCellUntouch( index )
+      break
+    }
+  }
+
+  onCellTouchEvent( index, event ) {
+    const { type } = event
+    event = Object.assign( {}, event )
+    switch ( type ) {
+    case 'touchstart':  
+      this.doCellTouch( index )
+    break
+
+    case 'touchend':
       this.doCellUntouch( index )
       break
     }

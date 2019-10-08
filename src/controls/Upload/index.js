@@ -19,15 +19,19 @@ export default class Upload extends Base {
   upload() {
     const { files } = this.state
     let formData = new FormData()
-    _.map( files, ( file, index ) => formData.append(`upload-${index}`, files[0] ) )
+    _.map( files, ( file, index ) => formData.append(`upload-${index}`, files[index] ) )
     axios.post( '/upload', 
       formData, { 
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }
-    ).then(( result ) => this.setState( { result, files: [] } ) )
+    ).then(( result ) => this.onUploadResult( result ) )
     .catch(( err ) => console.log('upload dickered', err )) 
+  }
+  
+  onUploadResult( ) {
+    this.setState({ files:[]})
   }
 
   renderSelf() {

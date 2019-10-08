@@ -13,6 +13,9 @@ module.exports = {
     path: resolve( 'dist/' ),
     filename: '[name].js'
   },
+  resolve: {
+    symlinks: false
+  },
   module : {
     rules : [
       {
@@ -25,7 +28,14 @@ module.exports = {
       },
       {
         test : /\.jsx?/,
-        include : resolve('src/'),
+        include : [ 
+          resolve('src'),
+          resolve('node_modules/deepcolour'),
+          resolve('node_modules/embarkdown'),
+          resolve('node_modules/horten'),
+          resolve('node_modules/string2png'),
+        ],
+        exclude: [],
         use: {
           loader : 'babel-loader',
           options: {

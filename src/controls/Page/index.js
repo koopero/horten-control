@@ -115,7 +115,7 @@ export default class Page extends React.Component {
   }
 
   renderTopBar() {
-    let title = 'Title'
+    let title = ''
 
     return [ 
       <h1 className='topbar-title'>{ title }</h1>,
@@ -171,12 +171,12 @@ export default class Page extends React.Component {
 
 
   renderContent() {
-    let content = _.find( this.state.pages, page => pathMatches( page.path, this.state.path ) ) || {}
+    let content = _.find( this.state.pages, page => pathMatches( page.path, this.state.path ) ) || ( this.state.pages && this.state.pages[0] ) || {}
+    let path = content.path || []
+    let key = path.join('/')
 
     let className = ''
-    console.log("Meta what?", content )
     let meta = _.merge( {}, this.state.meta, content.data && content.data.meta )
-    console.log("Meta what?!", meta )
 
     if ( content.error )
       return <ErrorTag
@@ -187,6 +187,7 @@ export default class Page extends React.Component {
       return <Markdown 
         {...content}
         meta={meta}
+        key={key}
       />
 
 

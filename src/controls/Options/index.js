@@ -14,7 +14,8 @@ export default class Options extends Base {
   }
 
   setOptions( options ) {
-    var state = this.state = this.state || {}
+    const state = this.state = this.state || {}
+    const { props } = this
     options = options || this.props.options
     
     let items = []
@@ -27,8 +28,19 @@ export default class Options extends Base {
 
     if ( state.source && state.source.path.length ) {
       var sourceKeys = state.source.mutant.keys()
-      sourceKeys = wildcarder.filter( sourceKeys, this.props.wildcard )
-      sourceKeys.forEach( ( key ) => option( key ) )
+      sourceKeys = wildcarder.filter( sourceKeys, props.wildcard )
+
+      switch( props.sourceMode ) {
+        case 'value':
+          sourceKeys.forEach( ( key ) => option( { title: key, value: state.source.mutant.get( key ) } ) )
+        break
+
+        default:
+        case 'key':
+          sourceKeys.forEach( ( key ) => option( key ) )
+        break
+      }
+
     }
 
     items = _.sortBy( items, 'order' )

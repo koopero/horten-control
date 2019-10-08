@@ -231,6 +231,8 @@ export default class VBoxSlider extends React.Component {
     if ( reverse )
       v = 1 - v  
 
+    v = v > 1 ? 1 : v < 0 ? 0 : v 
+
     let y = v * ( ourH - thumbH )
     this.ref.thumb.style[topKey] = y+'px'
 
