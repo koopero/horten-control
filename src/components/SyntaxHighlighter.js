@@ -1,6 +1,18 @@
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter"
-import js from 'react-syntax-highlighter/dist/cjs/languages/hljs/javascript';
- 
-SyntaxHighlighter.registerLanguage('javascript', js);
+import Lowlight from 'react-lowlight'
+// Load any languages you want to use
+// (see https://github.com/isagalaev/highlight.js/tree/master/src/languages)
+import js from 'highlight.js/lib/languages/javascript'
+import yaml from 'highlight.js/lib/languages/yaml'
+import glsl from 'highlight.js/lib/languages/glsl'
+import markdown from 'highlight.js/lib/languages/markdown'
 
-export default SyntaxHighlighter
+
+
+Lowlight.registerLanguage('js', js )
+Lowlight.registerLanguage('yaml', yaml )
+Lowlight.registerLanguage('glsl', glsl )
+Lowlight.registerLanguage('markdown', markdown )
+
+
+
+export default Lowlight

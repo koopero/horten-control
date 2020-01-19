@@ -54,11 +54,15 @@ export default class VBoxSlider extends React.Component {
     const onMouse = this.onMouse.bind( this )
     const onTouch = this.onTouch.bind( this )
 
-    const { direction, orientation } = this.getOrientation()
+    let { direction, orientation } = this.getOrientation()
+
+    direction = direction && `direction-${direction}` || ''
+
+    let label = this.props.label || ''
 
     return (
       <div
-        className={`slider ${orientation} area  direction-${direction}`}
+        className={`slider ${orientation} area ${direction}`}
         onMouseMove={ onMouse }
         onMouseDown={ onMouse }
         onMouseLeave={ onMouse }
@@ -76,7 +80,10 @@ export default class VBoxSlider extends React.Component {
           style={{
             position: 'absolute'
           }}
-        ><div className='nail highlight'/></div>
+        >
+          <div className='nail highlight'/>
+          <div className='nail label'>{ label }</div>
+        </div>
       </div>
     )
   }
@@ -205,7 +212,7 @@ export default class VBoxSlider extends React.Component {
 
 
     const { direction, orientation, reverse, sizeKey, posKey, topKey } = this.getOrientation()
-    let thumbH = this.ref.thumb[sizeKey] + _border
+    let thumbH = this.ref.thumb[sizeKey]
     let ourH = this.ref.main[sizeKey]
     let y = event[posKey] - bounds[topKey]
     let v = ( y - thumbH / 2 ) / ( ourH - thumbH )
@@ -225,7 +232,7 @@ export default class VBoxSlider extends React.Component {
   setValue( v ) {
     const { dirKey, reverse, sizeKey, posKey, topKey } = this.getOrientation()
 
-    let thumbH = this.ref.thumb[sizeKey] + _border
+    let thumbH = this.ref.thumb[sizeKey]
     let ourH = this.ref.main[sizeKey]
 
     if ( reverse )
@@ -240,7 +247,7 @@ export default class VBoxSlider extends React.Component {
     // console.log( this.ref )
 
     let pos = [0,0]
-    pos[dirKey] = y
+    pos[dirKey] = y + thumbH / 2
 
     this.ref.main.style.backgroundPosition = `${pos[0]}px ${pos[1]}px`
   }

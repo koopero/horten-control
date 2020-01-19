@@ -5,7 +5,6 @@ import Markdown from 'react-markdown'
 import { safeLoad } from 'js-yaml'
 import SyntaxHighlighter from '../../components/SyntaxHighlighter'
 
-import { ocean } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import Control from '../Control'
 
 const mdutil = require('./util')
@@ -34,7 +33,7 @@ const CodeBlock = function ( props ) {
     return (
       // <div className='md-element'>
         <span className='horten control source'>
-          <SyntaxHighlighter language={language} style={ ocean }>{ source }</SyntaxHighlighter>
+          <SyntaxHighlighter value={ source || '' } language={language} />
         </span>
       // </div>
     )

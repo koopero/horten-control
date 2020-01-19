@@ -1,4 +1,5 @@
 var DEFAULTS = {
+  default: 0,
   min: 0,
   max: 1,
   pow: 1,
@@ -38,9 +39,6 @@ class Ranger {
 
       this[k] = v
     }
-
-    console.log('RANGER CONFIG', this, config )
-
   }
 
   toUnit( v ) {

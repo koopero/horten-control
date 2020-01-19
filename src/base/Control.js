@@ -143,6 +143,11 @@ export default class Control extends React.Component {
           : undefined
         }
 
+        { this.isChildVisible( 'meta' ) ?
+          this.renderMeta()
+          : undefined
+        }
+
         { this.isChildVisible( 'tabs' ) ?
           this.renderTabs()
           : undefined
@@ -167,12 +172,16 @@ export default class Control extends React.Component {
 
   }
 
+  renderMeta() {
+
+  }
+
   renderTabs() {
 
   }
 
   renderTools() {
-
+    
   }
 
   renderShort() {

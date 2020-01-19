@@ -79,6 +79,12 @@ module.exports = {
     },
     upload: {
       _class: require('./Upload').default
-    }
+    },
+    vector: {
+      _class: require('./Vector').default
+    },
+    image: {
+      _class: require('./Image').default
+    },
   }
 }

@@ -1,15 +1,21 @@
 @import "./variables.less";
 
+@thumb-size: 24px;
+@slider-border: 8px;
 .horten {
   .exact {
-    margin-top: 4px;
-    padding: 0 6px;
+    // margin-top: 4px;
+    padding: 0 0.125em;
+    margin: 0;
     height: 1em;
+    position: relative;
 
     input {
-      width: 10em;
+      position: relative;
+      top: -4px;
+      // width: 10em;
+      // margin: 0 auto;
       text-align: center;
-
       box-sizing: border-box;
       background: none;
       border: none;
@@ -20,7 +26,7 @@
     // width: 100%;
     height: 100%;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: @slider-border;
     border: solid white 1px;
     background-size: 100% 100%;
     cursor: crosshair;
@@ -28,25 +34,48 @@
     margin: @margin-small;
 
     .thumb {
-      position: relative;
-      left: -1px;
+      position: absolute;
+      // left: -1px;
       box-sizing: border-box;
       touch-action: none;
-      border-radius: 2px;
+      // border-radius: 2px;
+
+      font-size: 75%;
+
+      div {
+        position: absolute;
+      }
+
+      div.label {
+        top: 0px;
+        left: 1px;
+        text-align: center;
+        top: 50%;
+        height: @thumb-size - 8;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
     }
   }
 
+  .sliders {
+    display: flex;
+    margin-bottom: @margin-small * 2;
+  }
+
+  .thumb {
+    width: @thumb-size;
+    height: @thumb-size;
+    .nail {
+      border-radius: @slider-border;
+      width: 100%; 
+      height: 100%;
+    }
+  }
+
+
   .thumb.vertical {
     width: 100%;
-    width: calc( 100% - 6px );
-    height: 20px;
-    margin-left: 3px;
-    
-    .nail {
-      width: 100%; 
-      height: 14px;
-      margin-top: 2px;
-    }
   }
 
   .slider.vertical {
@@ -56,19 +85,25 @@
 
   .thumb.horizontal {
     height: 100%;
-    height: calc( 100% - 6px );
-    width: 20px;
-    margin-left: 3px;
+    width: @thumb-size;
     
     .nail {
       height: 100%; 
-      width: 14px;
-      margin-top: 2px;
     }
+  }
+
+  .thumb.rect {
+    height: @thumb-size;
+    width: @thumb-size;
   }
 
   .slider.horizontal {
     min-width: 160px;
     min-height: 32px;
+  }
+
+  .slider.rect {
+    min-width: 160px;
+    min-height: 160px;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import NumberControl from '../../base/NumberControl'
-import VBoxSlider from '../../components/VBoxSlider'
+import VBoxSlider from '../../components/BoxSlider'
 
 
 require('./index.less')
