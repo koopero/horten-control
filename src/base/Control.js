@@ -132,6 +132,8 @@ export default class Control extends React.Component {
   renderHeader() {
     if ( !this.isChildVisible( 'header' ) ) return
 
+    let showPath 
+
     return (
       <header>
         { this.isChildVisible( 'path' ) ?
@@ -238,7 +240,7 @@ export default class Control extends React.Component {
   //
   // Child Element Visibility
   //
-  isChildVisible( name ) {
+  isChildVisible( name, def = true ) {
     if ( this.state.hide == 'all' ) {
       if ( Array.isArray( this.state.show ))
         return this.state.show.indexOf( name ) != -1
@@ -250,7 +252,7 @@ export default class Control extends React.Component {
       if ( this.state.hide.includes( name ) )
         return false 
 
-    return true
+    return def
   }
 
 

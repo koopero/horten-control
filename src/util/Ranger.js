@@ -68,8 +68,6 @@ class Ranger {
     if ( this.quant )
       v = Math.round( v * this.quant ) / this.quant
 
-    console.log( "fromUnit", v )
-
     return v
   }
 

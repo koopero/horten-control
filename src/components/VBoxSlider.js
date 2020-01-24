@@ -45,7 +45,7 @@ export default class VBoxSlider extends React.Component {
   }
 
   render() {
-    const style = {
+    const gradStyle = {
       backgroundImage: this.renderGradient(),
       // backgroundSize: '200% 200%',
       backgroundRepeat: 'none',
@@ -71,9 +71,13 @@ export default class VBoxSlider extends React.Component {
         onTouchEnd={ onTouch }
         // onTouchCancel={ onTouch }
 
-        style={style}
         ref={(div) => this.ref.main = div }
       >
+        <div
+          className={`gradient ${orientation}`}
+          ref={(div) => this.ref.gradient = div }
+          style={gradStyle}
+        />
         <div
           className={`thumb ${orientation}`}
           ref={(div) => this.ref.thumb = div }
@@ -81,8 +85,7 @@ export default class VBoxSlider extends React.Component {
             position: 'absolute'
           }}
         >
-          <div className='nail highlight'/>
-          <div className='nail label'>{ label }</div>
+          <div className='nail highlight label'>{ label }</div>
         </div>
       </div>
     )
@@ -124,7 +127,7 @@ export default class VBoxSlider extends React.Component {
     if ( !this.state.mouseActive )
       return
 
-    console.log('onMouse', event )
+    // console.log('onMouse', event )
   
 
     this.onMouseMove( event )

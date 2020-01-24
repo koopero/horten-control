@@ -9,11 +9,14 @@ class Image extends Control {
 
   renderSelf() {
     let aspect = 16/9
-    return [
+    return (
       <div className="container" style={{ position: 'relative', width: '100%', paddingBottom: `${100/aspect}%`}}>
-        <img src="/image/indian.png" style={{ position: 'absolute', top: '0px', left: '0px', right: '0px', bottom: '0px',width:'100%',height:'100%' }}/>
+        <img 
+          src="/image/indian.png" 
+          style={{ position: 'absolute', top: '0px', left: '0px', right: '0px', bottom: '0px',width:'100%',height:'100%' }}
+        />
       </div>
-    ]
+    )
   }
 }
 

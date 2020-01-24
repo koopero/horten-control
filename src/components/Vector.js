@@ -33,7 +33,7 @@ function parseOptions( props ) {
     channels
   })
   options.channels = channels
-  options.value = new options.space().toArray()
+  options.value = new options.space()
 
   return options
 
@@ -119,31 +119,73 @@ function parseOptions( props ) {
 }
 
 export default class Vector extends React.Component {
+  constructor( props ) {
+    super( props )
+    this.state = {}
+  }
+
   static getDerivedStateFromProps( props, state ) {
     state = state || {}
     state.options = parseOptions( props )
+    state.value = state.options.value
     return state
   } 
+
+  onSliderInput( slider, input ) {
+    if ( 'number' == typeof input ) {
+      let key = slider.channels[0]
+      let ob = {}
+      ob[key] = input
+      input = ob
+    }
+
+    const { state } = this
+    let { next, value, timer } = state
+    next = next || value.clone()
+    next.set( input )
+
+    state.next = next
+
+    if ( !timer ) {
+      state.timer = setImmediate( this.onTimer.bind( this ) )
+    }
+
+  }
+
+  onTimer() {
+    const { state, props } = this
+    let { next, value, channels, timer } = state
+    
+    
+    let result = next.toObject( channels )
+    
+    if ( props.onUserInput )
+      props.onUserInput( result )
+    
+    state.timer = null
+  }
 
   render() {
     let { state } = this
     let { options } = state
     let { sliders } = options
 
-    sliders = sliders.map( renderSlider )
-    return [ 
-      // <YAML data={this.state }/>,
-      <div className='sliders'>
+    sliders = sliders.map( ( slider ) => this.renderSlider( slider ) )
+    return (
+      <div className='vector sliders'>
         { sliders }
       </div>
-    ]
+    )
+  }
 
-    function renderSlider( slider ) {
-      if ( slider.length == 2 )
-        return <BoxSlider {...slider} />
+  renderSlider( slider ) {
+    slider.encoding = 'object'
+    slider.onUserInput = this.onSliderInput.bind( this, slider )
 
-      if ( slider.length == 1 )
-        return <VBoxSlider {...slider} />
-    }
+    if ( slider.length == 2 )
+      return <BoxSlider {...slider} />
+
+    if ( slider.length == 1 )
+      return <VBoxSlider {...slider} />
   }
 }

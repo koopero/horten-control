@@ -9,8 +9,9 @@
   .solidBorder( @dark, @mid, @light );
 
   & , .control {
+    // background: fadeout( @dark, @fade_bg );
+    background: @dark;
 
-    background: fadeout( @dark, @fade_bg );
   }
 
   .markdown-content > p, h3, h4  {
@@ -22,7 +23,11 @@
   }
 
   .area {
-    border: 1px solid fadeout( @mid, 20% );
+    border: 1px solid fadeout( @light, 60% );
+  }
+
+  .label {
+    color: @mid;
   }
 
   .highlight {
@@ -65,7 +70,7 @@
 }
 
 .horten.control {
-  .colourSpace( #000, #555, #fff ); 
+  .colourSpace( #333, #555, #fff ); 
 }
 
 .horten .colour-red {

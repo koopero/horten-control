@@ -143,6 +143,8 @@ export default class Page extends React.Component {
 
   onNavigatePage( event, page ) {
     this.state.history.replace( '/'+page.path.join('/'))
+    if ( page.title )
+      window.document.title = page.title
     event.preventDefault()
   }
 

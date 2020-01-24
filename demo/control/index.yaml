@@ -1,1 +1,4 @@
-load: index.md
+load: 
+  - index.md
+  - airspace.yaml
+  - airspace.md

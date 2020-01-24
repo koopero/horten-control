@@ -1,7 +1,8 @@
 @import "./variables.less";
 
 @thumb-size: 24px;
-@slider-border: 8px;
+@slider-border: 6px;
+
 .horten {
   .exact {
     // margin-top: 4px;
@@ -22,16 +23,25 @@
     }
   }
 
+  .area {
+    position: relative;
+    overflow: hidden;
+    img {
+      image-rendering: smooth;
+    }
+    border-radius: @slider-border + 2;
+  }
+
   .slider {
     // width: 100%;
     height: 100%;
     box-sizing: border-box;
-    border-radius: @slider-border;
-    border: solid white 1px;
     background-size: 100% 100%;
     cursor: crosshair;
     touch-action: none;
     margin: @margin-small;
+
+
 
     .thumb {
       position: absolute;
@@ -46,14 +56,29 @@
         position: absolute;
       }
 
-      div.label {
-        top: 0px;
-        left: 1px;
+      padding-right: 2px;
+      padding-bottom: 2px;
+
+
+      width: @thumb-size;
+      height: @thumb-size;
+
+       
+      .nail {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        bottom: 2px;
+        right: 2px;
+        border-radius: @slider-border;
+        background-color: #222;
+
+        font-size: 8px;
+        padding: 0 2px;
         text-align: center;
-        top: 50%;
-        height: @thumb-size - 8;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+
+        // width: @thumb-size - 4;
+        // height: @thumb-size - 4;
       }
     }
   }
@@ -63,39 +88,18 @@
     margin-bottom: @margin-small * 2;
   }
 
-  .thumb {
-    width: @thumb-size;
-    height: @thumb-size;
-    .nail {
-      border-radius: @slider-border;
-      width: 100%; 
-      height: 100%;
-    }
-  }
-
-
-  .thumb.vertical {
-    width: 100%;
-  }
-
   .slider.vertical {
     min-height: 160px;
-    min-width: 32px;
+    min-width: @thumb-size + 24;
+    .thumb {
+      width: 100%;
+    }
   }
 
   .thumb.horizontal {
     height: 100%;
-    width: @thumb-size;
-    
-    .nail {
-      height: 100%; 
-    }
   }
 
-  .thumb.rect {
-    height: @thumb-size;
-    width: @thumb-size;
-  }
 
   .slider.horizontal {
     min-width: 160px;

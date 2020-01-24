@@ -4,7 +4,7 @@ const hortenServer = require('horten-server').global()
 
 hortenServer.configure({
   root: resolve( __dirname, 'demo' ),
-  index: '/control/index.md',
+  index: '/control/index.yaml',
   persist: 'data/persist.yaml',
   dirs: ['control'],
 })
