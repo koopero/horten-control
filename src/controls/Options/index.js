@@ -4,7 +4,7 @@ import Base from '../../base/ControlHasSource'
 import Trigger from '../../components/Trigger'
 import H from 'horten'
 
-const _ = require('lodash')
+import _ from 'lodash'
 const wildcarder = require('../../util/wildcarder')
 
 export default class Options extends Base {

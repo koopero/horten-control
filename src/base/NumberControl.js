@@ -14,6 +14,9 @@ class NumberControl extends Base {
   }
 
   renderSelf() {
+
+    let options = this.renderOptions()
+
     return (
       <div className='inner'>
         <span className='major'>
@@ -28,8 +31,13 @@ class NumberControl extends Base {
           />
           { this.renderMarkers() }
         </span>
+        { options }
       </div>
     )
+  }
+
+  renderOptions() {
+    
   }
 
   renderTypeName() {

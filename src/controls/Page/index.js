@@ -56,6 +56,7 @@ export default class Page extends React.Component {
   }
 
   async initializeLoad() {
+    console.log( 'content', this.state.content )
     let site = await embarkdown.ingest( this.state.content )
     let pages = site.pages( {
       minLevel: 1,
@@ -142,6 +143,8 @@ export default class Page extends React.Component {
 
   onNavigatePage( event, page ) {
     this.state.history.replace( '/'+page.path.join('/'))
+    if ( page.title )
+      window.document.title = page.title
     event.preventDefault()
   }
 

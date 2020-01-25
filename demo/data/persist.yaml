@@ -1,0 +1,27 @@
+# written by horten-persist-file at 2020-01-22T17:27:49-08:00
+airplane:
+  lights:
+    data: |
+      #000000 #108030 #880000
+    format: hex
+    width: 3
+    height: 1
+  engines: toga
+  destination: CZZZ
+  pitch: -5
+  flaps: 1
+airports:
+  CYVR:
+    lat: 49.194
+    lng: -123.183
+    wind: 19
+  CYYZ:
+    lat: 43.677
+    lng: -79.63
+    wind: 44
+  CZZZ:
+    lat: 49.194
+    lng: -123.183
+    wind: 68
+a: 1
+airp: 32300

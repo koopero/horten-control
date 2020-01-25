@@ -1,5 +1,5 @@
 const wildcarder = exports
-const _ = require('lodash')
+import _ from 'lodash'
 const isMatch = require('minimatch')
 
 wildcarder.isMatch = function( subject, wildcard ) {

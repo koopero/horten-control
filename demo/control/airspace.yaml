@@ -1,0 +1,9 @@
+meta:
+  type:
+    airAlt:
+      type: slider
+      unit: ft
+      max: 50000
+      digits: 0
+      pow: 1.618
+      quant: 0.1

@@ -8,7 +8,7 @@ import { faCircle, faPause, faTrash, faPlay, faCopy } from '@fortawesome/free-so
 require('./index.less')
 
 const H = require('horten')
-const _ = require('lodash')
+import _ from 'lodash'
 
 const MODES = {
   'record': { icon: faCircle },

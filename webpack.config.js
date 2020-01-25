@@ -1,20 +1,31 @@
+// const resolve = require('path').resolve.bind( null, __dirname )
 const resolve = require('path').resolve.bind( null, __dirname )
+
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   mode: 'development',
+  // mode: 'production',
+
   devtool: 'source-map',
-  entry: ['./src/entry/bootstrap.js','./src/style/index.less'],
+  entry: [ 
+    './src/entry/bootstrap.js',
+    './src/style/index.less',
+  ],
   output: {
     path: resolve( 'dist/' ),
     filename: '[name].js'
   },
   resolve: {
     symlinks: false
+  },
+  optimization: {
+    minimizer: [ new UglifyJsPlugin() ]
   },
   module : {
     rules : [
@@ -33,14 +44,39 @@ module.exports = {
           resolve('node_modules/deepcolour'),
           resolve('node_modules/embarkdown'),
           resolve('node_modules/horten'),
+          resolve('node_modules/horten-websocket'),
           resolve('node_modules/string2png'),
         ],
         exclude: [],
         use: {
           loader : 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['lodash'],
+            presets: [
+              ['@babel/preset-env',{
+                "useBuiltIns": "entry",
+                "modules": "commonjs"
+              }], 
+              '@babel/preset-react'
+            ],
+            plugins: [
+              // 'babel-plugin-lodash',
+              ['@babel/plugin-transform-runtime', {
+                "absoluteRuntime": false,
+                "corejs": false,
+                "helpers": true,
+                "regenerator": true,
+                "useESModules": false,
+                // "version": "7.0.0-beta.0"
+              }],
+              // '@babel/plugin-transform-regenerator',
+
+              ['module-resolver', {
+                "root": ["./node_modules"],
+                alias: {
+                  horten: 'horten'
+                }
+              }]
+            ],
           }
         },
       },
