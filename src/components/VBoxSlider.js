@@ -141,7 +141,7 @@ export default class VBoxSlider extends React.Component {
     if ( touches.length )
       this.onMouseMove( touches[0] )
 
-    console.log('onTouch', event.type )
+    // console.log('onTouch', event.type )
 
     switch( event.type ) {
       case 'touchstart':
@@ -246,7 +246,7 @@ export default class VBoxSlider extends React.Component {
     let y = v * ( ourH - thumbH )
     this.ref.thumb.style[topKey] = y+'px'
 
-    if ( this.props.colour ) y= 0
+    if ( this.props.colour ) y = 0
     // console.log( this.ref )
 
     let pos = [0,0]
