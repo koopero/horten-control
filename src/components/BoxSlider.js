@@ -96,5 +96,21 @@ export default class BoxSlider extends VBoxSlider {
     ref.main.style.backgroundPosition = `${pos[0]}px ${pos[1]}px`
   }
 
+  setVector( vec ) {
+    const { state } = this
+    const { channels, ranges } = state 
+
+    let unit = [ 0, 0 ]
+    for ( let axis = 0; axis < 2; axis ++ ) {
+      let channel = channels[axis]
+      let range = ranges[axis]
+      let val = vec.getChannel( channel )
+      unit[axis] = range.toUnit( val )
+    }
+    // console.log("setVector", vec, unit, channels )
+
+    this.placeStuff( unit )
+  }
+
 }
 

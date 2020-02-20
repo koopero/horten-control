@@ -139,11 +139,14 @@ export default class Vector extends React.Component {
       input = ob
     }
 
+    this.setNext( input )
+  }
+
+  setNext( input ) {
     const { state } = this
     let { next, value } = state
     next = next || value.clone()
     next.set( input )
-
     state.next = next
     this.makeTimer()
   }
@@ -158,13 +161,19 @@ export default class Vector extends React.Component {
   }
 
   onTimer() {
-    const { state, props } = this
-    let { next, value, channels, timer } = state
+    const { state, props, refs } = this
+    state.value = state.next.clone()
+    state.next = null
+    let { value, channels } = state
     
-    let result = next.toObject( channels )
     
-    if ( props.onUserInput )
+    if ( props.onUserInput ) {
+      let result = value.toObject( channels )
       props.onUserInput( result )
+    }
+
+    if ( refs ) 
+      refs.map( ref => ref.setVector( value ) )
     
     state.timer = null
   }
@@ -200,6 +209,7 @@ export default class Vector extends React.Component {
 
 
   onValueSelf( value ) {
-    console.log( "Vector::onValueSelf", value, this.refs )
+    // console.log( "Vector::onValueSelf", value, this.refs )
+    this.setNext( value )
   }
 }

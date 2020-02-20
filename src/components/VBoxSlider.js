@@ -255,5 +255,9 @@ export default class VBoxSlider extends React.Component {
     this.ref.main.style.backgroundPosition = `${pos[0]}px ${pos[1]}px`
   }
 
+  setVector( vec ) {
+    
+  }
+
 }
 

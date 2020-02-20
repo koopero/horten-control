@@ -9,6 +9,4 @@ node_modules/
 bower/
 dist/
 
-yarn.lock
-
-demo/data/**
+demo/data

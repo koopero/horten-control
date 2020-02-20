@@ -13,7 +13,7 @@ class VectorControl extends Control {
 
   onValueSelf( value ) {
     if ( this.actualSlider ) {
-      console.log( "VectorControl::onValueSelf", value )
+      // console.log( "VectorControl::onValueSelf", value )
       this.actualSlider.onValueSelf( value )
     }
     // blank in base
