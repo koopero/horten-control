@@ -140,22 +140,26 @@ export default class Vector extends React.Component {
     }
 
     const { state } = this
-    let { next, value, timer } = state
+    let { next, value } = state
     next = next || value.clone()
     next.set( input )
 
     state.next = next
+    this.makeTimer()
+  }
+
+  makeTimer() {
+    const { state } = this
+    let { timer } = state
 
     if ( !timer ) {
       state.timer = setImmediate( this.onTimer.bind( this ) )
     }
-
   }
 
   onTimer() {
     const { state, props } = this
     let { next, value, channels, timer } = state
-    
     
     let result = next.toObject( channels )
     
@@ -166,26 +170,36 @@ export default class Vector extends React.Component {
   }
 
   render() {
-    let { state } = this
+    const self = this 
+    const { state } = self
     let { options } = state
     let { sliders } = options
 
-    sliders = sliders.map( ( slider ) => this.renderSlider( slider ) )
+    self.refs = []
+
+    sliders = sliders.map( ( slider ) => renderSlider( slider ) )
     return (
       <div className='vector sliders'>
         { sliders }
       </div>
     )
+
+    function renderSlider( slider ) {
+      slider.encoding = 'object'
+      slider.onUserInput = self.onSliderInput.bind( self, slider )
+      slider.ref = slidr => self.refs.push( slidr )
+  
+      if ( slider.length == 2 )
+        return <BoxSlider {...slider} />
+  
+      if ( slider.length == 1 )
+        return <VBoxSlider {...slider} />
+    }
   }
 
-  renderSlider( slider ) {
-    slider.encoding = 'object'
-    slider.onUserInput = this.onSliderInput.bind( this, slider )
 
-    if ( slider.length == 2 )
-      return <BoxSlider {...slider} />
 
-    if ( slider.length == 1 )
-      return <VBoxSlider {...slider} />
+  onValueSelf( value ) {
+    console.log( "Vector::onValueSelf", value, this.refs )
   }
 }

@@ -21,14 +21,24 @@ show: source
 
 ``` control
 type: vector
+path: airplane/vector
 channels: rgbxyz
 sliders: vhsxyz
 ```
 
 ``` control
 type: vector
+path: airplane/vector
 channels: rgbxyz
 sliders: vhsxyz
+```
+
+``` control
+path: airplane/vector/x
+type: slider
+pow: 2
+colour: green
+direction: left
 ```
 
 

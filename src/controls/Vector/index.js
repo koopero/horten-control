@@ -10,6 +10,14 @@ class VectorControl extends Control {
         onUserInput = { v => this.onUserInput( v ) }
       />
   }
+
+  onValueSelf( value ) {
+    if ( this.actualSlider ) {
+      console.log( "VectorControl::onValueSelf", value )
+      this.actualSlider.onValueSelf( value )
+    }
+    // blank in base
+  }
 }
 
 

@@ -15,51 +15,6 @@ export default class BoxSlider extends VBoxSlider {
     this.state.channels = props.channels
   }
 
-  // render() {
-  //   const style = {
-  //     backgroundImage: this.renderGradient(),
-  //     // backgroundSize: '200% 200%',
-  //     backgroundRepeat: 'none',
-  //     position: 'relative',
-  //   }
-  //   const onMouse = this.onMouse.bind( this )
-  //   const onTouch = this.onTouch.bind( this )
-
-  //   let { direction, orientation } = this.getOrientation()
-
-  //   direction = direction && `direction-${direction}` || ''
-
-  //   let label = this.props.label || ''
-  //   let image = <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAEUlEQVR4AWP4wPDhP8MHhv8AFfMEz0kobk8AAAAASUVORK5CYII=" width="100%" height="100%"/>
-
-  //   return (
-  //     <div
-  //       className={`slider ${orientation} area ${direction}`}
-  //       onMouseMove={ onMouse }
-  //       onMouseDown={ onMouse }
-  //       onMouseLeave={ onMouse }
-  //       onTouchMove={ onTouch }
-  //       onTouchStart={ onTouch }
-  //       onTouchEnd={ onTouch }
-  //       // onTouchCancel={ onTouch }
-
-  //       style={style}
-  //       ref={(div) => this.ref.main = div }
-  //     >
-        
-  //       <div
-  //         className={`thumb ${orientation}`}
-  //         ref={(div) => this.ref.thumb = div }
-  //         style={{
-  //           position: 'absolute'
-  //         }}
-  //       >
-  //         <div className='nail highlight label'>{ label }</div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   toArray( v ) {
     if ( !Array.isArray( v ) )
       v = [ v, v ]
